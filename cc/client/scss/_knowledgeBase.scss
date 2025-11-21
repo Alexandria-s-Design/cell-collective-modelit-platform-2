@@ -1,0 +1,218 @@
+.knowledgeBase {
+  h1 {
+    font-size: $fontSize + 2px;
+    margin: 0 0 $spacing 0;
+    border-bottom: 1px solid $borderColor;
+  }
+
+  h2 {
+    display: inline-block;
+    font-size: $fontSize;
+    margin: 0.5*$spacing 0;
+
+    .icon {
+      opacity: 0;
+    }
+
+    &:hover .icon {
+      opacity: 1;
+    }
+
+    &> span {
+      cursor: pointer;
+    }
+
+    &.removed {
+      opacity: $defOpacity;
+
+      &> span {
+        cursor: auto;
+      }
+    }
+
+    dl {
+      margin-left: $spacing;
+      font-style: italic;
+      font-weight: normal;
+
+      &> dt:after {
+        content: ":";
+      }
+
+      &> dd {
+        font-weight: normal;
+      }
+
+      &:first-child:before {
+        content: "(";
+      }
+
+      &:last-child:after {
+        content: ")";
+      }
+
+      &~ dl {
+        margin-left: 0;
+
+        &:before {
+          content: ", ";
+        }
+      }
+    }
+  }
+
+  .icon {
+    margin: 0 0 0 0.5*$spacing;
+  }
+
+  ul:not(.ul) {
+    margin-left: 13px;
+
+    @-moz-document url-prefix() {
+      margin-left: 10px;
+    }
+
+    li {
+      list-style-type: disc;
+
+      &:only-child {
+        list-style-type: none;
+      }
+    }
+  }
+
+  li {
+    line-height: $fontSize + $spacing;
+    margin-bottom: 0.5*$spacing;
+
+    &> div {
+      display: inline-block;
+      vertical-align: top;
+
+      div.editable {
+        white-space: normal;
+        display: inline;
+			}
+
+      .icon.base-reference {
+        opacity: 0;
+      }
+
+      div.remove {
+        position: static;
+        display: inline-block;
+        vertical-align: bottom;
+        margin-left: 0.5*$spacing;
+      }
+
+      &> *:first-child:hover ~ div.remove {
+        opacity: 1;
+      }
+
+      &:hover .icon {
+        opacity: 1;
+      }
+
+      form.editable {
+        &~.icon, &~ div.remove {
+          visibility: hidden;
+        }
+      }
+    }
+
+    .options > input.toggleHidden {
+      max-height: 10px;
+    }
+
+    ul.references {
+      display: inline;
+
+      &> .icon {
+        margin-right: 0.5*$spacing;
+      }
+
+      li {
+        display: inline;
+        margin-right: $spacing;
+
+        &> div {
+          margin-left: 0;
+        }
+
+        &> span + div.remove {
+          margin-left: -0.5*$spacing;
+        }
+
+        &:hover div.remove {
+          opacity: 1;
+        }
+      }
+    }
+  }
+
+  .togglePmid{
+    margin-top: -6px;
+    }
+  
+  .references > div {
+    margin-bottom: $spacing;
+
+    &> span:first-child {
+      margin-right: 0.5*$spacing;
+    }
+  }
+
+  ul.references li > i, ol li > div > span, ol li > div > span > a {
+    transition: color 1s;
+  }
+
+  .hovered {
+    color: $lightBlue;
+
+    &> a {
+      color: $lightBlue !important;
+    }
+  }
+
+  .menu > ul.ul {
+    width: auto;
+
+    &> li {
+      display: list-item;
+      list-style-type: none;
+      margin: 0;
+
+      &> div.checkbox {
+        padding-left: 2*($spacing + $iconSize);
+
+        &:after {
+          position: absolute;
+          top: 2px;
+          left: $iconSize + $spacing;
+          width: $iconSize;
+          height: $iconSize;
+        }
+
+        &.primary:after {
+          background-image: url('/assets/images/icons/base/primary-gray.png');
+        }
+
+        &.nonprimary:after {
+          background-image: url('/assets/images/icons/base/nonprimary-gray.png');
+        }
+
+        // &.human:after {
+        //   background-image: url('/assets/images/icons/base/humangray-gray.png');
+        // }
+
+        &.animal:after {
+          background-image: url('/assets/images/icons/base/animal-gray.png');
+        }
+      }
+    }
+
+    .human {
+      border-top: 1px solid $borderColor;
+    }
+  }
+}

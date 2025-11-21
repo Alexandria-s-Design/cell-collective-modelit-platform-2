@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+set -e
+
+curl -fsSL "http://${CC_APP_HOST}:${CC_APP_PORT}/model/get" | grep -q "model" && echo "OK"

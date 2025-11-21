@@ -1,0 +1,29 @@
+apply plugin: 'java'
+
+repositories {
+	mavenCentral()
+}
+
+sourceSets {
+	main {
+		java {
+			srcDir 'src'
+		}
+		resources {
+			srcDir 'resources'
+		}
+	}
+}
+
+dependencies {
+	compile group: 'org.hibernate', name: 'hibernate-entitymanager', version: '4.3.8.Final'
+	compile group: 'org.postgresql', name: 'postgresql', version: '9.4.1207.jre7'
+	compile group: 'org.springframework.data', name: 'spring-data-jpa', version: '1.7.2.RELEASE'
+	compile group: 'com.mchange', name: 'c3p0', version: '0.9.5'
+	compile group: 'org.aspectj', name: 'aspectjweaver', version: '1.8.5'
+	compile group: 'commons-io', name: 'commons-io', version: '2.4'
+
+	compile project(':cc.core.configuration')
+	compile project(':cc.common.data')
+	compile project(':cc.common.simulate')
+}

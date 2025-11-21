@@ -1,0 +1,19 @@
+require("@babel/register");
+
+const path      = require("path");
+
+const PATH      = { };
+PATH.BENCH      = path.resolve(path.dirname(__filename));
+PATH.SOURCE     = path.resolve(path.dirname(__filename));
+
+PATH.CONFIG     = path.join(PATH.BENCH,  "configs", "sequelize", "config.json");
+PATH.MODELS     = path.join(PATH.SOURCE, "cc", "models");
+PATH.MIGRATIONS = path.join(PATH.SOURCE, "cc", "migrations");
+PATH.SEEDERS    = path.join(PATH.SOURCE, "cc", "seeders");
+
+module.exports  = {
+    "config": PATH.CONFIG,
+    "models-path": PATH.MODELS,
+    "seeders-path": PATH.SEEDERS,
+    "migrations-path": PATH.MIGRATIONS
+};

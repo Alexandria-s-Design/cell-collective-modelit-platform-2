@@ -1,0 +1,8 @@
+##### DESCRIPTION OF ALL LOGGER ACTIONS #######
+
+PAYMENTS
+   SEND -> Payment details is being sent to Stripe 
+   STRIPE_ERROR -> Error in processing the payment (As received from Stripe)
+   STRIPE_SUCCESS -> Payment processed successfully
+   SAVE_SUCCESS -> Successfully stored subscription details in DB
+   SAVE_ERROR -> Error storing the subscription detials in DB 

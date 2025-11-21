@@ -1,0 +1,19 @@
+/**
+ * style browser scroller to match Scrollable Component
+ * Chrome, Safari, Opera, Samsung Internet
+ */
+div.browser-scroller::-webkit-scrollbar-track{	
+	background-color: #e6e6e6;
+}
+div.browser-scroller::-webkit-scrollbar{
+	width: 7px;
+}
+div.browser-scroller::-webkit-scrollbar-thumb{
+	border-radius: 3px;
+	background-color: rgba(0,0,0,.1);
+}
+/*firefox*/
+div.browser-scroller{
+	scrollbar-color: rgba(0,0,0,.1) #e6e6e6;
+	scrollbar-width: thin;
+}

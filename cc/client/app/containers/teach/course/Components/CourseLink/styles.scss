@@ -1,0 +1,16 @@
+.course-link-copy-to-clip-board {
+	letter-spacing: -1px;
+	font-family: "Courier New", Courier, monospace;
+	user-select: none;
+	cursor: pointer;
+	color: #aaa;
+	text-decoration: underline;
+	position: relative;
+	top: -5px;
+
+	&:hover {
+		text-decoration: none;
+		color: rgb(120,120,120);
+	}
+
+}

@@ -1,0 +1,52 @@
+<div class="modal-content" style="min-width: 472px; min-height:720px; padding: 12px">
+	<div class="modal-header" style="padding:2px">
+		<span class="close" style="bottom: 12px;">&times;</span>
+		<h4 style="text-transform: uppercase; margin:0; color:white" data-translate="sign_up">Sign Up</h4>
+	</div>
+	<div class="modal-body">
+
+		<form class="signup-form">
+			<div class="row">
+				<input type="email" name="email" autocomplete="email" data-translate-placeholder="email" placeholder="Email" tabindex="1">
+				<input type="text" name="first_name" data-translate-placeholder="first_name" placeholder="First Name" tabindex="4">
+			</div>
+			<div class="row">
+				<input type="password" name="password" autocomplete="new-password" data-translate-placeholder="password" placeholder="Password" tabindex="2"
+					minlength="8">
+				<input type="text" name="last_name" data-translate-placeholder="last_name" placeholder="Last Name" tabindex="5">
+			</div>
+			<div class="row">
+				<input type="password" name="vpassword" autocomplete="new-password" data-translate-placeholder="verify_password" placeholder="Verify Password" tabindex="3"
+					minlength="8">
+				<input type="text" name="username" data-translate-placeholder="username" placeholder="Username" tabindex="6">
+			</div>
+			<div class="autocomplete-institutions">
+				<input id="institutionAutocomplete" type="text" name="institution" data-translate-placeholder="institution" placeholder="Institution" tabindex="6">
+			</div>
+			<div class="create-new-institution">
+				<button	type="button" id="createInstitutionDialogBtn"	class="btn btn-primary">Create new institution</button>
+			</div>
+			<div class="termofservice" style="margin-top: 10px; margin-bottom: 10px;">
+		    	<div class="scrollable" style="height: 290px;"><%- include('TermsOfService'); %></div>
+			</div>
+			<label class="signUpDialogAcceptTermsOfService">
+				<input type="checkbox" class="checkbox" name="terms" value="terms" tabindex="7"> 
+				<span data-translate="agree_use_terms" class="label" style="font-size: 12px;">I accept terms of use.</span>
+			</label>
+			
+			<button class="btn-signup" type="submit" data-translate="sign_up"> Sign Up </button>
+			<hr />
+			<div style="text-align: center;">
+				<span data-translate="sign_up_favorite_account">or Sign Up with your favorite account</span>
+			</div>
+
+			<button class="social-signin-btn" style="background-color: #dd4b39" onclick="signInWith('google')">Sign up with
+				Google</button>
+			<button class="social-signin-btn" style="background-color: #3B5998" onclick="signInWith('facebook')">Sign up with
+				Facebook</button>
+			<button class="social-signin-btn" style="background-color: #007bb5" onclick="signInWith('linkedin')">Sign up with
+				LinkedIn</button>
+
+		</form>
+	</div>
+</div>

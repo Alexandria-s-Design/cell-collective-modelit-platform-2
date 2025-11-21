@@ -1,0 +1,17 @@
+/* TEAM */
+Full-Stack Engineer: Achilles Rasquinha
+Contact: achillesrasquinha@gmail.com
+GitHub: achillesrasquinha
+From: Mumbai, India
+
+Full-Stack Engineer: Ales Saska
+Contact: mail@alessaska.cz
+GitHub: saskaale
+From: Prague, Czechia
+
+
+/* SITE */
+Language: English
+Standards: HTML5, CSS3
+Components: React
+IDE: VS-Code, Vim

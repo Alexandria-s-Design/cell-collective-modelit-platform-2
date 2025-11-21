@@ -1,0 +1,62 @@
+@mixin generate-icons {
+    $icons-base: absentStateOff, absentStateOn, add-dark, add-dark2,
+        add-activity, add-activity-group,
+        add-gray, add, admin, animal, animal-gray, apply, arrow-left, arrow, asc,
+        building,
+        check-down, check-green, check-red, check-up, check-white, check, clear, close-dark, close-gray, close, copy,
+        desc, dirty, document, download, saveIcon,
+				edges, edit-gray, edit,
+				filter,
+        graph, grid,
+        human-gray, human,
+        image-gray, image, info, initial,
+        layout, learning, left,
+        menu, menu-gray, multiple, mutation,
+        negative, new, nodes, nonprimary-gray, nonprimary,
+        optimization,
+        pause, positive, preserve-scale, primary-gray, primary, public,
+        radio, readonly, realtime, recording, reference, regulator, remove, rewind, right, run,
+        search, skew, sort,
+        table, target, text, threshold, time, toggle, trash,
+        upload,
+        version, view, visibility-focus, visibility-white, visibility,
+        description, description-disabled,
+        asc-inverse, desc-inverse,
+				imageVisibility,
+				charge,
+				reaction-arrow, reaction-arrow-reversible,
+				product;
+    $icons-large:  account, add,
+        copy, createversion,
+        domain, download, saveIcon, eduRedo, eduSave, eduSavelayout, eduUndo,
+        help, home,
+        info,
+        layout, list,
+        pause,
+        translation,
+        redo, run,
+        s, save, savelayout, search, settings, share, stop,
+        undo, upload, version, visibility,
+        qa;
+
+    @each $icon in $icons-base {
+        .base-#{$icon} {
+            background-image: url("/assets/images/icons/base/#{$icon}.png");
+        }
+    }
+
+    @each $icon in $icons-large {
+        .large-#{$icon} {
+            background-image: url("/assets/images/icons/large/#{$icon}.png");
+        }
+        .large-search{
+            background-color: white !important;
+            margin-left: 18px !important;
+            margin-right: 5px !important;
+            margin-top: 1px !important;
+            position: relative;
+        }
+    }
+}
+
+@include generate-icons;

@@ -1,0 +1,11 @@
+<script src="/js/store.min.js"></script>
+<script>
+	class LocalStorageService {
+		static setLang(lang) {
+			store.set('user_language', lang)
+		}
+		static getLang() {
+			return store.get('user_language')
+		}
+	}
+</script>

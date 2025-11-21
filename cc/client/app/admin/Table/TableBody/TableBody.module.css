@@ -1,0 +1,19 @@
+.tableBody {
+    background-color: white;
+}
+
+.slider {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.slider input[type="range"] {
+    width: 150px; /* Šírka slidera */
+}
+
+.slider .percentage {
+    margin-left: 10px;
+    width: 50px;
+    text-align: right;
+}

@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  ccba:
+    container_name: ccba
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ccba-api
+    ports:
+      - "5023:5023"
+    networks:
+      - ccba-api_network
+    environment:
+      - CC_BOOLEAN_URL=http://ccba:5023
+
+networks:
+  ccba-api_network:
+    driver: bridge

@@ -1,0 +1,24 @@
+.tableCell {
+  padding: 10px;
+  text-align: left;
+}
+
+.tableCell .slider {
+  width: 100%;
+}
+
+td.visibility {
+  width: 100px;
+  text-align: center;
+}
+
+td.activity {
+  max-width: 300px;
+  text-align: center;
+}
+
+td.name {
+  width: 200px;
+  text-align: center;    
+}
+

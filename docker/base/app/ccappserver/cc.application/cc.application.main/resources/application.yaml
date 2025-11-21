@@ -1,0 +1,56 @@
+server:
+  port: #{T(java.lang.Integer).parseInt('${CC_APP_PORT}')}
+  tomcat:
+    compression: 100
+    compressableMimeTypes: application/json
+    remote_ip_header: x-forwarded-for
+    protocol_header: x-forwarded-proto
+  sessionTimeout: 25
+multipart:
+  max-file-size: 100MB
+  max-request-size: 100MB
+
+---
+
+spring:
+  profiles: local
+server:
+  ssl:
+    enabled: false
+    keyStore: ${CC_ROOT_DIR}/conf/testkeystore
+    keyStorePassword: changeit
+    keyPassword: changeit
+domain:
+  research: localhost
+  teach: localhost
+  api: localhost:8080
+  userEmailSuffix: (*DEVELOPMENT*)
+
+---
+
+spring:
+  profiles: prod
+server:
+  ssl:
+    enabled: true
+    keyStore: ${CC_ROOT_DIR}/conf/domain.keystore
+    keyStorePassword: changeit
+    keyPassword: changeit
+domain:
+  research: cellcollective.org
+  teach: teach.cellcollective.org
+  api: api.cellcollective.org
+
+---
+
+spring:
+  profiles: test
+server:
+  ssl:
+    enabled: false
+domain:
+  research: test.cellcollective.org
+  teach: testteach.cellcollective.org
+  api: test.cellcollective.org:8080
+  userEmailSuffix: (*TEST*)
+  stripeAPIKey: YOUR_STRIPE_SECRET_KEY_HERE

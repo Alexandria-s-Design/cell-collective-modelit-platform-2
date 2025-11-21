@@ -1,0 +1,396 @@
+#!/usr/bin/env bash
+
+set -e
+
+BANNER="$(cat <<-EOM
+
+	ccman - ModelIt! manager
+
+	Type "./ccman init" to initialize.
+	Type "./ccman -h" for help.
+
+	environment variables
+	=====================
+EOM
+)"
+
+CC_ENVIRONMENT="${CC_ENVIRONMENT:-"development"}"
+
+export DOCKER_BUILDKIT=1
+export BUILDKIT_INLINE_CACHE=1
+
+function setup_env
+{
+    export CC_PROJECT_NAME=$(basename $(pwd))
+		export HOST_HOSTNAME=$(hostname)
+
+    export CC_GIT_BRANCH=${CC_GIT_BRANCH:-"$(git branch | grep \* | cut -d ' ' -f2)"}
+    export CC_GIT_COMMIT=${CC_GIT_COMMIT:-"$(git rev-parse --verify HEAD)"}
+    export CC_GIT_TAG=${CC_GIT_TAG:-"$(git describe)"}
+
+    export CC_DOCKER_IMAGES_TAG=${CC_DOCKER_IMAGES_TAG:-"$(git rev-parse --short HEAD)"}
+    export CC_DOCKER_IMAGES_PREV_TAG=${CC_DOCKER_IMAGES_PREV_TAG:-"$(git rev-parse --short HEAD^1)"}
+
+    export CC_PATH_LOCAL=$(pwd)
+    export CC_PATH_REMOTE=${CC_PATH_REMOTE:-"/home/$CC_DOCKER_HOST_USERNAME/cc-web"}
+
+		export CC_WEB_PORT=${CC_WEB_PORT:-5003}
+		export CC_BASE_PATH=${CC_BASE_PATH:-$CC_PATH_LOCAL}
+}
+
+function docker_compose
+{
+		local docker_cmd="docker compose"
+
+    # Check if `docker compose` is available, else fallback to `docker-compose`
+    if ! docker compose version &>/dev/null; then
+        if docker-compose version &>/dev/null; then
+            docker_cmd="docker-compose"
+        else
+            echo "Error: Neither 'docker compose' nor 'docker-compose' is available." >&2
+            return 1
+        fi
+    fi
+
+    local docker_compose_file="docker-compose.yml"
+
+    # Environments
+    case "$1" in
+        production)
+            docker_compose_file="docker-compose.production.yml"
+            ;;
+        test)
+            docker_compose_file="docker-compose.test.yml"
+            ;;
+    esac
+
+    # Run the appropriate Docker command
+    # eval $(echo "docker compose -f docker-compose.common.yml -f "$docker_compose_file" "${@:2}"")
+		eval $(echo $docker_cmd "-f docker-compose.common.yml -f "$docker_compose_file" "${@:2}"")
+}
+
+function docker_compose_run_rm
+{
+    eval $(echo "docker_compose "${1}" "run --rm ${@:2}"")
+}
+
+function docker_compose_run_rm_web_db
+{
+    eval $(echo "docker_compose "${1}" "run --rm web yarn run db ${@:2}"")
+}
+
+function initialize_environment
+{
+    cd ./scripts && python ./genEnvFiles && cd ..
+}
+
+function push_images
+{
+    docker_compose "$1" "push ${@:2}";
+}
+
+function parse_args
+{
+    environment=$CC_ENVIRONMENT;
+
+    while getopts ":he" opt; do
+        case "${opt}" in
+            h)
+                print_usage
+
+                exit 0
+                ;;
+            e)
+                environment=$1
+                exit 0
+                ;;
+            \?)
+                echo "Invalid Option: -$OPTARG" 1>&2
+                exit 1
+
+        esac
+    done
+    shift $((OPTIND -1))
+
+    command=$1;
+    case "${command}" in
+        sync)
+            # https://gnowland.medium.com/unique-remote-local-volume-paths-with-docker-machine-40a4e369bcac
+            docker-machine scp -d -r $CC_PATH_LOCAL $CC_DOCKER_HOST_USERNAME@$CC_PROJECT_NAME:$CC_PATH_REMOTE
+
+            exit 0
+            ;;
+        push)
+            push_images "$environment" "${@:2}"
+
+            exit 0
+            ;;
+        init)
+			initialize_environment
+
+            docker_compose "$environment" "pull --ignore-pull-failures --include-deps" || true
+            docker_compose "$environment" "build ${@:2}"
+
+            if [[ ! -z "$CC_CI" ]]; then
+                push_images "$environment" "${@:2}"
+            fi
+
+            docker_compose "$environment" "up -d ${@:2}"
+
+            exit 0
+            ;;
+        init-env)
+						initialize_environment
+
+						exit 0
+						;;
+        release)
+            ./scripts/release "${@:2}"
+            exit 0
+            ;;
+        test)
+            docker_compose_run_rm "$environment" "web yarn run test" "$@"
+            exit 0
+            ;;
+        backup)
+            docker_compose_run_rm "$environment" "backup backup"
+            exit 0
+            ;;
+        backups)
+            for i in db app web; do
+                docker_compose_run_rm "$environment" "$i backups"
+            done
+            exit 0
+            ;;
+        ccapp)
+            info "Performing CCAPP.."
+            docker_compose_run_rm "$environment" "ccapp python manage.py" "$2"
+            exit 0
+            ;;
+        build:spa)
+						info "Building web app..."
+            docker_compose_run_rm "$environment" "web yarn run build:${CC_ENVIRONMENT}"
+            exit 0
+            ;;
+        build:locales)
+            docker_compose_run_rm "$environment" "web yarn run build:langs"
+            exit 0
+            ;;
+        db)
+            db_command=$2;
+            case "${db_command}" in
+								load)
+										info "Loading database locally..."
+
+										info "Stopping db-dependent containers..."
+										docker_compose "$environment" "stop app web worker"
+
+										info "Starting db container..."
+										docker_compose "$environment" "up -d --build db"
+
+										info "Copying local database into db container..."
+										docker cp $3 "$(docker_compose "$environment" "ps -q db" | tail -n1)":db.dump
+
+                    drop_database "$environment"
+
+                    restore_database "$environment" "db.dump" || true
+
+										info "Removing database dump..."
+										docker_compose "$environment" "exec -T db rm db.dump"
+
+										info "Restarting db-dependent containers..."
+										docker_compose "$environment" "start app web worker"
+
+										exit 0
+										;;
+								restore)
+										restore_database "$environment" "$3"
+										exit 0
+										;;
+                seed)
+                    info "Performing seeders..."
+                    docker_compose_run_rm_web_db "$environment" "db:seed:all"
+                    exit 0
+                    ;;
+								seed:file)
+                    info "Performing specific seeder..."
+                    docker_compose_run_rm_web_db "$environment" "db:seed --seed" "cc/seeders/$3"
+                    exit 0
+                    ;;
+                migrate)
+										info "Performing migrations..."
+                    docker_compose_run_rm_web_db "$environment" "db:migrate"
+                    exit 0
+                    ;;
+                sync)
+										info "Syncing all models..."
+                    docker_compose_run_rm "$environment" "web yarn db:sync"
+                    exit 0
+                    ;;
+								shell)
+										info "Launching pgcli..."
+										docker_compose_run_rm "$environment" "pgcli"
+										exit 0
+										;;
+                *)
+                    docker_compose_run_rm "$environment" "$@"
+                    exit 0
+                    ;;
+            esac
+            exit 0
+            ;;
+        web|app|cache|queue|search|proxy|backup)
+            docker_compose_run_rm "$environment" "$@"
+            exit 0
+            ;;
+        check)
+            service_name=$2;
+            case "${service_name}" in
+                db|cache|queue|search|app|web)
+                    info "Checking service ${service_name}..."
+                    docker_compose_run_rm "$environment" "$service_name" "check"
+                    exit 0
+                    ;;
+                *)
+                    for i in db cache queue search app web; do
+                        info "Checking service $i..."
+                        docker_compose_run_rm "$environment" "$i" "check"
+                    done
+                    exit 0
+                    ;;
+            esac
+            exit 0
+            ;;
+        printenv)
+            for i in db cache queue search app web; do
+                echo "Environment Variables $i"
+                printf "\n"
+                docker_compose_run_rm "$environment" "$i" "printenv"
+
+                if [[ $i != "web" ]]; then
+                    printf "\n"
+                    printf "\n"
+                fi
+            done
+            exit 0
+            ;;
+        flushall)
+            docker_compose_run_rm "$environment" "cache" "flushall"
+            docker_compose_run_rm "$environment" "cache" "flushall"
+            exit 0
+            ;;
+        *)
+            docker_compose "$environment" "$@"
+            exit 0
+            ;;
+    esac
+}
+
+
+CYAN="\033[1;36m"
+RED="\033[1;31m"
+YELLOW="\033[1;33m"
+RESET="\033[0m"
+
+function debug
+{
+	printf " ---> $1$2$RESET\n"
+}
+
+function info
+{
+	debug $CYAN "$1"
+}
+
+function initialize_environment
+{
+	info "Initializing Environment..."
+	cd ./scripts && python ./genEnvFiles && cd ..
+}
+
+function pull_and_build
+{
+	info "Pulling latest images..."
+	docker_compose "$environment" "pull --ignore-pull-failures --include-deps" || true
+
+	info "Building containers..."
+	docker_compose "$environment" "build --parallel"
+}
+
+function drop_database
+{
+  DB_USER="$(grep POSTGRES_USER= .envs/."$1"/.db | cut -d '=' -f2)"
+  DB="$(grep POSTGRES_DB= .envs/."$1"/.db | cut -d '=' -f2)"
+  info "Dropping all tables..."
+  echo "drop schema public cascade; create schema public; grant all on schema public to $DB_USER; grant all on schema public to public;" | docker_compose $1 "exec -T db psql -U $DB_USER -d $DB"
+}
+
+function restore_database
+{
+	DB_USER="$(grep POSTGRES_USER= .envs/."$1"/.db | cut -d '=' -f2)"
+  DB="$(grep POSTGRES_DB= .envs/."$1"/.db | cut -d '=' -f2)"
+  info "Restoring database $2..."
+  docker_compose $1 "exec -T db pg_restore --verbose -U $DB_USER -d $DB $2"
+}
+
+function print_banner
+{
+	variables=$(printenv | grep 'CC_' | sort)
+	printf "$YELLOW$BANNER\n$variables$RESET\n"
+
+	printf "\n"
+}
+
+function print_usage
+{
+	echo "Usage:"
+	echo "Basic Commands"
+	echo "	./ccman -h                          Display the help message and exit."
+	echo "	./ccman init                        Initialize CC."
+	echo "	./ccman init-env                    Initialize Environment."
+	printf "\n"
+
+	echo "DataBase Commands"
+	echo "  ./ccman db load /path/to/db					Load a DataBase from local machine."
+	echo "	./ccman db restore /path/to/backup  Restore a DataBase backup."
+	echo "	./ccman db shell                    Launch a DataBase shell."
+	echo "	./ccman db migrate                  Perform DataBase migrations."
+	echo "	./ccman db seed                     Seed the DataBase."
+	echo "	./ccman db seed:file name.js        Seed specific file into the database."
+	echo "	./ccman db sync                     Sync models."
+	printf "\n"
+
+	echo "Cache Commands"
+	echo "	./ccman cache shell                 Launch the Redis Cache shell."
+	printf "\n"
+
+	echo "Queue Commands"
+	echo "	./ccman queue shell                 Launch the Redis Queue shell."
+	printf "\n"
+
+	echo "Development Commands"
+	echo "	./ccman build:spa                   Build web application."
+	echo "	./ccman check                       Check status of all services."
+
+	echo "Operations Commands"
+	echo "	./ccman backups                     List all backups."
+	echo "	./ccman backup                      Backup files and databases."
+	echo "	./ccman release                     Perform a release."
+	echo "	./ccman test                        Perform tests."
+
+	echo "UMS Commands"
+	echo "	./ccman ccapp migrate               Perform CCAPP DataBase migrations."
+	echo "	./ccman seed_users                  Perform CCAPP seeders."
+	printf "\n"
+}
+
+
+function main
+{
+  setup_env
+	print_banner
+
+  parse_args "$@"
+}
+
+main "$@";

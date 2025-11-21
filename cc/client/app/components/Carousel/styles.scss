@@ -1,0 +1,24 @@
+.slides {
+  // used  https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_arrows for arrows
+  .slick-prev {
+    left: 0% !important;
+    z-index: 1;
+    border: solid grey;
+    border-width: 0 1px 1px 0;
+    display: inline-block;
+    padding: 1px;
+    transform: rotate(135deg);
+    -webkit-transform: rotate(135deg);
+  }
+
+  .slick-next {
+    right: 0% !important;
+    z-index: 1;
+    border: solid grey;
+    border-width: 0 1px 1px 0;
+    display: inline-block;
+    padding: 1px;
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+  }
+}

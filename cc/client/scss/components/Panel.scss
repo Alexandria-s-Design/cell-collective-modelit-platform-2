@@ -1,0 +1,56 @@
+div.panel {
+  $height: $fontSize + 4px;
+  position: absolute;
+  box-sizing: border-box;
+
+  &> div.head {
+    height: $height;
+    padding: $spacing;
+    font-size: $fontSize + 2px;
+    background-color: #f3f3f3;
+    border-bottom: 1px solid $borderColor;
+  }
+
+  &> div.content {
+    position: absolute;
+    left: $spacing - $scrollBarOverflow;
+    right: $spacing - $scrollBarOverflow;
+    top: $height + 3*$spacing;
+    bottom: $spacing;
+    padding: 0 $scrollBarOverflow;
+
+    &:first-child {
+      top: $spacing;
+    }
+  }
+
+  &.bar > div.content:first-child {
+    top: 0;
+  }
+
+  &.right {
+    border-left: 1px solid $borderColor;
+  }
+
+  //Only for messages inside Regulation Expression View Window
+  .match{
+    color : #1f7c0b;
+  }
+
+  .not-match{
+    color : #f00;
+  }
+
+	.upload-drug-files {
+		padding-top: 15px;
+
+		& > form > p{
+			margin-bottom: 5px;
+
+			& dd > span{
+				display: flex;
+				align-items: baseline;
+			}
+		}
+	}
+}

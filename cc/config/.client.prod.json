@@ -1,0 +1,68 @@
+{
+  "name": "Cell Collective",
+  "title": "Interactive Modeling of Biological Networks",
+  "description": "Cell Collective is an interactive, open and collaborative modeling platform for Biological Networks for researchers, students and teachers worldwide.",
+  "color": {
+    "primary": "#1ABC9C"
+  },
+  "social": {
+    "facebook": {
+      "username": "CellCollectiveByDC",
+      "app_id": "1902437750060978"
+    },
+    "twitter": {
+      "username": "biocollective"
+    },
+    "linkedin": {
+      "username": "discovery-collective"
+    }
+  },
+  "contact": {
+    "email": {
+      "hello": "support@cellcollective.org"
+    },
+    "phone": "+14025478904"
+  },
+  "domains": [
+    {
+      "name": "research",
+      "key": "research",
+      "title": "Research",
+      "displayTitle": "Research Platform",
+      "priority": 1,
+      "image": "/landing/research/logo-rcc.png"
+    },
+    {
+      "name": "teaching",
+      "key": "teach",
+      "title": "Teaching",
+      "displayTitle": "Instructor Access",
+      "priority": 2,
+      "image": "/landing/teaching/logo-tcc.png"
+    },
+    {
+      "name": "learning",
+      "key": "learn",
+      "title": "Learning",
+      "displayTitle": "Student Access",
+      "priority": 3,
+      "image": "/landing/learning/logo-lcc.png"
+    }
+  ],
+  "git": {
+    "branch": "hotfix",
+    "commit": "b10b00bf56963d215056005bb3e9dd3df8581b99",
+    "tag": "v3.10.56-1612-gb10b00bf5"
+  },
+  "mode": "production",
+  "urls": {
+    "base": "https://cellcollective.org",
+    "support": "https://support.cellcollective.org",
+    "research": "https://research.cellcollective.org",
+    "learn": "https://learn.cellcollective.org",
+    "teach": "https://teach.cellcollective.org"
+  },
+  "stripe_key": "pk_test_mIUr2WAaaFugM5yFnEdnnQ4Z",
+  "analyzer_url": "https://cellcollective.org/analysis",
+  "logger_url": "https://cellcollective.org/logger"
+}

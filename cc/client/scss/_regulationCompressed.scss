@@ -1,0 +1,45 @@
+.regulation.compressed {
+  li {
+    $left: $iconSize + $spacing - 2px;
+    padding-left: $left;
+
+    &> :first-child {
+      margin-left: -$left;
+      padding-left: $left;
+    }
+
+    div.droppable.over:before {
+      left: -0.5*$spacing;
+      right: $spacing - 1px;
+    }
+  }
+
+  div.internal, div.external, div.condition {
+    margin-right: $spacing + 2px;
+    padding-right: $spacing + 2px;
+  }
+
+  div.condition {
+    .editable.def {
+      opacity: 1;
+
+      &> span > span:first-child {
+        opacity: $defOpacity;
+      }
+    }
+  }
+
+  span.relation {
+    margin-right: $spacing;
+  }
+
+  &> span > li {
+    &> ul {
+      margin-bottom: $spacing - 1px;
+    }
+
+    &:last-child > ul {
+      margin-bottom: 0;
+    }
+  }
+}

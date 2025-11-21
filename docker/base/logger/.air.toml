@@ -1,0 +1,17 @@
+root = "/app"
+
+cmd = "go mod download && go build -o /tmp/http-server && /tmp/http-server"
+tmp_dir = "/tmp"
+
+[build]
+bin = "/tmp/http-server"
+cmd = "go build -o /tmp/http-server"
+
+[log]
+level = "debug"
+
+[color]
+main = "green"
+watcher = "magenta"
+builder = "yellow"
+runner = "cyan"

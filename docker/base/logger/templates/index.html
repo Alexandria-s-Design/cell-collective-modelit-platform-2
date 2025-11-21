@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charSet="utf-8"/>
+		<title>CC - Logs</title>
+	</head>
+	<body>
+		<ul id="LogsYears">
+			{{range .Years}}
+			{{ $year := .Year }}
+    	<li>{{.Year}}
+				<ul id="LogsMonths">
+					{{range .Months}}
+					<li>
+						<a href="./logs/days?year={{ $year }}&month={{.}}">{{.}}</a>
+					</li>
+					{{end}}
+				</ul>
+			</li>
+    {{end}}
+		</ul>	
+	</body>
+</html>

@@ -1,0 +1,20 @@
+{
+  "domains": [
+    {
+      "name": "teaching",
+      "key": "teach",
+      "title": "Teaching",
+      "displayTitle": "Instructor Access",
+      "priority": 2,
+      "image": "/landing/teaching/logo-tcc.png"
+    },
+    {
+      "name": "learning",
+      "key": "learn",
+      "title": "Learning",
+      "displayTitle": "Student Access",
+      "priority": 3,
+      "image": "/landing/learning/logo-lcc.png"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+.checkbox-demo {
+	span.checkbox {
+		position: relative;
+
+		&.checked1 {
+			background-image: url('/assets/images/icons/base/check.png');
+		}
+		&.checked2::after {
+			content: "";
+			background-color: #787878;
+			position: absolute;
+	
+			top: 3px;
+			left: 3px;
+			bottom: 3px;
+			right: 3px;
+		}
+	}
+}

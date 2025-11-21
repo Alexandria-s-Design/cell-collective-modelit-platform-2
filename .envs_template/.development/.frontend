@@ -1,0 +1,14 @@
+
+VITE_CC_URL_CCAPP=http://localhost:8005/v1
+VITE_CC_WS_CCAPP=ws://localhost:8005/ws
+VITE_CC_URL_API=http://localhost:5000/web
+VITE_CC_URL_TEACH=http://localhost:5000
+VITE_CC_URL_LEARN=http://localhost:5000
+VITE_CC_URL_RESEARCH=http://localhost:5000
+VITE_CC_SPA_BUILD_DATETIME=
+VITE_CC_VERSION=
+VITE_CC_GIT_BRANCH=
+VITE_CC_GIT_COMMIT=
+VITE_ANALYZER_URL=http://localhost:6006
+VITE_LOGGER_URL=http://localhost:7001
+VITE_STRIPE_KEY=

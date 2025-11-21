@@ -1,0 +1,55 @@
+<% 
+function truncate(str, n){
+	if(!str) return '';
+  return (str.length > n) ? str.slice(0, n-1) + '&hellip;' : str;
+};
+%>
+
+<table id='<%- id %>' class="list-view cell-border" style="width: 100%;">
+	<thead>
+		<tr>
+			<th data-dt-order="disable" class="checkbox-container" style="display: none;"></th>
+			<th data-translate="name">Name</th>
+			<th data-translate="type">Type</th>
+			<th data-translate="description" data-dt-order="disable">Description</th>
+			<th data-translate="tags" data-dt-order="disable">Tags</th>
+			<th data-translate="author">Author</th>
+			<th data-translate="created">Created</th>
+			<th data-translate="updated">Updated</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% models.forEach(model => { %>
+      <tr>
+				<td class="checkbox-container" style="display: none;">
+					<div name="checkbox-container">
+						<input type="checkbox" class="model-checkbox" data-id="<%= model.id %>">
+					</div>
+				</td>
+        <td style="cursor: pointer; text-decoration: underline"  onclick="redirectToDetailPage('<%=  model.id%>', '<%=  model.version%>')"><%= model.name %></td>
+        <td><%= model.modelType %></td>
+        <td><%- truncate(model.description, 100) %></td>
+        <td><%= model.tags %></td>
+        <td><%= model.author %></td>
+        <td><%= model.createdAt %></td>
+        <td><%= model.updateDate %></td>
+      </tr>
+    <% }); %>
+	</tbody>
+</table>
+
+<script src="https://cdn.datatables.net/2.0.8/js/dataTables.js"></script>
+<script>
+		// initialize datatables
+		
+		new DataTable('#<%-id %>', {
+			info: false,
+			paging: false,
+			searching: false,
+		});
+		
+
+</script>
+
+
+

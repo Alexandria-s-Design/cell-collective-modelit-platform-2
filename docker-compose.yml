@@ -1,0 +1,199 @@
+version: "3.5"
+
+x-web: &web
+  build:
+    context: .
+    dockerfile: ./docker/development/web/Dockerfile
+  image: ${CC_DOCKER_REGISTRY_PREFIX:-registry.gitlab.com/unebraska/lagbh/modelit}/web:${CC_DOCKER_IMAGES_TAG:-development}
+  volumes:
+    - ${CC_BASE_PATH}:/app:rw,cached
+    - development_node_modules:/app/node_modules
+    - development_uploads:/uploads
+    - development_data_cache:/cache
+  environment:
+    - "$CC_WEB_PORT:${CC_WEB_PORT}"
+  env_file:
+    - ./.envs/.development/.web
+
+services:
+  web:
+    <<: *web
+    ports:
+      - "5003:5003"
+    
+  worker:
+    <<: *web
+  
+  frontend:
+    build:
+      context: .
+      dockerfile: ./docker/development/frontend/Dockerfile
+    command: npm run dev
+    networks:
+      - frontend
+      - app
+      - web
+      - cache
+    volumes:
+      - ./cc/client/app:/app/app:rw,cached
+      - ./cc/client/scss:/app/scss:rw,cached
+      - development_frontend_node_modules:/app/node_modules
+    ports:
+      - "${CC_FRONTEND_PORT:-5173}:${CC_FRONTEND_PORT:-5173}"
+
+  db:
+    image: ${CC_DOCKER_REGISTRY_PREFIX:-registry.gitlab.com/unebraska/lagbh/modelit}/db:${CC_DOCKER_IMAGES_TAG:-development}
+    volumes:
+      - development_db_data:/var/lib/postgresql/data
+      - development_db_backups:/backups
+    env_file:
+      - ./.envs/.development/.db
+    ports:
+      - 6000:5432
+
+  dbccapp:
+    image: ${CC_DOCKER_REGISTRY_PREFIX:-registry.gitlab.com/unebraska/lagbh/modelit}/dbccapp:${CC_DOCKER_IMAGES_TAG:-development}
+    shm_size: "4gb"
+    volumes:
+      - development_dbccapp_data:/var/lib/postgresql/data
+      - development_dbccapp_backups:/backups
+    env_file:
+      - ./.envs/.development/.dbccapp
+    ports:
+      - 6003:5432
+
+  mailhog:
+    user: root
+    image: mailhog/mailhog
+    networks:
+      - mailhog
+    volumes:
+      - development_mailhog_maildir:/maildir
+    command: ["-storage=maildir", "-maildir-path=/maildir"]
+
+  app:
+    image: ${CC_DOCKER_REGISTRY_PREFIX:-registry.gitlab.com/unebraska/lagbh/modelit}/app:${CC_DOCKER_IMAGES_TAG:-development}
+    volumes:
+      - development_app_data:/app/data
+      - development_app_data_export:/app/data_export
+      - development_app_export:/app/export
+      - development_app_import:/app/import
+      - development_app_backups:/app/backups
+    networks:
+      - mailhog
+    depends_on:
+      - mailhog
+    ports:
+      - "5002:8080"
+      - "5005:5005"
+    env_file:
+      - ./.envs/.development/.app
+
+  cache:
+    image: ${CC_DOCKER_REGISTRY_PREFIX:-registry.gitlab.com/unebraska/lagbh/modelit}/cache:${CC_DOCKER_IMAGES_TAG:-development}
+    volumes:
+      - development_cache_data:/data
+    env_file:
+      - ./.envs/.development/.cache
+
+  queue:
+    image: ${CC_DOCKER_REGISTRY_PREFIX:-registry.gitlab.com/unebraska/lagbh/modelit}/queue:${CC_DOCKER_IMAGES_TAG:-development}
+    volumes:
+      - development_queue_data:/data
+    env_file:
+      - ./.envs/.development/.queue
+
+  search:
+    image: ${CC_DOCKER_REGISTRY_PREFIX:-registry.gitlab.com/unebraska/lagbh/modelit}/search:${CC_DOCKER_IMAGES_TAG:-development}
+    volumes:
+      - development_search_data:/usr/share/elasticsearch/data
+    env_file:
+      - ./.envs/.development/.search
+  logger:
+    build:
+      context: ./docker/base/logger
+      dockerfile: ../../development/logger/Dockerfile
+    image: ${CC_DOCKER_REGISTRY_PREFIX:-registry.gitlab.com/unebraska/lagbh/modelit}/logger:${CC_DOCKER_IMAGES_TAG:-development}
+    volumes:
+      - development_logs:/data
+      - ./docker/base/logger/src:/app
+    env_file:
+      - ./.envs/.development/.logger
+
+  ccapp:
+    image: ${CC_DOCKER_REGISTRY_PREFIX:-registry.gitlab.com/unebraska/lagbh/modelit}/ccapp:${CC_DOCKER_IMAGES_TAG:-development} 
+    volumes:
+      - ./docker/base/ccapp:/app
+      - development_ccapp_data:/data
+    env_file:
+      - ./.envs/.development/.ccapp
+      - ./.envs/.development/.dbccapp
+    depends_on:
+      - cache
+    networks:
+      - cache
+
+  proxy:
+    build:
+      context: .
+      dockerfile: ./docker/development/proxy/Dockerfile
+    depends_on:
+      - web
+      - app
+      - ccapp
+    networks:
+      - web
+      - app
+      - proxy
+      - logger
+      - ccapp
+    ports:
+      - 5000:80
+    volumes:
+      - development_frontend_node_modules:/app/node_modules
+    env_file:
+      - ./.envs/.development/.web
+
+
+networks:
+  mailhog:
+    driver: bridge
+  frontend:
+    driver: bridge
+  proxy:
+    driver: bridge    
+
+volumes:
+  development_web_backups: {}
+  development_data_cache: {}
+
+  development_db_data: {}
+  development_db_backups: {}
+  
+  development_dbccapp_data: {}
+  development_dbccapp_backups: {}
+
+  development_app_data: {}
+  development_app_data_export: {}
+  development_app_export: {}
+  development_app_import: {}
+
+  development_app_backups: {}
+
+  development_cache_data: {}
+
+  development_queue_data: {}
+
+  development_node_modules: {}
+  development_uploads: { }
+
+  development_search_data: {}
+
+  development_mailhog_maildir: {}
+
+  development_logs: {}
+
+  development_frontend_node_modules: {}
+  
+  development_ccapp_data: {}
+

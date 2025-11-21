@@ -1,0 +1,228 @@
+.simulation {
+  &.control {
+    border: 1px solid $borderColor;
+
+    dl {
+      line-height: $iconSizeLarge + 8px;
+      margin-left: 3*$spacing;
+
+      dd {
+        font-size: $fontSize + 1px;
+      }
+    }
+  }
+
+  &.settings {
+    margin-top: $spacing;
+
+    dl, dd {
+      line-height: 2*$fontSize;
+    }
+
+    dl {
+      display: block;
+    }
+
+    hr ~ div {
+      position: relative;
+    }
+
+    .sliderInput {
+      margin-bottom: 0.5*$spacing;
+
+      &> .track {
+        width: 65px + $iconSize;
+      }
+    }
+
+    .speed .track > div:before {
+      left: 50%;
+      content: "";
+    }
+
+    .view .track > div:before {
+      left: 66%;
+      content: "";
+    }
+
+    dd.range {
+      display: inline;
+
+      .sliderInput {
+        margin-bottom: 0.5*$spacing - 1px;
+
+        &> .editable {
+          opacity: 1;
+          width: 32px;
+          text-align: right;
+          margin: 0;
+
+          input {
+            text-align: right;
+          }
+        }
+
+        &> .track {
+          width: 190px + $iconSize;
+        }
+      }
+
+      .menu > ul.ul {
+        width: 300px;
+      }
+    }
+
+    .flow {
+      dd.range .menu > ul.ul {
+        width: 400px;
+
+        dt {
+          width: 100px;
+          vertical-align: bottom;
+          overflow: hidden;
+        }
+      }
+
+      .base-copy {
+        margin: 0 0 0.5*$spacing 0.5*$spacing;
+      }
+    }
+
+    .base-recording {
+      position: absolute;
+      top: 0;
+      right: 0;
+
+      &.on {
+        background-color: $green;
+      }
+    }
+  }
+}
+
+
+.panel-instruction {
+  display: table;
+  border: dashed 1px $borderColor;
+  height: 180px;
+  width: 99%;
+  margin: 15px auto;
+  cursor: pointer;
+  font-size: $fontSize + 4px;
+  transition: ease 0.5s;
+
+  &>div{
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+  }
+}
+
+.panel-instruction:hover{
+  border: dashed 1px $blue;
+  color : $blue;
+}
+
+table {
+  $width: 100px + $iconSize;
+  $sliderWidth: $width + 36px;
+  $rangeWidth: $width + 72px;
+
+  th.activity {
+    width: $sliderWidth + $spacing + 1px;
+
+    &.range {
+      width: $rangeWidth + $spacing + 1px;
+    }
+  }
+
+	th.dynamicSlider {
+		width:  $rangeWidth + $spacing+ 21px!important;
+	}
+
+	td.dynamicSlider {
+		width:  $rangeWidth + 20px!important;
+	}
+
+  td.activity {
+    width: $sliderWidth;
+
+    &.range {
+      width: $rangeWidth;
+    }
+
+	
+    .sliderInput > .track {
+      width: $width;
+    }
+
+    .editable {
+      opacity: 1;
+      width: 20px;
+      text-align: right;
+      margin-right: 0.5*$spacing;
+
+      input {
+        text-align: right;
+      }
+    }
+  }
+
+  th.metabolic-mutation:after, th.mutation:after {
+    background-image: url('/assets/images/icons/base/mutation.png');
+  }
+
+	th.metabolic-mutation_flux_control:after, th.mutation:after {
+    background-image: url('/assets/images/icons/base/mutation_flux_control.png');
+  }
+
+	th.metabolic-mutation_gene:after, th.mutation:after {
+    background-image: url('/assets/images/icons/base/mutation_gene.png');
+  }
+	
+	th.metabolic-mutation_core_reactions:after, th.mutation:after {
+    background-image: url('/assets/images/icons/base/mutation_core_reactions.png');
+  }
+	
+  th.optimization:after {
+    background-image: url('/assets/images/icons/base/optimization.png');
+  }
+
+  td.metabolic-mutation {
+    & > .checked {
+      background-image: url('/assets/images/icons/base/check-red.png') !important;
+    }
+  }
+
+  td.mutation {
+    &> .checked1 {
+      background-image: url('/assets/images/icons/base/check-red.png');
+    }
+
+    &> .checked2 {
+      background-image: url('/assets/images/icons/base/check-green.png');
+    }
+  }
+
+  td.optimization {
+    &> .checked1 {
+      background-image: url('/assets/images/icons/base/check-up.png');
+    }
+
+    &> .checked2 {
+      background-image: url('/assets/images/icons/base/check-down.png');
+    }
+  }
+
+  th.initialState:after {
+    background-image: url('/assets/images/icons/base/initial.png');
+  }
+
+  td.initialState > .checked {
+    background-image: url('/assets/images/icons/base/check-green.png');
+  }
+
+  th.current:after {
+    background-image: url('/assets/images/icons/base/graph.png');
+  }
+}

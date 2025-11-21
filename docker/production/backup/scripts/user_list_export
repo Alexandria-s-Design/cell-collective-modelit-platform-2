@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+
+echo "============ BEGIN $(date)  ==============="
+source /env/envs.sh
+
+OUT=/exports/ccuser.csv
+
+SQL="\\copy (
+select
+        id, email, firstname, lastname, institution, institution_name, role,
+        registrationdate as registration_date,
+        max(logindate)   as last_login_date
+from (
+    select
+        profile.user_id               as id,
+        profile.email                 as email,
+        profile.firstname             as firstname,
+        profile.lastname              as lastname,
+        profile.institution           as institution,
+        \"Institutions\".name         as institution_name,
+        role.name                     as role,
+        activity.logindate            as logindate,
+        registration.registrationdate as registrationdate
+    from
+        profile
+    left join
+        activity
+            on profile.user_id = activity.user_id
+    left join
+        registration
+            on profile.user_id = registration.user_id
+    left join
+        authority
+            on profile.user_id = authority.user_id
+    left join
+        role
+            on authority.role_id = role.id
+    left join
+        \"Institutions\"
+            on profile.institution_id = \"Institutions\".id
+) as results
+group by
+        id, email, firstname, lastname, institution, institution_name, registration_date, role
+order by
+        last_login_date DESC nulls last
+) to '$OUT' with (format csv, header true, force_quote *);"
+
+echo "Executing Command"
+psql -U ccadmin -d postgres -c "$SQL"

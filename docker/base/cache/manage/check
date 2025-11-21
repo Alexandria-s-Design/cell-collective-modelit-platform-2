@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+set -e
+
+redis-cli -a "${REDIS_PASSWORD}" -h "${REDIS_HOST}" "ping" | grep -q "PONG" && echo "OK"

@@ -1,0 +1,5 @@
+#!/bin/bash
+
+set -e
+
+curl -fsSL "http://${CC_SEARCH_HOST}:${CC_SEARCH_PORT}/_cluster/health" | grep -q '"status":"green"' && echo "OK"

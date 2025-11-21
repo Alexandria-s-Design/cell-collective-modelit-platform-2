@@ -1,0 +1,26 @@
+table {
+  th.public:after {
+    background-image: url('/assets/images/icons/base/public.png');
+  }
+
+  td.document {
+    &> .checkbox {
+      width: $iconSize;
+      height: $iconSize;
+      border: none;
+      background-image: url('/assets/images/icons/base/document.png');
+
+      &.checked {
+        background-image: url('/assets/images/icons/base/image-gray.png');
+      }
+    }
+  }
+}
+
+label.icon.base-image:hover {
+  background-color: $green;
+}
+
+input.icon.base-image:hover {
+  background-color: $red;
+}

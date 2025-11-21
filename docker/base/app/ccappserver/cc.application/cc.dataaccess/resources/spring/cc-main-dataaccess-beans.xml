@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa-1.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+
+	<bean id="jdbcConfigurationManager" class="cc.dataaccess.configuration.JdbcConfigurationManager">
+		<constructor-arg ref="ccFileManager" />
+	</bean>
+
+	<bean id="mainDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="driverClass" value="${driver}" />
+		<property name="jdbcUrl" value="${jdbc.url}/${database}" />
+		<property name="user" value="${user}" />
+		<property name="password" value="${password}" />
+
+		<property name="initialPoolSize" value="${c3p0.initialPoolSize}" />
+		<property name="minPoolSize" value="${c3p0.minPoolSize}" />
+		<property name="maxPoolSize" value="${c3p0.maxPoolSize}" />
+		<property name="maxStatements" value="${c3p0.maxStatements}" />
+		<property name="idleConnectionTestPeriod" value="${c3p0.idleConnectionTestPeriod}" />
+		<property name="maxIdleTime" value="${c3p0.maxIdleTime}" />
+	</bean>
+
+	<bean id="mainEntityManagerFactory"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="dataSource" ref="mainDataSource" />
+		<property name="jpaVendorAdapter">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
+		</property>
+		<property name="jpaProperties">
+			<props>
+				<prop key="hibernate.dialect">${hibernate.dialect}</prop>
+				<prop key="hibernate.show_sql">false</prop>
+				<prop key="hibernate.jdbc.batch_size">30</prop>
+			</props>
+		</property>
+		<property name="packagesToScan">
+			<list>
+				<value>cc.common.data.biologic</value>
+				<value>cc.common.data.model</value>
+				<value>cc.common.data.simulation</value>
+				<value>cc.common.data.knowledge</value>
+				<value>cc.common.data.metadata</value>
+				<value>cc.common.data.user</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="mainTransactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="mainEntityManagerFactory" />
+	</bean>
+
+	<jpa:repositories base-package="cc.dataaccess.main.repository"
+		entity-manager-factory-ref="mainEntityManagerFactory"
+		transaction-manager-ref="mainTransactionManager" />
+		
+	<jpa:repositories base-package="cc.dataaccess.user.repository"
+		entity-manager-factory-ref="mainEntityManagerFactory"
+		transaction-manager-ref="mainTransactionManager" />
+		
+	<bean id="txTemplate" class="org.springframework.transaction.support.TransactionTemplate">
+		<property name="transactionManager" ref="mainTransactionManager"></property>
+	</bean>
+
+	<bean id="modelDao" class="cc.dataaccess.main.dao.ModelDao" />
+
+	<bean id="speciesDao" class="cc.dataaccess.main.dao.SpeciesDao" />
+	
+	<bean id="regulatorDao" class="cc.dataaccess.main.dao.RegulatorDao" />
+	
+	<bean id="conditionDao" class="cc.dataaccess.main.dao.ConditionDao" />
+	
+	<bean id="subConditionDao" class="cc.dataaccess.main.dao.SubConditionDao" />
+
+	<bean id="modelBiologicDao" class="cc.dataaccess.main.dao.ModelBiologicDao" />
+	
+	<bean id="initialStateDao" class="cc.dataaccess.main.dao.InitialStateDao" />
+	
+	<bean id="userModelRatingDao" class="cc.dataaccess.main.dao.UserModelRatingDao" />
+	
+	<bean id="modelRatingDao" class="cc.dataaccess.main.dao.ModelRatingDao" />
+	
+	<bean id="modelCommentDao" class="cc.dataaccess.main.dao.ModelCommentDao" />
+	
+	<bean id="modelShareDao" class="cc.dataaccess.main.dao.ModelShareDao" />
+	
+	<bean id="modelLinkDao" class="cc.dataaccess.main.dao.ModelLinkDao" />
+	
+	<bean id="pageDao" class="cc.dataaccess.main.dao.PageDao" />
+	
+	<bean id="referenceDao" class="cc.dataaccess.main.dao.ReferenceDao" />
+	
+	<bean id="modelReferenceDao" class="cc.dataaccess.main.dao.ModelReferenceDao" />
+	
+	<bean id="pageReferenceDao" class="cc.dataaccess.main.dao.PageReferenceDao" />
+	
+	<bean id="sectionDao" class="cc.dataaccess.main.dao.SectionDao" />
+	
+	<bean id="contentDao" class="cc.dataaccess.main.dao.ContentDao" />
+	
+	<bean id="contentReferenceDao" class="cc.dataaccess.main.dao.ContentReferenceDao" />
+	
+	<bean id="experimentDao" class="cc.dataaccess.main.dao.ExperimentDao" />
+	
+	<bean id="experimentDataDao" class="cc.dataaccess.main.dao.ExperimentDataDao" />
+	
+	<bean id="modelStatisticDao" class="cc.dataaccess.main.dao.ModelStatisticDao" />
+	
+	<bean id="modelScoreDao" class="cc.dataaccess.main.dao.ModelScoreDao" />
+	
+	<bean id="definitionDao" class="cc.dataaccess.main.dao.DefinitionDao" />
+	
+	<bean id="entityValueDao" class="cc.dataaccess.main.dao.MetadataValueDao" />
+	
+	<bean id="uploadDao" class="cc.dataaccess.main.dao.UploadDao">
+		<constructor-arg ref="ccFileManager" />
+	</bean>
+	
+	<bean id="modelNotificationDao" class="cc.dataaccess.main.dao.ModelNotificationDao" />
+	
+	<bean id="layoutDao" class="cc.dataaccess.main.dao.LayoutDao" />
+	
+	<bean id="modelVersionDao" class="cc.dataaccess.main.dao.ModelVersionDao" />
+		
+	<bean id="userDao" class="cc.dataaccess.user.dao.UserDao" />
+	
+	<bean id="anonymousUserDao" class="cc.dataaccess.user.dao.AnonymousUserDao" />
+	
+</beans>

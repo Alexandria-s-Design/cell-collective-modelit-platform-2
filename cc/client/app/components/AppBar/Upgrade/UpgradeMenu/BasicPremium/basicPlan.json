@@ -1,0 +1,20 @@
+[ 
+	{
+	"desc" : "Access to all lessons (Also available in free account)"
+	},
+	{
+		"desc" : "Instructor guides and answer keys"
+	},
+	{
+		"desc" : "Introduction slides for students"
+	},
+	{
+		"desc" : "Create and manage courses"
+	},
+	{
+		"desc" : "Edit lessons; create new lessons"
+	},
+	{
+		"desc" : "CSV output of student answers"
+	}
+]

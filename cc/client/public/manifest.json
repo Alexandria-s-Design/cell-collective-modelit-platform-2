@@ -1,0 +1,16 @@
+{
+  "name": "Cell Collective",
+  "short_name": "CellCollective",
+  "description": "Cell Collective is an interactive, open and collaborative modeling platform for Biological Networks for researchers, students and teachers worldwide",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#f8f9fa",
+  "theme_color": "#727272",
+  "icons": [
+  ],
+  "scope": "/",
+  "orientation": "portrait-primary",
+  "categories": ["Biological Networks", "Education", "Cells"],
+  "lang": "en",
+  "dir": "ltr"
+}

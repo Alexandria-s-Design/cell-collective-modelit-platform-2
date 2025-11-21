@@ -1,0 +1,116 @@
+{
+	"_createdAt": "2024-04-22T00:50:43.638Z",
+	"_updatedAt": "2024-04-22T00:50:43.638Z",
+	"_deleted": false,
+	"id": "999999999",
+	"_createdBy": "5850",
+	"_updatedBy": "5850",
+	"modelOriginId": "666666",
+	"settings": {
+			"settings": {
+					"speciesTaxonId":9606,
+					"checkboxesData": {
+							"data_merging": {
+									"value": true
+							},
+							"bulk_cell_rna": {
+									"value": true
+							}
+					},
+					"activityThreshold": {
+							"lower": -3,
+							"upper": 0
+					},
+					"objectiveFunction": null
+			},
+			"typeProteomics": {
+					"geneGroup":0.9,
+					"geneReplicate":0.9,
+					"highConfidenceGeneGroup":0.9,
+					"highConfidenceGeneReplicate":0.9
+			},
+			"typeDataMerging": {
+					"method": {
+							"id": "regressive",
+							"name": "Regressive"
+					},
+					"proteomics": 1.0,
+					"bulkPolyARnaSeq": 6,
+					"bulkTotalRnaSeq": 6,
+					"singleCellRnaSeq": 6
+			},
+			"typeBulkPolyaRNA": {
+					"layout": null,
+					"method": "zfpkm",
+					"geneGroup":0.9,
+					"geneReplicate":0.9,
+					"methodActivity": -3,
+					"methodActivityRange": {
+							"max": 5,
+							"min": -5
+					},
+					"highConfidenceGeneGroup":0.9,
+					"highConfidenceGeneReplicate":0.9
+			},
+			"typeBulkTotalRNA": {
+					"layout": null,
+					"method": "zfpkm",
+					"geneGroup":0.9,
+					"geneReplicate":0.9,
+					"methodActivity": -1,
+					"methodActivityRange": {
+							"max": 3,
+							"min": -3
+					},
+					"highConfidenceGeneGroup":0.9,
+					"highConfidenceGeneReplicate":0.9
+			},
+			"typeSingleCellRNA": {
+					"geneGroup":0.9,
+					"geneReplicate":0.9,
+					"highConfidenceGeneGroup":0.9,
+					"highConfidenceGeneReplicate":0.9
+			}
+	},
+	"uploads": {
+			"boundaryReactions": {
+					"name": "Doc_Boundary_Reactions (1).csv",
+					"path": "context/test_como/inputs/como_boundary_new.csv",
+					"size": 190,
+					"mimetype": "text/csv"
+			},
+			"coreForceReactions": {
+				"name": "Doc_Boundary_Reactions (1).csv",
+				"path": "context/test_como/inputs/como_force_reactions.csv",
+				"size": 190,
+				"mimetype": "text/csv"
+			},
+			"excludeReactions": {
+					"name": "Doc_Boundary_Reactions (1).csv",
+					"path": "context/test_como/inputs/como_exclude_reactions.csv",
+					"size": 190,
+					"mimetype": "text/csv"
+			},
+			"typeSingleCellRNA": {
+					"name": "como_proteomics_test.xlsx",
+					"path": "context/test_como/inputs/como_gene_counts_matrix_total_naiveB.csv",
+					"size": 6136,
+					"mimetype": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+			},
+			"typeBulkTotalRNA": {
+					"name": "como_gene_counts_matrix_total_naiveB.csv",
+					"path": "context/test_como/inputs/como_gene_counts_matrix_total_naiveB.csv",
+					"size": 6136,
+					"mimetype": "application/json"
+			},
+			"generalModel": {
+					"name": "Test JSON Model exported.json",
+					"path": "/uploads/context/test_como/inputs/model_exported.json"
+			}
+	},
+	"contextType": "iMAT",
+	"modelId": null,
+	"downloads": null,
+	"_deletedBy": null,
+	"_deletedAt": null
+}

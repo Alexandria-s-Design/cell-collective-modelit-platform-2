@@ -1,0 +1,147 @@
+#!/usr/bin/env python3
+
+# imports - standard imports
+import sys
+import os, os.path as osp
+import io
+import re
+from shutil import copyfile
+import argparse
+import subprocess  as sp
+import platform
+import json
+from   distutils.version import StrictVersion
+import logging
+
+
+NOTSET      = logging.NOTSET
+DEBUG       = logging.DEBUG
+INFO        = logging.INFO
+WARNING     = logging.WARNING
+ERROR       = logging.ERROR
+CRITICAL    = logging.CRITICAL
+
+_FORMAT     = '%(asctime)s | %(levelname)s | %(message)s'
+_LOGGER     = None
+
+def get_logger(name = __name__, level = DEBUG, format_ = _FORMAT):
+    global _LOGGER
+
+    if not _LOGGER:
+        formatter = logging.Formatter(format_)
+
+        handler   = logging.StreamHandler()
+        handler.setFormatter(formatter)
+
+        logger    = logging.getLogger(name)
+        logger.setLevel(level)
+
+        logger.addHandler(handler)
+        
+        _LOGGER   = logger
+    
+    return _LOGGER
+
+logger = get_logger()
+
+
+def process_env_file(path):
+
+    def CC_URL_PREFIX(name="", *args):
+      
+      # TODO: update domain to modelit-k12.org
+      domain = "modelit-k12.duckdns.org"
+
+      names = [name] if len(name) > 0 else []
+      if "CC_URL_PREFIX" in os.environ:
+        names = [os.environ["CC_URL_PREFIX"]] + names
+
+      name = "-".join(names)
+      subdomain_sep = "."
+
+      if "CC_SUBDOMAIN_SEP" in os.environ:
+        subdomain_sep = os.environ["CC_SUBDOMAIN_SEP"]
+
+      return "{}{}{}".format(name, subdomain_sep, domain) if len(name) > 0 else domain
+    
+    def CC_PREFIX(*args):
+      names = []
+      if "CC_URL_PREFIX" in os.environ:
+        names = [os.environ["CC_URL_PREFIX"]]
+
+      name = "-".join(names)
+      return "{}".format(name)
+
+    KEYS = {
+      "CC_URL_PREFIX": CC_URL_PREFIX,
+      "CC_GET_PREFIX": CC_PREFIX
+    }
+
+    print("PROCESSING ENV FILE", path)
+    lines = []
+    with open(path, "r") as fp: 
+      lines = fp.readlines()
+
+    def processLine(line):
+      m = re.findall("<<([A-Za-z-_]+)(\\([A-Za-z-_]*\\))?>>", line)
+      for pattern in m:
+        (key, params) = pattern
+        if key not in KEYS:
+          raise Exception('UNKNOWN PARSING KEY', key)
+        
+        if params is not None and len(params) > 0:
+          argparams = params[1:(len(params)-1)].strip()
+          args = re.split(r'\s*,\s*',argparams)
+        else:
+          args = []
+
+        newval = KEYS[key](*args)
+
+        strpattern = "<<{}{}>>".format(key, params)
+        line = line.replace(strpattern, newval, 1)
+      
+      return line
+
+    lines = map(processLine, lines)
+
+    with open(path, "w") as fp: 
+      fp.writelines(lines)
+
+    
+
+def main():
+    # print("RUNNING ");
+    logger.info("Generating environment files")
+
+    SOURCE_DIR = "../.envs_template"
+    TARGET_DIR = "../.envs"
+
+
+    for (root, dirs, files) in os.walk(SOURCE_DIR):
+      target_root = "{}{}".format(TARGET_DIR, root[(len(SOURCE_DIR)):])
+      for name in dirs:
+        path = "{}/{}".format(target_root, name)
+        logger.info("CREATING DIR {}".format(path))
+        try:
+          os.makedirs(path)
+        except OSError as e:
+          logger.info("... already exists")
+    
+      for name in files:
+        source_path = "{}/{}".format(root, name)
+        path = "{}/{}".format(target_root, name)
+        logger.info("PROCESSING FILE {}".format(path))
+        try:
+          copyfile(source_path, path)
+        except OSError as e:
+          logger.info("... ERROR copying")
+          raise
+        
+        if name[0] == ".":
+          #all dotfiles are env files 
+          process_env_file(path)
+        
+
+
+if __name__ == "__main__":
+    main()

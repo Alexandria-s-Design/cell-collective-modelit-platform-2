@@ -1,0 +1,15 @@
+[ 
+	{
+	"id" : "1",
+	"button" : "Keep Basic Access",
+	"price"		: 0,
+	"name" : "0"
+	
+	},
+	{
+		"id" : "2",
+		"button" : "$59/Year",
+		"price" : 59,
+		"name" : "PremiumPlan1"
+	}
+]

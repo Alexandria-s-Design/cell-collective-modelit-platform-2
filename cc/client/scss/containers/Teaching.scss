@@ -1,0 +1,100 @@
+.teaching.landing {
+  background-color: black;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  &> div {
+    position: absolute;
+    top: $headHeight;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    overflow: hidden;
+    text-align: center;
+
+    &> img:first-child {
+      height: 100%;
+    }
+
+    &> div.anonymous {
+      position: absolute;
+      right: 10%;
+      top: 10%;
+      z-index: 1;
+      padding: 6*$spacing;
+      background-color: rgba(black, 0.75);
+      border: 1px solid white;
+      color: white;
+      cursor: pointer;
+
+      &> p:first-child {
+        font-size: $fontSize + $spacing;
+
+        &> b {
+          color: $ccColor;
+        }
+      }
+
+      &> i {
+        color: rgba(white, 0.75);
+      }
+
+      @for $i from 5 through 1 {
+        @media (max-width: 200*$i + 400px) {
+          padding: $i*$spacing;
+
+          &> p:first-child {
+            font-size: $fontSize + $i - 1px;
+          }
+
+          &> i {
+            font-size: $fontSize - 2px + floor(calc($i / 2));
+          }
+        }
+      }
+    }
+
+    &> div:last-child {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 50px;
+      padding: 15px 0;
+      background-color: rgba(187, 165, 150, 0.9);
+
+      &> dl {
+        margin: 0 3.3%;
+        color: white;
+
+        &> dt, &> dd {
+          font-weight: bold;
+          display: block;
+        }
+
+        &> dt {
+          font-size: 35px;
+        }
+
+        &> dd {
+          font-size: 72px;
+        }
+      }
+
+      @for $i from 5 through 1 {
+        @media (max-width: 200*$i + 400px) {
+          &> dl {
+            &> dt {
+              font-size: 5px*($i + 1);
+            }
+
+            &> dd {
+              font-size: 12px*$i;
+            }
+          }
+        }
+      }
+    }
+  }
+}

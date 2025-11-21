@@ -1,0 +1,104 @@
+.text-editor {
+    font-family: serif;
+    font-size: 16px;
+		margin-bottom: 10px;
+
+		.public-DraftStyleDefault-orderedListItem {
+			display: list-item;
+		}
+
+		.public-DraftStyleDefault-ol {
+			padding-left: 24px !important;
+		}
+
+		.public-DraftStyleDefault-ol > li{
+			list-style-type: decimal !important;
+		}
+
+		.public-DraftStyleDefault-unorderedListItem {
+			display: list-item;
+		}
+
+		.public-DraftStyleDefault-ul {
+			padding-left: 24px !important;
+		}
+	
+		.public-DraftStyleDefault-ul > li{
+			list-style-type: circle !important;
+		}
+      
+    &.dirty {
+        background-color: #e7f4f7;
+    }
+
+    .select-options {
+        border-bottom: solid 1px;
+        padding: 6px;
+
+        &>div>span{
+            padding-right: 10px;
+            padding-bottom: 3px;
+            margin-bottom: 12px; 
+            font-size: 13px;
+            font-family: "Helvetica sans-serif";
+            cursor: pointer;
+
+            &>img{
+                vertical-align: middle;
+            }
+        }  
+
+    }
+
+    .editor-button {
+        font-family: "Helvetica sans-serif";
+        font-size: 12px;
+        background-color: #fff;
+        color: #888;
+        border: solid 1px;
+        cursor: pointer;
+        margin-left: 5px;
+    }
+		
+    .public-DraftEditorPlaceholder-root {
+    		float: left;
+    }
+		.public-DraftEditorPlaceholder-hasFocus {
+			display: none;
+		}
+		.DraftEditor-editorContainer {
+			position: relative;
+			z-index: 1;
+		}
+		.DraftEditor-editorContainer,
+    .public-DraftEditorPlaceholder-inner{
+        padding: 5px 0 0 5px;
+        line-height: 22px;
+    }
+
+    .RichEditor-styleButton {
+        color: #999;
+        cursor: pointer;
+      }
+
+    .RichEditor-activeButton {
+        color: $blue;
+      }
+}
+
+.text-unsigned {
+    display: table;
+    height: 100%;
+    width: 100%;
+  
+    &>div{
+      text-align: center;
+      display: table-cell;
+      vertical-align: middle;
+      font-size: 20px;
+      line-height: 40vh;
+    }
+  
+  }
+
+

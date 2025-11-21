@@ -1,0 +1,204 @@
+version: "3.5"
+
+x-defaults: &defaults
+  restart: unless-stopped
+
+x-web: &web
+  <<: *defaults
+  build:
+    context: .
+    cache_from:
+      - ${CC_DOCKER_REGISTRY_PREFIX:-registry.gitlab.com/unebraska/lagbh/modelit}/web:${CC_DOCKER_IMAGES_PREV_TAG:-development}
+  networks:
+    - db
+    - cache
+    - queue
+    - app
+    - search
+    - web
+    - dbccapp
+    - logger
+    - ccapp
+  depends_on:
+    - db
+    - app
+    - cache
+    - queue
+    - search
+    - logger
+    - ccapp
+  environment:
+    - CC_GIT_BRANCH=${CC_GIT_BRANCH}
+    - CC_GIT_COMMIT=${CC_GIT_COMMIT}
+    - CC_GIT_TAG=${CC_GIT_TAG}
+  command: /start
+
+services:
+  web:
+    <<: *web
+    depends_on:
+      - worker
+    
+  worker:
+    <<: *web
+    networks:
+      - db
+      - cache
+      - queue
+      - app
+      - search
+      - worker
+      - dbccapp
+      - logger
+    environment:
+      - CC_WEB_HOST=worker
+      - CC_WORKER=true
+
+  db:
+    <<: *defaults
+    build:
+      context: ./docker/base/db
+      dockerfile: Dockerfile
+      cache_from:
+        - ${CC_DOCKER_REGISTRY_PREFIX:-registry.gitlab.com/unebraska/lagbh/modelit}/db:${CC_DOCKER_IMAGES_PREV_TAG:-development}
+    networks:
+      - db
+      - shared_network
+
+  dbccapp:
+    <<: *defaults
+    build:
+      context: ./docker/base/dbccapp
+      dockerfile: Dockerfile
+    networks:
+      - dbccapp
+
+  pgcli:
+    <<: *defaults
+    build:
+      context: ./docker/base/db-shell
+      dockerfile: Dockerfile
+    networks:
+      - db
+      - dbccapp
+    depends_on:
+      - db
+    env_file:
+      - ./.envs/.development/.db
+
+  app:
+    <<: *defaults
+    build:
+      context: ./docker/base/app
+      dockerfile: ./Dockerfile
+      cache_from:
+        - ${CC_DOCKER_REGISTRY_PREFIX:-registry.gitlab.com/unebraska/lagbh/modelit}/app:${CC_DOCKER_IMAGES_PREV_TAG:-development}
+    networks:
+      - db
+      - app
+      - dbccapp
+      - logger
+    depends_on:
+      - db
+    command: /start
+
+  cache:
+    build:
+      context: ./docker/base/cache
+      dockerfile: ./Dockerfile
+      cache_from:
+        - ${CC_DOCKER_REGISTRY_PREFIX:-registry.gitlab.com/unebraska/lagbh/modelit}/cache:${CC_DOCKER_IMAGES_PREV_TAG:-development}
+    networks:
+      - cache
+
+  queue:
+    build:
+      context: ./docker/base/cache
+      dockerfile: ./Dockerfile
+      cache_from:
+        - ${CC_DOCKER_REGISTRY_PREFIX:-registry.gitlab.com/unebraska/lagbh/modelit}/queue:${CC_DOCKER_IMAGES_PREV_TAG:-development}
+    image: ${CC_DOCKER_REGISTRY_PREFIX:-registry.gitlab.com/unebraska/lagbh/modelit}/queue:${CC_DOCKER_IMAGES_TAG:-development}
+    networks:
+      - queue
+
+  search:
+    <<: *defaults
+    build:
+      context: ./docker/base/search
+      dockerfile: ./Dockerfile
+      cache_from:
+        - ${CC_DOCKER_REGISTRY_PREFIX:-registry.gitlab.com/unebraska/lagbh/modelit}/search:${CC_DOCKER_IMAGES_PREV_TAG:-development}
+    image: ${CC_DOCKER_REGISTRY_PREFIX:-registry.gitlab.com/unebraska/lagbh/modelit}/search:${CC_DOCKER_IMAGES_TAG:-development}
+    networks:
+      - search
+
+  swagger-ui:
+    image: swaggerapi/swagger-ui
+    ports:
+      - "${SWAGGER_PORT:-5010}:8080"
+    volumes:
+      - ${PWD}/docs/swagger-docs:/home
+    environment:
+      SWAGGER_JSON: /home/docs.yml
+  
+
+  logger: 
+    ports:
+      - "7001:8085"
+    networks:
+      - logger
+  
+  ccapp:
+    build:
+      context: ./docker/base/ccapp
+    # below daphne is for production, uvicorn for development to suport hot-reloading
+    command: daphne -b 0.0.0.0 -p 8005 config.asgi:application 
+    # command: uvicorn config.asgi:application --host 0.0.0.0 --port 8005 --reload --log-level debug
+    ports:
+      - 8005:8005
+    networks:
+      - web
+      - ccapp
+      - dbccapp
+      - cache
+    depends_on:
+      - cache
+      
+  ccba:
+    container_name: ccba
+    build:
+      context: ./docker/base/ccba
+      dockerfile: Dockerfile
+    image: ccba-api
+    ports:
+      - "5023:5023"
+    networks:
+      - ccba-api_network
+      - app
+
+networks:
+  app:
+    driver: bridge
+  db:
+    driver: bridge
+  cache:
+    driver: bridge
+  queue:
+    driver: bridge
+  search:
+    driver: bridge
+  worker:
+    driver: bridge
+  web:
+    driver: bridge
+  dbccapp:
+    driver: bridge
+  logger:
+    driver: bridge
+  ccapp:
+    driver: bridge
+  shared_network:
+    name: pg_shared_network 
+    driver: bridge
+  ccba-api_network:
+    driver: bridge

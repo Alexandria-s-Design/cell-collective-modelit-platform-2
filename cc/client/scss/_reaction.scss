@@ -1,0 +1,303 @@
+.reaction {
+  li {
+    line-height: 2*$fontSize;
+
+    input[type="button"] {
+      line-height: 2*$fontSize;
+    }
+
+    div {
+      display: inline-block;
+    }
+
+    div.reactant, div.product {
+      position: absolute;
+      left: 0;
+      top: 4px;
+      cursor: pointer;
+      width: $iconSize - 2px;
+      height: $iconSize - 2px;
+    }
+
+    div.reactant {
+      background-image: url('/assets/images/icons/base/negative.png');
+    }
+
+    div.product {
+      background-image: url('/assets/images/icons/base/product.png');
+    }
+
+    &> :first-child {
+      position: relative;
+    }
+  }
+
+  div.metabolite {
+    position: relative;
+    min-width: 2*$spacing;
+
+    &:hover div.remove {
+      opacity: 1;
+    }
+  }
+
+  div.metabolite.new {
+    &:hover {
+      color: $baseColor;
+
+      form.editable ~ div.remove {
+        display: none;
+      }
+    }
+
+    form.editable.menu > ul {
+      margin: 0.5*$spacing 0 0 -0.5*$spacing;
+    }
+  }
+
+  span.relation {
+    cursor: pointer;
+
+    &:hover {
+      color: $lightBlue;
+    }
+  }
+
+  &.add {
+    display: inline-block;
+
+    &> div {
+      &.reactant {
+        color: $red;
+			}
+
+      &.product {
+        color: $blue;
+			}
+    }
+		&.multiple > div.reactant {
+			color: $blue;
+			&> .droppable {
+				border-color: $blueSapphire !important;
+			}
+		}
+  }
+}
+
+.icon.base-reversible {
+  background-image: url('/assets/images/icons/base/reaction-arrow.png');
+
+  &.checked {
+    background-image: url('/assets/images/icons/base/reaction-arrow-reversible.png');
+  }
+}
+
+.reaction.elements {
+  $backgroundColor: #f8f8f8;
+
+  padding-bottom: 3px;
+
+  li {
+    margin-bottom: $spacing;
+    border: 1px solid $borderColor;
+
+    &> div, &> ul, .droppable.static {
+      padding: 0 $spacing;
+    }
+
+    &> div:first-child {
+      padding-right: 0;
+    }
+
+    &.condition {
+      background-color: $backgroundColor;
+
+      &:hover > .base-close-gray {
+        opacity: 1;
+      }
+    }
+
+    div.droppable {
+      &:before {
+        left: 0.5*$spacing;
+        right: 0.5*$spacing;
+      }
+
+      &:hover > .icon.hidden {
+        opacity: 1;
+      }
+    }
+
+    &.condition > div.droppable:before {
+      top: 1px;
+      bottom: 1px;
+    }
+  }
+
+  &> span > li {
+    margin-bottom: 2*$spacing;
+
+    &> div:first-child {
+      display: block;
+      border-bottom: 1px solid $borderColor;
+      background-color: $backgroundColor;
+
+      &> div:first-child {
+        left: 0.5*$spacing;
+      }
+
+      div.metabolite {
+        margin-left: $iconSize;
+
+        &>.remove {
+          display: none;
+        }
+      }
+
+      input[type="button"][value="Dominance"] {
+        margin-right: 0.5*$spacing;
+      }
+
+      .base-close-gray ~ input[type="button"][value="Dominance"] {
+        margin-right: 0;
+      }
+    }
+
+    &:hover > div:first-child > .base-close-gray {
+      opacity: 1;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    &> div.droppable:before {
+      top: 1px;
+      bottom: 1px;
+    }
+  }
+
+  div.metabolite {
+    background-color: white;
+  }
+
+  div.condition .editable input {
+    font-weight: bold;
+  }
+
+  input.icon {
+    margin: 0.5*$spacing;
+  }
+
+  input[type="button"][value="Dominance"] {
+    text-transform: none;
+  }
+
+  span.relation {
+    white-space: nowrap;
+  }
+
+  span.positive, span.negative {
+    cursor: pointer;
+  }
+
+  span.positive {
+    color: $green;
+  }
+
+  span.negative {
+    color: $red;
+  }
+
+  .base-close-gray {
+    float: right;
+    margin-top: 0.5*$spacing;
+    margin-bottom: 0.5*$spacing;
+    opacity: 0;
+    transition: all 0.5s;
+    transition-property: opacity, background-color;
+  }
+}
+
+.editable.bold {
+  font-weight: bold;
+}
+
+div.dominance.menu {
+  position: fixed;
+  z-index: 1;
+  margin: -2px 0;
+
+  &> ul.ul {
+    $height: $fontSize + 1.5*$spacing;
+    position: static;
+    width: auto;
+    max-width: 250px;
+
+    &> div:first-child {
+      position: absolute;
+      left: 0;
+      right: 0;
+      padding: 0 $height;
+      line-height: $height;
+
+      &> input {
+        display: inline;
+        width: 50%;
+      }
+    }
+
+    &.down {
+      padding-top: $height + 1px;
+
+      &> div:first-child {
+        top: 1px;
+        border-bottom: 1px solid $borderColor;
+      }
+    }
+
+    &.up {
+      padding-bottom: $height + 1px;
+
+      &> div:first-child {
+        bottom: 1px;
+        border-top: 1px solid $borderColor;
+      }
+    }
+  }
+}
+
+div.metabolite {
+  cursor: pointer;
+  display: inline-block;
+  line-height: $fontSize + $spacing - 1px;
+  white-space: nowrap;
+  padding: 0 0.5*$spacing;
+  border-radius: 4px;
+
+  &> div:first-child {
+    overflow: hidden;
+    vertical-align: bottom;
+  }
+
+  &:hover {
+    color: $lightBlue;
+  }
+
+  &.delay {
+    border-style: dotted;
+  }
+}
+
+div.metabolite {
+  border: 1px solid rgba(black, 0.1);
+  box-shadow: 1px 1px 4px 1px rgba(black, 0.1);
+
+  &.delay {
+    border-color: rgba(black, 0.4);
+  }
+}
+
+th.visible:after {
+	background-image: url('/assets/images/icons/base/imageVisibility.png');
+}

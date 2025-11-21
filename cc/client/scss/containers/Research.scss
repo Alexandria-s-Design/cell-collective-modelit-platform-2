@@ -1,0 +1,1012 @@
+.app > div > div.research.landing {
+  position: relative;
+  background-color: white;
+}
+
+.research.landing {
+  ul, li {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+  }
+
+  .intro {
+    background-image: url("/assets/images/landing/research/header-illustration.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    max-height: 35rem;
+  }
+
+  .header-color {
+    background-color: #18677a;
+    opacity: 0.9;
+  }
+
+  .header-border {
+    padding: 0 5px;
+    border-top: 5px solid #0F6ACE;
+  }
+
+  /* Fonts */
+
+  h1 {
+    padding: 130px 0px 0px 0px;
+    font-family: 'Open Sans', sans-serif;font-display: swap;
+    font-weight: 600;
+    font-size: 4.5em;
+    color: #FFFFFF;
+    line-height: 1.4em;
+    text-align: center;
+    margin: 0px auto;
+  }
+
+  h2 {
+    padding: 80px 0px 0px 0px;
+    font-family: 'Open Sans', sans-serif;font-display: swap;
+    font-weight: 400;
+    font-size: 48px;
+    color: #0F6ACE;
+    text-align: center;
+  }
+
+  .subhead {
+    font-size: 24px;
+    font-weight: 300;
+    text-align: center;
+    color: #FFFFFF;
+    padding: 20px 0px;
+    margin: 0px auto;
+  }
+
+
+  p {
+    font-family: 'Open Sans', sans-serif;font-display: swap;
+    font-size: 18px;
+    color: #798991;
+    line-height: 22px;
+    margin: 16px 0;
+  }
+
+  /* links */
+
+  .white-link {
+    padding: 0 5px;
+  }
+
+  .red-link {
+    padding: 0 5px;
+  }
+
+  a {
+    font-family: 'Open Sans', sans-serif;font-display: swap;
+    font-weight: 400;
+    text-decoration: none;
+    font-size: 18px;
+  }
+  /* unvisited link */
+  a:link {
+    color: #FFFFFF;
+  }
+  /* visited link */
+  a:visited {
+    color: #FFFFFF;
+  }
+
+  /* mouse over link */
+  a:hover {
+    color: #0F6ACE;
+  }
+
+  /* selected link */
+  a:active {
+    color: #ea5e42;
+  }
+
+  /* nav */
+  .nav {
+    display: block;
+    margin-top: 2rem;
+  }
+
+  .cellcollective-logo {
+    margin-top: -10px;
+    width: 270px;
+  }
+
+  .header-right {
+    display: inline-block;
+    float: right;
+  }
+
+  /* Search bar */
+  .search-bar {
+    padding-bottom: 150px;
+    margin: 0px auto;
+    text-align: center;
+  }
+
+  .search {
+    display: inline-block;
+    margin: 0px auto;
+  }
+
+  .search-field {
+    font-family: 'Open Sans', sans-serif;font-display: swap;font-display: swap;
+    font-size: 18px;
+    color: #798991;
+    line-height: 22px;
+    background: rgba(255,255,255,0.83);
+    border-radius: 100px;
+    padding: 15px 0px;
+    width: 540px;
+    border: none;
+  }
+
+  input[type="search"] {
+    color: #798991;
+    padding-left: 15px;
+  }
+
+
+  .subhead-container {
+    padding-bottom: 10rem;
+    display: block;
+    margin: 0px auto;
+  }
+
+  .home-search-btn {
+    background: #EA5E42;
+    border: 3px solid #F1623C;
+    border-radius: 100px;
+    font-family: 'Open Sans', sans-serif;font-display: swap;
+    font-size: 18px;
+    color: #FFFFFF;
+    padding: 15px 0px;
+    display: block;
+    width: 220px;
+    margin: 0px auto;
+    text-align: center;
+  }
+
+  ::-webkit-input-placeholder {
+    color: #798991;
+    font-family: 'Open Sans', sans-serif;font-display: swap;
+    padding-left: 20px;
+    text-overflow: ellipsis;
+  }
+
+  :-moz-placeholder { /* Firefox 18- */
+    color: #798991;
+    font-family: 'Open Sans', sans-serif;font-display: swap;
+    padding-left: 20px;
+    text-overflow: ellipsis;
+  }
+
+  ::-moz-placeholder {  /* Firefox 19+ */
+    color: #798991;
+    font-family: 'Open Sans', sans-serif;font-display: swap;
+    padding-left: 20px;
+    text-overflow: ellipsis;
+  }
+
+  :-ms-input-placeholder {
+    color: #798991;
+    font-family: 'Open Sans', sans-serif;font-display: swap;
+    padding-left: 20px;
+    text-overflow: ellipsis;
+  }
+
+  .home-search-btn:hover, .contact-btn:hover{
+    background: transparent;
+    border: 3px solid #C64930;
+  }
+
+  .contact-btn {
+    margin: 0px 0px;
+  }
+
+  .container {
+    margin: 0px auto;
+    overflow: hidden;
+    width: 960px;
+    max-width: 100%;
+  }
+
+  /*NUMBERS */
+
+  .numbers {
+    padding: 80px 0px;
+    text-align: center;
+  }
+
+
+  .numbers ul {
+    list-style-type: none;
+    display: inline-block;
+    margin: 0;
+    padding: 0px 20px;
+  }
+
+  .circle {
+    border: 3px solid #3CA44C;
+    padding-bottom: 20px;
+  }
+
+  .large-number {
+    font-family: 'Open Sans', sans-serif;font-display: swap;
+    font-size: 64px;
+    color: #0F6ACE;
+  }
+
+  .small-number {
+    font-family: 'Open Sans', sans-serif;font-display: swap;
+    font-weight: 400;
+    font-size: 18px;
+    color: #798991;
+    line-height: 22px;
+  }
+
+  /* How works */
+  .how-works {
+    background-color: #F7F6F6;
+    text-align: center;
+  }
+
+  .large-icon {
+    padding: 0px 20px;
+    margin: 0;
+  }
+
+  .how-icon {
+    margin: 0;
+    padding: 0;
+  }
+
+  .how-container {
+    margin: 10px 0px;
+    position:relative;
+  }
+
+  .how-content {
+    display: inline-block;
+    width: 40%;
+    padding-bottom: 80px;
+    text-align: center;
+    margin: 0px 10px;
+    height: 440px;
+    vertical-align: top;
+  }
+
+  .how-header {
+    font-family: 'Open Sans', sans-serif;font-display: swap;
+    font-weight: 300;
+    font-size: 32px;
+    color: #0F6ACE;
+    display: block;
+    padding-bottom: 20px;
+    margin: 10px 0px;
+  }
+
+  .how-body {
+    font-family: 'Open Sans', sans-serif;font-display: swap;
+    font-size: 18px;
+    color: #798991;
+    line-height: 1.5em;
+    display: inline-block;
+  }
+
+  /* Contact Us */
+
+  .contact-us {
+    background-image: url("/assets/images/landing/research/contact-photo.jpg");
+    background-repeat: no-repeat;
+    padding-bottom: 300px;
+    background-size: cover;
+  }
+
+  .contact-us h2, p {
+    color: #FFFFFF;
+    text-align: left;
+  }
+
+  .contactus-content {
+    max-width: 300px;
+  }
+
+  /* footer */
+
+  .footer {
+    padding: 80px 0px 20px 0px;
+    text-align: center;
+  }
+
+  .footer ul {
+    list-style-type: none;
+    display: inline-block;
+    margin: 0;
+    padding: 0px 20px;
+    vertical-align: top;
+  }
+
+  .footer-header {
+    font-family: 'Open Sans', sans-serif;font-display: swap;
+    font-weight: 300;
+    font-size: 32px;
+    color: #0F6ACE;
+    padding-bottom: 20px;
+    vertical-align: top;
+    margin: 0;
+  }
+
+  .footer-content a {
+    font-family: 'Open Sans', sans-serif;font-display: swap;
+    font-weight: 400;
+    font-size: 18px;
+    color: #798991;
+  }
+
+  .footer-content li a:hover {
+    color: #0F6ACE;
+  }
+
+
+  .terms {
+    padding: 200px 0px 60px 0px;
+    text-align: center;
+    margin: 0 auto;
+  }
+
+  .terms li {
+    display: inline-block;
+    padding: 0px 48px;
+    font-family: 'Open Sans', sans-serif;font-display: swap;
+    font-size: 18px;
+    color: #798991;
+  }
+
+  .terms a {
+    color: #798991;
+  }
+
+  .terms a:hover {
+    color: #0F6ACE;
+  }
+
+  /*Media queries */
+
+  /* Portrait and Landscape */
+
+  /* ----------- iPhone 4 and 4S ----------- */
+
+  /* Portrait and Landscape */
+  @media (min-width: 320px) and (max-width: 480px) {
+    .cellcollective-logo {
+      text-align: center;
+      margin: 0px auto;
+      max-width: 90%;
+      padding: 0px 20px;
+    }
+
+    h1 {
+      padding: 20px 0px 10px 0px;
+      font-size: 2.2em;
+      line-height: 1.35em;
+      margin: 0px auto;
+    }
+    /*header */
+    .search-field {
+      max-width: 90%;
+      text-align: center;
+      margin: 0px auto;
+    }
+
+    .search {
+      text-align: center;
+      display: block;
+    }
+
+    .search-bar {
+      padding-bottom: 40px;
+    }
+
+    .contact-btn {
+      margin: 0px auto;
+    }
+
+    .subhead {
+      font-size: 1.2em;
+    }
+
+    .subhead-container {
+      padding-bottom: 6rem;
+      display: block;
+      margin: 0px auto;
+    }
+
+    .home-search-btn {
+      margin: 0px auto;
+      display: block;
+      width: 220px;
+      margin: 0px auto;
+      text-align: center;
+    }
+
+    input[type="search"] {
+      color: #798991;
+      text-align: center;
+      padding-left: 15px;
+    }
+
+    form input[type=text] {
+      margin: 0px;
+    }
+
+    ::-webkit-input-placeholder {
+      color: #798991;
+      font-family: 'Open Sans', sans-serif;font-display: swap;
+      text-overflow: ellipsis;
+      text-align: center;
+    }
+
+    :-moz-placeholder { /* Firefox 18- */
+      color: #798991;
+      font-family: 'Open Sans', sans-serif;font-display: swap;
+      text-overflow: ellipsis;
+      text-align: center;
+    }
+
+    ::-moz-placeholder {  /* Firefox 19+ */
+      color: #798991;
+      font-family: 'Open Sans', sans-serif;font-display: swap;
+      text-overflow: ellipsis;
+    }
+
+    :-ms-input-placeholder {
+      color: #798991;
+      font-family: 'Open Sans', sans-serif;font-display: swap;
+      text-overflow: ellipsis;
+      text-align: center;
+    }
+
+    /*nav */
+
+    .header-right {
+      display: block;
+      float: none;
+      text-align: center;
+    }
+
+    h2 {
+      font-size: 2.3em;
+      padding: 10px 0px;
+    }
+
+    .numbers ul {
+      padding: 20px 0px 10px;
+      display: block;
+      margin: 0px auto;
+    }
+
+    .large-number {
+      font-size: 2.7em;
+    }
+
+    .how-works {
+      padding-bottom: 40px;
+    }
+
+    .how-content {
+      text-align: center;
+      padding: 10px 0px;
+      margin: 0px auto;
+      width: 100%;
+      display: block;
+    }
+
+    .how-body {
+      max-width: 90%;
+      width: 375px;
+    }
+
+    .large-icon {
+      padding: 10px 0px;
+    }
+
+    .contact-us {
+      text-align: center;
+      padding-bottom: 40px;
+    }
+
+    .contact-us h2, p {
+      text-align: center;
+    }
+
+    .contactus-content {
+      max-width: 100%;
+      padding: 0px 10px;
+    }
+
+    /* footer */
+
+    .footer {
+      padding: 40px 0px;
+    }
+
+    ul.footer-content {
+      margin: 0px;
+      text-align: center;
+      position: relative;
+      display: block;
+      padding-bottom: 20px;
+    }
+
+    .terms {
+      padding: 20px 0px;
+    }
+
+    .terms li {
+      display: block;
+      padding: 10px 0px;
+    }
+  }
+
+
+
+
+  /* ----------- iPhone 5 and 5S ----------- */
+
+  /* Portrait and Landscape */
+  @media (min-width: 320px) and (max-width: 568px) {
+
+    .cellcollective-logo {
+      text-align: center;
+      margin: 0px auto;
+      max-width: 90%;
+      padding: 0px 20px;
+    }
+
+    h1 {
+      padding: 20px 0px 10px 0px;
+      font-size: 1.7em;
+      line-height: 1.35em;
+      margin: 0px auto;
+    }
+
+
+    .subhead {
+      font-size: 1.2em;
+    }
+
+    /*header */
+    .search-field {
+      width: 320px;
+      text-align: center;
+      margin: 0px auto;
+    }
+
+    .search-bar {
+      padding-bottom: 40px;
+    }
+
+    .subhead-container {
+      padding-bottom: 6rem;
+      display: block;
+      margin: 0px auto;
+    }
+
+    .home-search-btn {
+      margin: 0px auto;
+    }
+
+    .contact-btn {
+      margin: 0px auto;
+    }
+
+    input[type="search"] {
+      color: #798991;
+      text-align: center;
+      padding-left: 15px;
+    }
+
+    /*nav */
+
+    .header-right {
+      display: block;
+      float: none;
+      text-align: center;
+    }
+
+    h2 {
+      font-size: 2.3em;
+      padding: 10px 0px;
+    }
+
+    .numbers {
+      padding: 40px 0px;
+      display: block;
+      margin: 0px auto;
+    }
+
+    .large-number {
+      font-size: 2.7em;
+    }
+
+    .how-works {
+      padding-bottom: 40px;
+    }
+
+    .how-content {
+      text-align: center;
+      padding: 10px 0px;
+      margin: 0px auto;
+      width: 100%;
+      display: block;
+    }
+
+    .how-body {
+      max-width: 90%;
+      width: 375px;
+    }
+
+    .large-icon {
+      padding: 10px 0px;
+    }
+
+    .contact-us {
+      text-align: center;
+      padding-bottom: 40px;
+    }
+
+    .contact-us h2, p {
+      text-align: center;
+    }
+
+    .contactus-content {
+      max-width: 100%;
+      padding: 0px 10px;
+    }
+
+    /* footer */
+
+    .footer {
+      padding: 40px 0px;
+    }
+
+    ul.footer-content {
+      margin: 0px;
+      text-align: center;
+      position: relative;
+      display: block;
+    }
+
+    .terms {
+      padding: 20px 0px;
+    }
+
+    .terms li {
+      display: block;
+      padding: 10px 0px;
+    }
+  }
+
+
+
+
+  /* ----------- iPhone 6 ----------- */
+  /* Portrait and Landscape */
+  @media (min-width: 375px) and (max-width: 667px) {
+
+    .cellcollective-logo {
+      text-align: center;
+      float: none;
+      margin: 0px auto;
+      padding: 0px 30px;
+    }
+
+    h1 {
+      padding: 20px 0px 10px 0px;
+      font-size: 2.1em;
+      line-height: 1.35em;
+      margin: 0px auto;
+    }
+
+    .subhead {
+      font-size: 1.2em;
+    }
+    /*header */
+    .search-field {
+      max-width: 90%;
+      width: 350px;
+      margin: 0px auto;
+    }
+
+    .search-bar {
+      padding-bottom: 40px;
+    }
+
+    .subhead-container {
+      padding-bottom: 6rem;
+      display: block;
+      margin: 0px auto;
+    }
+
+    .home-search-btn {
+      margin: 0px auto;
+    }
+    .contact-btn {
+      margin: 0px auto;
+    }
+
+    input[type="search"] {
+      color: #798991;
+      text-align: center;
+      padding-left: 15px;
+    }
+
+    /*nav */
+
+    .header-right {
+      display: block;
+      float: none;
+      text-align: center;
+    }
+
+    h2 {
+      font-size: 2.3em;
+      padding: 10px 0px;
+    }
+
+    .numbers {
+      padding: 40px 0px;
+    }
+
+    .numbers ul {
+      padding: 10px 30px;
+      margin: 0px;
+      text-align: center;
+    }
+
+    .how-content {
+      text-align: center;
+      padding: 10px 0px;
+      width: 100%;
+      display: block;
+    }
+    .how-body {
+      max-width: 90%;
+      width: 375px;
+    }
+
+    .large-icon {
+      padding: 10px 0px;
+    }
+
+    .contact-us {
+      text-align: center;
+      padding-bottom: 40px;
+    }
+
+    .contact-us h2, p {
+      text-align: center;
+    }
+
+    .contactus-content {
+      max-width: 100%;
+      padding: 0px 10px;
+    }
+
+    /* footer */
+
+    .footer {
+      padding: 40px 0px;
+    }
+
+    ul.footer-content {
+      margin: 0px;
+      text-align: center;
+      position: relative;
+      display: block;
+    }
+
+    .terms {
+      padding: 20px 0px;
+    }
+
+    .terms li {
+      display: block;
+      padding: 10px 0px;
+    }
+  }
+
+
+  /* ----------- iPhone 6+ ----------- */
+
+  /* Portrait and Landscape */
+  @media (min-width: 414px) and (max-device-width: 736px) {
+
+    .cellcollective-logo {
+      text-align: center;
+      float: none;
+      margin: 0px auto;
+      padding: 0px 30px;
+    }
+
+    h1 {
+      padding: 20px 0px 10px 0px;
+      font-size: 2.1em;
+      line-height: 1.35em;
+      margin: 0px auto;
+    }
+
+    .subhead {
+      font-size: 1.2em;
+    }
+
+    /*header */
+    .search-field {
+      max-width: 90%;
+      width: 350px;
+      margin: 0px auto;
+    }
+
+    .search-bar {
+      padding-bottom: 40px;
+    }
+
+    .subhead-container {
+      padding-bottom: 6rem;
+      display: block;
+      margin: 0px auto;
+    }
+
+    .home-search-btn {
+      margin: 0px auto;
+    }
+
+    .contact-btn {
+      margin: 0px auto;
+    }
+
+    input[type="search"] {
+      color: #798991;
+      text-align: center;
+      padding-left: 15px;
+    }
+
+    /*nav */
+
+    .header-right {
+      display: block;
+      float: none;
+      text-align: center;
+    }
+
+    h2 {
+      font-size: 2.3em;
+      padding: 10px 0px;
+    }
+
+    .numbers {
+      padding: 40px 0px;
+    }
+
+    .numbers ul {
+      padding: 10px 30px;
+      margin: 0px;
+      text-align: center;
+    }
+
+    .how-content {
+      text-align: center;
+      padding: 10px 0px;
+      width: 100%;
+      display: block;
+    }
+    .how-body {
+      max-width: 90%;
+      width: 375px;
+    }
+
+    .large-icon {
+      padding: 10px 0px;
+    }
+
+    .contact-us {
+      text-align: center;
+      padding-bottom: 40px;
+    }
+
+    .contact-us h2, p {
+      text-align: center;
+    }
+
+    .contactus-content {
+      max-width: 100%;
+      padding: 0px 10px;
+    }
+
+    /* footer */
+
+    .footer {
+      padding: 40px 0px;
+    }
+
+    ul.footer-content {
+      margin: 0px;
+      text-align: center;
+      position: relative;
+      display: block;
+    }
+
+    .terms {
+      padding: 20px 0px;
+    }
+
+    .terms li {
+      display: block;
+      padding: 10px 0px;
+    }
+  }
+
+  /*-------------iPad----------*/
+  @media (min-device-width : 768px) and (max-device-width : 1024px)  {
+
+    .container {
+      margin: 0px auto;
+      overflow: hidden;
+      width: 700px;
+      max-width: 100%;
+    }
+
+    .subhead-container {
+      padding-bottom: 6rem;
+      display: block;
+      margin: 0px auto;
+    }
+
+    .home-search-btn {
+      margin: 0px auto;
+    }
+
+    .numbers {
+      padding: 80px 0px;
+      text-align: center;
+      display: block;
+    }
+
+    .numbers ul {
+      display: block;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .contact-us {
+      padding-right: 30px;
+    }
+
+    .footer ul {
+      padding: 5px;
+    }
+  }
+
+  /*Desktop size */
+  @media (min-device-width: 1030px) {
+    .container {
+      max-width: 100%;
+      width: 1140px;
+      margin: 0px auto;
+      overflow: hidden;
+    }
+    .how-content {
+      margin: 0px 40px;
+    }
+
+    .numbers ul {
+      padding: 0px 40px;
+    }
+
+    .footer ul {
+      padding: 0px 40px;
+    }
+  }
+}

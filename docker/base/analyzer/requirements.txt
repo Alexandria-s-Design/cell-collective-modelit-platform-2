@@ -1,0 +1,19 @@
+fastapi>=0.115.0,<1.0
+pydantic>=2.10.0,<3.0
+uvicorn>=0.15.0,<1.0
+tellurium>=2.2,<3.0
+simplesbml>=2.3,<3.0
+python-multipart>=0.0,<1.0
+pint>=0.24,<1.0
+pandas>=2.2,<3.0
+bpyutils>=0.5,<1.0
+pydeseq2>=0.4,<1.0
+bioservices>=1.11,<2.0
+numpy>=1.26.4
+cobra>=0.29.1
+scipy>=1.14.1
+statsmodels
+python-libsbml>=5.20.4
+setuptools-scm
+# Last updated: December 13, 2024
+# git+https://github.com/HelikarLab/COMO.git@hotfix

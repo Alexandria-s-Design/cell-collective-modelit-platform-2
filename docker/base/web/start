@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+set -e
+
+timeout=3
+
+if [[ "${CC_ENVIRONMENT}" == "production" || "${CC_ENVIRONMENT}" == "test" ]]; then
+    start_type="docker"
+else
+    start_type="development"
+fi
+
+start_command=${1:-"start"}
+
+echo "Waiting for DataBase service...";
+while ! nc -z "${CC_DATABASE_HOST}" "${CC_DATABASE_PORT}"; do sleep $timeout; done
+echo "Waiting for Redis Cache service...";
+while ! nc -z "${CC_CACHE_HOST}"    "${CC_CACHE_PORT}"   ; do sleep $timeout; done
+echo "Waiting for Redis Queue service...";
+while ! nc -z "${CC_QUEUE_HOST}"    "${CC_QUEUE_PORT}"   ; do sleep $timeout; done
+echo "Waiting for ElasticSearch service...";
+while ! nc -z "${CC_SEARCH_HOST}"   "${CC_SEARCH_PORT}"  ; do sleep $timeout; done
+echo "Waiting for Spring Boot App service...";
+while ! nc -z "${CC_APP_HOST}"      "${CC_APP_PORT}"     ; do sleep $timeout; done
+
+# echo "Syncing DataBase..."
+# yarn db:sync
+
+# echo "Migrating DataBase"
+# yarn db:migrate
+
+echo "Starting $start_command service...";
+yarn $start_command:$start_type

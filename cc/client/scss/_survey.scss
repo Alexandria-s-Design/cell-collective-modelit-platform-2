@@ -1,0 +1,367 @@
+body:not(.move) {
+  .survey {
+    .dropline>.droppable {
+      opacity: 0 !important;
+    }
+  }
+}
+
+.survey {
+  $backgroundColor: #f8f8f8;
+
+  padding-bottom: 3px;
+  
+  .icon.selected {
+    background-color: $lightBlue;
+  }
+
+  &.descr  {
+    height: 18px;
+    min-width: 230px;
+    
+    div {
+      &.editable {
+        padding-top:    2px;
+      }
+    }
+    
+    form {
+      &.editable {
+        padding-bottom:    2px;
+      }
+    }
+    
+    div,form {
+      &.editable {
+        height:     12px;
+        min-width:  200px;
+      }
+    }    
+  }
+  
+  &.title  {
+    font-size: 16pt;
+    height: 26px;
+    min-width: 200px;
+    
+    input {
+      font-size: 16pt
+    }
+
+    div {
+      &.editable {
+        padding-top:    2px;
+      }
+    }
+    
+    form {
+      &.editable {
+        padding-bottom:    2px;
+      }
+    }
+    
+    div,form {
+      &.editable {
+        height:     22px;
+        min-width:  200px;
+      }
+    }    
+  }
+  
+  li {
+      
+    margin-bottom: 2px;
+
+		&.li-text {
+			padding-top: 5px;
+			&.empty {
+				display: none;
+			}
+		}
+
+    &:first-child {
+        margin-top: 2px;
+    }
+
+    &.dropline {
+        &> .droppable {
+            height: 2px;
+        }
+    }
+    
+    .option {
+        position: relative;
+
+				%checks {
+					appearance: none;
+					width: 15px;
+					height: 15px;
+					border: 1px solid #dadada;
+					margin: 3px 8px 7px 5px;
+					vertical-align: middle;
+				}
+
+				input[type="checkbox"] {
+					@extend %checks;
+
+					&.correct {
+						border-color: #0b0;
+					}
+
+					&.incorrect {
+						border-color: red;
+					}
+
+					&:checked {
+						background-repeat: no-repeat;
+						background-position: center;
+						background-size: 12px 12px;
+						&.correct {
+							background-image: url('/assets/images/icons/base/check-green.png');
+						}
+						&.incorrect {
+							background-image: url('/assets/images/icons/base/check-red.png');
+						}
+						&:not(.correct):not(.incorrect) {
+							background-image: url('/assets/images/icons/base/check.png');
+						}
+					}
+				}
+
+				input[type="radio"] {
+					@extend %checks;
+					border-radius: 8px;
+					position: relative;
+					&:checked::after {
+						content: "";
+						position: absolute;
+						top: 2px;
+						left: 2px;
+						width: 9px;
+						height: 9px;
+						border-radius: 8px;
+						background-color: #888;
+					}
+
+					&.correct {
+						border-color: #0b0;
+					}
+
+					&.incorrect {
+						border-color: red;
+					}
+					
+					&.correct:checked {
+						&::after {
+							background-color: #0b0;
+						}
+					}
+
+					&.incorrect:checked {
+						&::after {
+							background-color: red;
+						}
+					}
+				}
+        
+        &:hover {
+            .remove {
+                opacity: 1;
+                margin-right: 10px;
+            }
+        }
+    }
+    
+		& .survey-q-drag {
+			display: flex;
+			justify-content: end;
+			input.icon {
+				float: initial !important;
+				margin-right: 5px;
+				&:nth-child(1) {
+					cursor: pointer;
+				}
+				&:nth-child(2) {
+					cursor: grab;
+				}
+			}
+		}
+
+		& .survey-q-top .select-options {
+			background-color: #f0f0f0;
+		}
+
+    & .survey-q-content {
+        border: 1px solid $borderColor;
+
+        &> div, &> ul, .droppable.static {
+        padding: 0 $spacing;
+        }
+
+        &> div:first-child {
+        padding-right: 0;
+        }
+
+        div.droppable {
+        &:before {
+            left: 0.5*$spacing;
+            right: 0.5*$spacing;
+        }
+
+        &:hover > .icon.hidden {
+            opacity: 1;
+        }
+        }
+
+        &.condition > div.droppable:before {
+        top: 1px;
+        bottom: 1px;
+        }
+    }
+  }
+  
+  &:not(.editable) > span > li,
+	&:not(.editable) > li {
+    margin-bottom: 2*$spacing;
+  }
+
+  &> span > li,
+	&> li {
+    &:not(.dropline) .survey-q-content {
+
+        &> div:first-child {
+        display: block;
+        border-bottom: 1px solid $borderColor;
+        background-color: $backgroundColor;
+
+        &> div:first-child {
+            left: 0.5*$spacing;
+        }
+
+        div.internal, div.external {
+            margin-left: $iconSize;
+
+            &>.remove {
+            display: none;
+            }
+        }
+
+        input[type="button"][value="Dominance"] {
+            margin-right: 0.5*$spacing;
+        }
+
+        .base-close-gray ~ input[type="button"][value="Dominance"] {
+            margin-right: 0;
+        }
+        }
+
+        &:hover > div:first-child > .base-close-gray {
+        opacity: 1;
+        }
+
+        &:last-child {
+        margin-bottom: 0;
+        }
+
+        &> div.droppable:before {
+        top: 1px;
+        bottom: 1px;
+        }
+    }
+  }
+  
+  div,form {
+      line-height: 22px;
+  }
+
+  div.internal {
+    background-color: white;
+  }
+
+  div.external {
+    background-color: rgb(254, 245, 231);
+  }
+
+  div.condition .editable input {
+    font-weight: bold;
+  }
+
+  input.icon {
+    margin: 0.5*$spacing;
+  }
+
+  input[type="button"][value="Dominance"] {
+    text-transform: none;
+  }
+
+  span.relation {
+    white-space: nowrap;
+  }
+
+  span.positive, span.negative {
+    cursor: pointer;
+  }
+
+  span.positive {
+    color: $green;
+  }
+
+  span.negative {
+    color: $red;
+  }
+
+  :not(.base-button-group) > .icon:not(.base-add) {
+    margin-top: 0.5*$spacing;
+    margin-bottom: 0.5*$spacing;
+    float: right;
+  }
+
+
+  .points-box {
+    margin: 0 7px;
+  }
+
+  .base-close-gray {
+    transition: all 0.5s;
+    transition-property: opacity, background-color;
+	}
+	
+	.simpleTable {
+		th {
+			font-weight: bold;
+			/* TODO: better table styling :) */
+/*			background-color: #f8f8f8; */
+		}
+	}
+}
+
+.editable.bold {
+  font-weight: bold;
+}
+
+div.survey-q-header > div.header {
+  display: inline;
+}
+
+
+span.base-button-group {
+  vertical-align: bottom;
+  float: right;
+}
+
+span.survey-options {
+	padding: 4px 0 4px 4px;
+}
+
+.survey {
+  div.menu {
+    ul {
+      li {
+        border: none;
+        div {
+          padding: 0 6px !important;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,187 @@
+@keyframes progress {
+		0% {
+			left: 0;
+		}
+		50% {
+			left: calc(100% - 35px);
+		}
+		100% {
+			left: 0;
+		}
+}
+
+div.content > form:not(.no-format) {
+  $size: $fontSize + 1px;
+
+  padding: 2*$spacing;
+
+  input {
+    font-size: $size;
+
+    &:not([type="submit"]):not([type="button"]) {
+      margin-top: 3*$spacing;
+      width: 100%;
+      border-bottom: 1px solid $borderColor;
+    }
+
+    &[type="submit"], &[type="button"]:not(.base-menu) {
+      position: absolute;
+      bottom: 2*$spacing;
+    }
+
+    &[type="submit"] {
+      right: 2*$spacing;
+      cursor: pointer;
+      text-transform: uppercase;
+      transition: color 0.5s;
+
+      &:hover:not(:disabled) {
+        color: $lightBlue;
+      }
+
+      &:disabled {
+        cursor: auto;
+        color: #D7D7D7;
+        transition: none;
+      }
+    }
+
+    &[type="button"]:not(.base-menu) {
+      right: auto;
+			&:not(.forgot-password) {
+				left: 2*$spacing;
+			}
+
+
+      &[value="OK"] {
+        left: auto;
+        right: 2*$spacing;
+      }
+
+      &[value="Cancel"] {
+        left: auto;
+        right: 7*$spacing;
+      }
+    }
+  }
+
+  &> dt {
+    margin-top: 3*$spacing;
+    font-size: $fontSize - 1px;
+
+    &:first-child {
+      margin-top: $spacing;
+    }
+
+    &~ input:not([type="submit"]):not([type="button"]) {
+      margin-top: 0.5*$spacing;
+    }
+  }
+
+
+  i {
+    white-space: nowrap;
+  }
+
+  &> div {
+    &.content {
+      text-align: center;
+      margin: 4*$spacing 0;
+      overflow: hidden;
+    }
+
+		&.content.dialog {
+			margin: 1*$spacing 0;
+			
+			h3.dialog-title {
+				margin-top: 0;
+			}
+		}
+
+    &.error {
+      margin-top: 2*$spacing;
+      height: 2*($fontSize + 1px);
+      overflow: hidden;
+      color: $red;
+
+      &+ div.content {
+        margin-top: 0;
+      }
+		}
+		
+		div.circles-progress {
+			margin: 0 4px;
+			&::after {
+				float: left;
+				width: 100%;
+				height: 30px;
+				color: white;
+				content: '';
+				background: url("/assets/images/loading-cc.gif") center no-repeat;
+				background-size: auto;
+				background-size: cover;
+				margin-top: 15px;
+			}
+
+			span.message {
+				font-weight: 600;
+			}
+		}
+
+		div.progress {
+			margin: 0 4px;
+			width: calc(100% - 12px);
+			height: 20px;
+			border-radius: 10px;
+			position: relative;
+
+			appearance: none;
+			-webkit-appearance: none;
+
+			background-color: white;
+			border: 2px solid black;
+
+			overflow: hidden;
+
+			&::after {
+				position: absolute;
+				width: 35px;
+				left: 0;
+				top: 0;
+				height: 100%;
+				color: white;
+				background-color: green;
+				content: '';
+				animation-name: progress;
+				animation-duration: 3s;
+				animation-iteration-count: infinite;
+				animation-timing-function: linear;
+				z-index: 1;
+			}
+
+			span.message {
+				position: absolute;
+				background-color: transparent;
+				font-weight: bold;
+				font-size: 12px;
+				left: 50%;
+				top: 50%;
+				width: 100%;
+				transform: translate(-50%, -50%);
+				color: black;
+				z-index: 2;
+				user-select: none;
+			}
+		}
+  }
+
+  &.row-2 {
+		& input:not([type="submit"]):not([type="button"]), div.input {
+			width: 208px;
+
+			&:nth-child(even) {
+				margin-left: 4*$spacing;
+			}
+		}
+  }
+}

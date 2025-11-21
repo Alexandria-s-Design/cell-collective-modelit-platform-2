@@ -1,0 +1,27 @@
+.course-header {
+	display: flex;
+	// justify-content: space-between;
+	position: relative;
+
+	& > span,
+	& > div {
+		vertical-align: top;
+	}
+
+	& .react-datepicker__tab-loop {
+		overflow: visible;
+		z-index: 100;
+		position: fixed;
+	}
+
+	& .course-title {
+		min-width: 150px;
+		margin-right: 20px;
+	}
+}
+
+// }
+// .course-header> span{
+// 	display: inline-block;
+// 	width: 100%;
+// 	}

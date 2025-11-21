@@ -1,0 +1,9 @@
+.grid.cards {
+  @for $i from 1 through 10 {
+    &.row-#{$i} {
+      div.card {
+        width: percentage(calc(1 / $i));
+      }
+    }
+  }
+}

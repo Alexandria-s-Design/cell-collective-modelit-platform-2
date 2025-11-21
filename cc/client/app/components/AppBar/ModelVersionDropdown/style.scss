@@ -1,0 +1,61 @@
+@import "../../../../scss/variables.scss";
+@import "../../../../scss/base.scss";
+
+.menu.version {
+    &>div.modelVersionEdit, &>form input {
+        font-size: 11px;
+		}
+		
+		& li > div{
+			$backgroundColor: #333;
+
+			&:first-child:nth-last-child(2):before {
+				position: absolute;
+				top: 7px;
+				z-index: 1;
+				width: 4px;
+				height: 8px;
+				content: "";
+			}
+
+			&:first-child:nth-last-child(2):before {
+				position: absolute;
+				top: 7px;
+				right: $spacing;
+				z-index: 1;
+				width: 4px; 
+				height: 8px;
+				content: "";
+				background-image: url('/assets/images/icons/base/arrow.png');
+			}
+
+			&.version.versionSelect >.selectVersion {
+				width: 16px;
+				height: 16px;
+				display: inline;
+				background-repeat: no-repeat;
+				content: "";
+				cursor: pointer;
+			}
+
+			&.checkbox {
+				cursor: pointer;
+
+				&.checked:before {
+					top: 0.5*$spacing;
+					background-image: url('/assets/images/icons/base/check-white.png');
+				}
+			}
+
+			&:after {
+				@include overflowRight($backgroundColor, 0);
+			}
+
+			&.disabled {
+				color: $lightBlue;
+			}
+
+	
+		}
+
+}

@@ -1,0 +1,13 @@
+{
+	"compilerOptions": {
+			"jsx": "react",
+			"baseUrl": "./app/admin",
+			"paths": {
+					"*": ["node_modules/*"]
+			},
+			"moduleResolution": "node",
+			"esModuleInterop": true,
+			"allowSyntheticDefaultImports": true
+	},
+	"include": ["./app/admin/**/*", "./app/admin/*.d.ts"],
+}

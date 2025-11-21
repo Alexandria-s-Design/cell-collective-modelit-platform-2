@@ -1,0 +1,30 @@
+
+div.bar {
+	div.base {
+		&.btn-panel {
+			display: inline;
+			cursor: pointer;
+			position: relative;
+			border: 1px solid #a6a6a6;
+			background-color: #fff;
+			border-radius: 3px;
+			top: -5px;
+			padding-bottom: 0px;
+			padding-top: 2px;
+			padding-right: 3px;
+			
+			&> span {
+				top: -1px;
+				position: relative;
+			}
+			&> .icon {
+				top: 4px;
+				position: relative;
+			}
+			&:hover {
+				color: #0b5e3a;
+				border-color: #0b5e3a;
+			}
+		}
+	}
+}

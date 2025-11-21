@@ -1,0 +1,314 @@
+.learning .upgrade-btn{
+	color: #ffffff;
+	background-color: #e9c63a;
+	border-radius: 5px;
+	margin-bottom: -26%;
+	margin-left: -139%;
+	margin-top: 10%;
+	height: 18px;
+	width: 66px;
+	text-align: center;
+	line-height: 163%;
+
+}
+
+.teaching .upgrade-btn{
+	color: #ffffff;
+	background-color: #1f79ef;
+	border-radius: 5px;
+	margin-bottom: -26%;
+	margin-left: -139%;
+	margin-top: 10%;
+	height: 18px;
+	width: 66px;
+	text-align: center;
+	line-height: 163%;
+		}
+
+.research .upgrade-btn{
+visibility: hidden;
+}
+
+.upgrade-btn:hover {
+	cursor: pointer !important;
+	opacity: 1.0;
+	box-shadow: 0 1px 1px #fdfdfd6e;
+}
+
+.table.upgrade-table{
+tr, th, td{
+	border: hidden; 
+} 
+}
+
+
+.upgrade-table{
+width: 94% !important;
+border: hidden;
+margin: auto;
+table-layout: auto !important;
+
+tr, th, td{
+	border: 0px !important; 
+} 
+
+ul li{
+	color: black;
+	font-size: 120%;
+	margin-left: 20px;
+	list-style-type: square;
+}
+
+ul li.blue-bullet{
+	color:#0091E7;
+	font-size: 12px;
+	margin-left: 20px;
+	list-style-type: square;
+}
+
+ul li span{
+color: black;
+}
+
+}
+
+.right-upgrade{
+width: 80px;
+}
+
+.checkout{
+background-color: #20B29D;
+color: white;
+width: 17%;
+border-radius: 9px;
+border: hidden;
+box-sizing: content-box;
+font-size: medium;
+padding: 3px 2px 3px 2px;
+position: relative;
+left: 500px;
+bottom: -41px;
+padding: 3px 2px 3px 2px;
+
+background-color: #20B29D;
+    color: white;
+    width: 17%;
+    border-radius: 6px;
+    border: hidden;
+    box-sizing: content-box;
+    font-size: medium;
+    position: relative;
+    left: 355px;
+    // top: 33px;
+		top: -4px;
+    padding: 6px 3px 6px 3px;
+
+}
+
+.upgrade-items-center{
+text-align: center;
+font-size: medium;
+margin: 1.5%;
+}
+
+.upgrade-items-end{
+text-align: end;
+}
+
+
+
+.highlight-button{
+background: #0091E7;
+border: hidden;
+border-radius: 9px;
+color: white;
+font-family: inherit;
+}
+
+.normal-button{
+background: lightgrey;
+border: hidden;
+border-radius: 9px;
+color: white;
+font-family: inherit;
+}
+
+.highlight-row-left{
+width: 100%;
+height: 100%;
+background: lightgrey;
+border-top-left-radius: 9px;
+border-bottom-left-radius: 9px;
+}
+
+
+.highlight-row-right{
+width: 100%;
+height: 100%;
+background: lightgrey;
+border-top-right-radius: 9px;
+border-bottom-right-radius: 9px;
+}
+
+.studentCount{
+border: solid lightgrey;
+width: 18% !important;
+text-align: center;
+margin: 5px;
+background: lightgrey;
+margin-top: 0px !important;
+}
+
+.basicPlan-top{
+padding-bottom: 3% !important;
+}
+
+.radio-square input[type=radio]{
+// input[type=radio]{
+	border: 1px solid #fff;
+	padding-left: 2.5em;
+// }
+}
+
+.radio-square {
+	margin-left: 64%;
+}
+
+.radio-square li {
+padding: 2px;
+}
+
+.slight-right{
+margin-left: 8%;
+}
+
+li.premium {
+	color: #0091E7 !important;
+}
+
+.textCenter {
+	margin: 1% 2% 1% 11%;
+	text-align: center;
+	color: black;
+	font-size: 120%;
+}
+
+//************** For Custom radio box start ************************
+.css-prp
+{
+color: #0091E7;
+font-family: arial;
+}
+
+
+.con1 {
+position: relative;
+padding-left: 25px;
+cursor: pointer;
+font-size: 15px;
+-webkit-user-select: none;
+-moz-user-select: none;
+-ms-user-select: none;
+user-select: none;
+}
+
+/* Hide the browser's default radio button */
+.con1 input {
+position: absolute;
+opacity: 0;
+cursor: pointer;
+}
+
+/* Create a custom radio button */
+.checkmark-radio {
+position: absolute;
+top: 0;
+left: 0;
+height: 18px;
+width: 18px;
+background-color: lightgrey !important;
+border-radius: 10%;
+}
+
+/* When the radio button is checked, add a blue background */
+.con1 input:checked ~ .checkmark-radio {
+background-color: #0091E7 !important;
+}
+
+//************** For Custom radio box end ************************
+
+.upgrade-table-border{
+font-weight: lighter;
+}
+
+
+//****************************
+
+
+.tabs {
+	border: 0px;
+	background: transparent;
+	color: white;
+	font-size: medium;
+}
+
+.tabs.active-tabs {
+	background: #0091E7;
+	color: white;
+	border: 0px transparent;
+	border-radius: 5px;
+	font-size: medium;
+}
+
+.studentCountLabel {
+	position: relative;
+	left: 214px;
+}
+
+td.upgrade-items-center.totalSumLabel {
+	position: relative;
+	// top: 58px;
+	top: 25px;
+	font-size: large;
+}
+
+.overlay{
+	position: fixed !important;
+	max-height: 100%;
+	overflow: auto;
+	max-width: 100%;
+}
+
+dd.upgrade {
+	margin: -10px;
+}
+
+dt.profile {
+	margin-right: -8px !important;
+	margin-top: 9px;
+}
+
+
+// h2.upgrade-items-center.headingSize {
+// 	font-size: medium;
+// }
+
+td.basicPlan-top.align {
+	display: table;
+}
+.align-right {
+	float: right;
+}
+
+.sub-column-header {
+	text-align: left;
+	padding-left: 5%;
+}
+
+.upgrade-table ul.nobullet li {
+	list-style-type: none;
+}
+
+.view > .bar > .content >.upgradeMenu{
+	position: relative;
+}

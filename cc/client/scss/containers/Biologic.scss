@@ -1,0 +1,59 @@
+div.internal, div.external {
+  cursor: pointer;
+  display: inline-block;
+  line-height: $fontSize + $spacing - 1px;
+  white-space: nowrap;
+  padding: 0 0.5*$spacing;
+  border-radius: 4px;
+
+  &> div:first-child {
+    overflow: hidden;
+    vertical-align: bottom;
+  }
+
+  &:hover {
+    color: $lightBlue;
+  }
+
+  &.delay {
+    border-style: dotted;
+  }
+}
+
+div.internal {
+  border: 1px solid rgba(black, 0.1);
+  box-shadow: 1px 1px 4px 1px rgba(black, 0.1);
+
+  &.delay {
+    border-color: rgba(black, 0.4);
+  }
+}
+
+div.external {
+  background-color: rgba($orange, 0.1);
+  border: 1px solid rgba($orange, 0.3);
+  box-shadow: 1px 1px 4px 1px rgba($orange, 0.3);
+
+  &.delay {
+    border-color: rgba($orange, 0.6);
+  }
+}
+
+div.dragging > div {
+  white-space: nowrap;
+
+  &.internal {
+    background-color: white;
+  }
+
+  &.external {
+    background-color: rgb(253, 244, 230);
+  }
+
+  &.condition {
+    background-color: white;
+    border: 1px solid rgba(black, 0.1);
+    padding: 0 0.5*$spacing;
+    line-height: $fontSize + $spacing - 1px;
+  }
+}

@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+
+set -e
+
+timestamp="$1"
+basedir="$(dirname "${0}")"
+source "${basedir}/includes/constants"
+
+folderpath="${PATH_BACKUPS}/${timestamp}/db"
+filepath="${folderpath}/db.sql.gz"
+filepath_other="${folderpath}/db-other.sql.gz"
+
+echo "Dumping DataBase to ${filepath}"
+
+prom_file="postgres_backup_exporter.prom"
+
+mkdir -p "${folderpath}"
+mkdir -p "${PATH_EXPORTS}/${timestamp}"
+
+pg_dump -Fc --exclude-table=experiment_data --exclude-table=Responses -v | gzip > "${filepath}"
+pg_dump -Fc --table=experiment_data --table=Responses -v | gzip > "${filepath_other}"
+
+echo "Backup created successfully at ${filepath}"
+
+echo "Exporting Prometheus backup metrics"
+
+# inform monitoring about backups state
+rm ${PATH_EXPORTS}/${prom_file}.* 2>/dev/null || true
+
+echo "# HELP postgres_backup_time_created timestamp when backup was created" >> "${PATH_EXPORTS}/${prom_file}.$$"
+echo "# TYPE postgres_backup_time_created gauge" >> "${PATH_EXPORTS}/${prom_file}.$$"
+echo "postgres_backup_time_created{db=\"${PGDATABASE}\"} $(date +%s)" >> "${PATH_EXPORTS}/${prom_file}.$$"
+
+mv "${PATH_EXPORTS}/${prom_file}.$$" "${PATH_EXPORTS}/${timestamp}/${prom_file}"
+
+echo "Prometheus metrics exported successfully"

@@ -1,0 +1,36 @@
+<div class="modal-content">
+	<div class="modal-header">
+		<span class="close">&times;</span>
+		<h4 style="text-transform: uppercase;"></h4>
+	</div>
+	<div class="modal-body">
+
+		<form class="profile-form">
+
+			<div>
+				<label for="email" data-translate="email">Email</label>
+				<input type="email" name="email"  autoComplete="email" placeholder="Email" value="<%= user.email %>" required/>
+			</div>
+
+			<div>
+				<label for="firstname" data-translate="first_name">First Name</label>
+				<input type="text" name="firstname" autoComplete="firstname" placeholder="First Name" value="<%= user.firstname %>" required/>
+			</div>
+
+			<div>
+				<label for="lastname" data-translate="last_name">Last Name</label>
+				<input type="text" name="lastname" autocomplete="off" placeholder="Last Name" value="<%= user.lastname %>" required/>
+			</div>
+
+			<div>
+				<label for="institutionAutocomplete" data-translate="institution">Institution</label>
+				<div class="autocomplete-institutions">
+					<input id="institutionAutocomplete" type="text" name="institution" placeholder="Institution" value="<%= user.institution %>"  tabindex="6">
+				</div>
+			</div>
+
+			<button class="btn-submit-profile" type="submit" data-translate="save">Save</button>
+
+		</form>
+	</div>
+</div>

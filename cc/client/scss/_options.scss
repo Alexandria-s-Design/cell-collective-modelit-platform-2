@@ -1,0 +1,42 @@
+.options {
+  &> i {
+    font-weight: normal;
+  }
+
+  &> .editable > input {
+    font-weight: bold;
+  }
+
+  &> div.menu {
+    position: fixed;
+    z-index: 100;
+    margin: 0.5*$spacing 0;
+    font-weight: normal;
+
+    &> ul.ul {
+      position: static;
+      &> li {
+        div.remove {
+          right: -0.5*$spacing;
+          top: 2px;
+        }
+
+        &:hover div.remove {
+          opacity: 1;
+        }
+
+        &.def {
+          border-bottom: 1px solid $borderColor;
+        }
+      }
+    }
+  }
+
+  &> .base-menu {
+    margin: 0.5*$spacing 0 0.5*$spacing 0.5*$spacing;
+  }
+  
+  .add-option:hover{
+    color: $green;
+  }
+}

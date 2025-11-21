@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+
+echo "backing up db"
+
+source /env/envs.sh
+
+set -e
+
+basedir="$(dirname "${0}")"
+
+backup_dir="/backups/db"
+
+filename="db-$(date "+%Y_%m_%d__%H_%M_%S").sql.gz"
+filepath="${backup_dir}/${filename}"
+filepath_other="${backup_dir}/db-other.sql.gz"
+
+pg_dump -Fc --exclude-table=experiment_data --exclude-table=Responses -v | gzip > "${filepath}"
+pg_dump -Fc --table=experiment_data --table=Responses -v | gzip > "${filepath_other}"
+
+echo "Db Backup created successfully at ${filepath}"
+
+echo "Copying backup to Network Attached Storage"
+
+scp "${filepath}" "${BACKUP_SERVER_USER}@${BACKUP_SERVER_HOST}:~/${DB_BACKUP_PATH}"
+scp "${filepath_experiment}" "${BACKUP_SERVER_USER}@${BACKUP_SERVER_HOST}:~/${DB_BACKUP_PATH}"
+
+echo "Successfully created backup to Network Attached Storage"
+
+
+

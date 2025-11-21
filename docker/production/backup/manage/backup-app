@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+set -e
+
+timestamp="$1"
+basedir="$(dirname "${0}")"
+source "${basedir}/includes/constants"
+
+echo "Compressing App Assets..."
+
+filename="app.tar.gz"
+folderpath="${PATH_BACKUPS}/${timestamp}/app"
+
+mkdir -p "${folderpath}"
+
+filepath="${folderpath}/${filename}"
+
+tar czvf "${filepath}" data/app/data data/app/data_export data/app/export data/app/import
+
+echo "Backup created successfully at ${filepath}"

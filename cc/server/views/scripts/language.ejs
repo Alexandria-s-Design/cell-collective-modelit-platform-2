@@ -1,0 +1,55 @@
+<!-- Begin Language Scripts -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/i18next/23.12.2/i18next.min.js" integrity="sha512-ZXn9Gf3oOZdrXCTKCA3rSJGazyh+/BMChDcOr9Vt4GxYI1SFwZRreS+72LluaGa87nNGrIKjnNl3zG2OLRmGeQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+	class Language {
+		static selectLanguage(el) {
+			var selectedLang = $(el.target).data('lang');
+			LocalStorageService.setLang(selectedLang);
+			window.location.reload(true);
+		}
+
+		static translate(currLang) {
+			$('[data-translate]').not('input').each(function() {
+				const key = $(this).data('translate');
+				if (key in Locales[currLang].translation) {
+					$(this).text(i18next.t(key));	
+				}
+			});
+			$('input[data-translate][type="button"]').each(function() {
+				const key = $(this).data('translate');
+				if (key in Locales[currLang].translation) {
+					$(this).val(i18next.t(key));	
+				}
+			});
+			$('input[data-translate-placeholder]').each(function() {
+				const key = $(this).data('translate-placeholder');
+				if (key in Locales[currLang].translation) {
+					$(this).attr("placeholder", i18next.t(key));	
+				}
+			});
+		}		
+	}
+
+	$(document).ready(function() {
+		var currLang = LocalStorageService.getLang() || 'en';
+		i18next.init({
+			lng: currLang,
+			resources: Locales
+		}, function() {
+			console.info('[Locale]: ', currLang);
+			Language.translate(currLang);
+		});
+
+		$('#LanguageMenuWrap').parent('li').on('mouseover', function(el) {
+			el.preventDefault();
+			$('#LanguageMenuOptions').addClass('show');
+		})
+		$('#LanguageMenuWrap').parent('li').on('mouseleave', function(el) {
+			el.preventDefault();
+			$('#LanguageMenuOptions').removeClass('show');
+		})
+		$('ul#LanguageMenuOptions > li').on('click', Language.selectLanguage.bind(this));
+	});
+
+</script>
+<!-- End Language Scripts -->

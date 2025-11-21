@@ -1,0 +1,60 @@
+.expression {
+  $height: $fontSize + 3px;
+
+  span, div {
+    &:not(.ti-enter):not(.ti-leave) {
+  //    transition: all 0.5s;
+  //    transition-property: opacity, background-color;
+    }
+  }
+
+  &.hovered > span > span {
+  //  opacity: 0.3;
+
+    &.hover1_1, &.hover2_2, &.hover3_3 {
+  //    opacity: 1;
+
+      div.external {
+        border: 1px solid rgba(black, 0.1);
+        box-shadow: 1px 1px 4px 1px rgba(black, 0.1);
+      }
+    }
+  }
+
+  span {
+    font-size: $height;
+    padding-bottom: 2px;
+    line-height: $height + $spacing;
+  }
+
+  div {
+    font-size: $fontSize;
+    display: inline-block;
+  }
+
+  div.internal, div.external {
+    line-height: $height;
+  }
+
+  .hover1_0, .hover2_0, .hover3_0 {
+    background-color: $red;
+    color: white;
+  }
+
+  .hover1_1, .hover2_1, .hover3_1 {
+    background-color: rgba($blue, 0.6);
+    color: white;
+  }
+
+  .hover3_2 {
+    background-color: rgba($blue, 0.3);
+  }
+
+  .hover2_2 {
+    background-color: rgba($blue, 0.2);
+  }
+
+  .hover3_3 {
+    background-color: rgba($blue, 0.1);
+  }
+}

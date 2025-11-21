@@ -1,0 +1,19 @@
+.image-report-table {
+    overflow: auto;
+    border-bottom: 1px solid gray;
+}
+
+img.image-report-preview {
+    border: 1px solid #dadada;
+    cursor: pointer;
+}
+
+div.image-report {
+    &.error {
+        color: red;
+        font-weight: bold;
+        font-size: 14pt;
+
+        text-align: center;
+    }
+}

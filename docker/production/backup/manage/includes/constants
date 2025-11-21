@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+set -e
+
+export PGHOST="${POSTGRES_HOST}"
+export PGPORT="${POSTGRES_PORT}"
+export PGUSER="${POSTGRES_USER}"
+export PGPASSWORD="${POSTGRES_PASSWORD}"
+export PGDATABASE="${POSTGRES_DB}"
+
+PATH_BACKUPS="/backups/${HOST_HOSTNAME}/${CC_PROJECT_NAME}"
+PATH_EXPORTS="/exports/${HOST_HOSTNAME}/${CC_PROJECT_NAME}"

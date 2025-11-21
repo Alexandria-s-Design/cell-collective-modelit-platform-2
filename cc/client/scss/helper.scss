@@ -1,0 +1,41 @@
+.no-hover
+{
+    display: block;
+    &:hover
+    {
+        background-color: transparent !important;
+    }
+}
+
+.cursor-pointer
+{
+    cursor: pointer;
+}
+
+.no-background
+{
+    background: none !important;
+}
+
+.no-margin {
+     margin: 0 !important;
+}
+
+.no-padding {
+    padding: 0 !important;
+}
+
+.no-h-padding {
+    padding-left:  0 !important;
+    padding-right: 0 !important;
+}
+
+.no-border-radius
+{
+    border-radius: 0 !important;
+}
+
+.no-border
+{
+    border: none !important;
+}

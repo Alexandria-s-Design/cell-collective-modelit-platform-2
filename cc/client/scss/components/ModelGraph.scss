@@ -1,0 +1,9 @@
+.canvas {
+  input[type=text] {
+    position: absolute;
+    z-index: 1000;
+    background-color: white;
+    border: 2px solid $baseColor;
+    font-weight: bold;
+  }
+} 

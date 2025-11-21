@@ -1,0 +1,91 @@
+$scrollBarWidth: 7px;
+$scrollBarOverflow: 0.5*$spacing;
+
+div.scrollable {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  padding: 0 $scrollBarOverflow;
+
+  &> div:first-child {
+    position: relative;
+
+    &> table {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: -1px;
+    }
+  }
+}
+
+div.graph-advanced {
+	.scrollable {
+	  overflow: scroll;
+	}
+}
+
+
+div.bar.resultHeader div.scrollable {
+	padding: 12px $scrollBarOverflow;
+}
+
+div.scrollbar {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: $scrollBarWidth;
+  height: 100%;
+  background-color: rgb(230, 230, 230);  
+
+  &> div {
+    position: relative;
+    width: 100%;
+    min-height: 25px;
+    background-color: rgba(black, 0.1);
+    border-radius: floor(0.5*$scrollBarWidth);
+    cursor: pointer;
+  }
+}
+
+div.scroll {
+  $pr: $scrollBarWidth - 1px;
+  padding-right: $pr;
+
+  &> div.scrollable {
+    padding-right: $pr + $scrollBarOverflow;
+
+		&> div.content {
+			width: 100%;
+			height: 100%;
+			background-color: transparent;
+		}
+    
+    &.horizontal {
+      overflow-x: hidden;
+      overflow-y: hidden;
+      width: 99.5%;
+    }
+    
+    &.overflow {
+
+      &:not(.horizontal) {
+        &:after {
+          background: linear-gradient(to bottom, rgba($windowBackgroundColor, 0), $windowBackgroundColor 100%);
+        }
+      }
+
+      &:after {
+        position: absolute;
+        pointer-events: none;
+        content: "";
+        left: 0;
+        right: $pr + $scrollBarOverflow;
+        bottom: 0;
+        height: $overflowWidth;
+      }
+    }
+  }
+}

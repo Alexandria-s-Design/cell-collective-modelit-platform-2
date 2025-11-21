@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd">
+
+	<import resource="classpath:/spring/cc-configuration-beans.xml" />
+	<import resource="classpath:/spring/cc-dataaccess-beans.xml" />
+	<import resource="classpath:/spring/cc-authentication-beans.xml" />
+	<import resource="classpath:/spring/cc-simulation-beans.xml" />
+
+	<bean id="backgroundThreadManager" class="cc.application.main.thread.BackgroundThreadManager"
+		destroy-method="shutdown" />
+
+	<bean id="modelScoreCalculator" class="cc.application.main.thread.task.ModelScoreCalculator" />
+
+	<bean factory-bean="backgroundThreadManager" factory-method="scheduleTask">
+		<constructor-arg ref="modelScoreCalculator" />
+	</bean>
+
+	<bean id="modelNotificationScheduler"
+		class="cc.application.main.controller.ModelNotificationScheduler" />
+		
+	<bean id="userRegistrationNotificationScheduler"
+		class="cc.application.main.controller.UserRegistrationNotificationScheduler" />
+		
+	<bean factory-bean="backgroundThreadManager" factory-method="scheduleTask">
+		<constructor-arg ref="modelNotificationScheduler" />
+	</bean>
+	<bean factory-bean="backgroundThreadManager" factory-method="scheduleTask">
+		<constructor-arg ref="userRegistrationNotificationScheduler" />
+	</bean>
+</beans>

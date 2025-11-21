@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+echo "============ BEGIN $(date)  ==============="
+source /env/envs.sh
+
+set -e
+
+echo "========= Removing old db backups $(date)  ============"
+/scripts/backups/db_rotate
+
+echo "========= Backing up Db $(date)  ============"
+/scripts/backups/db
+
+echo "========= Backing up App  $(date) ============"
+/scripts/backups/app
+
+echo "========= DONE :) $(date)  ============"

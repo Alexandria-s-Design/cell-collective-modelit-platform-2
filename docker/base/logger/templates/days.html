@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charSet="utf-8"/>
+		<title>CC - Logs</title>
+	</head>
+	<body>
+		<ul id="LogsDays">
+			{{range .Days}}
+			<li><a href="./view?month={{ $.Month }}&year={{ $.Year }}&day={{.Day}}">{{.LogFile}}</a></li>
+			{{end}}
+		</ul>
+	</body>
+</html>

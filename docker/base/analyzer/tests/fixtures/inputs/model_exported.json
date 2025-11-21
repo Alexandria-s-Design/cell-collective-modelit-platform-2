@@ -1,0 +1,112 @@
+{
+  "metabolites": [
+    {
+      "id": "mA",
+      "name": "A",
+      "compartment": "cA",
+      "formula": "ghhg",
+      "annotation": {
+        "chebi": [
+          "125666"
+        ],
+        "kegg.drug": [
+          "85566"
+        ]
+      }
+    },
+    {
+      "id": "mB",
+      "name": "B",
+      "compartment": "cB",
+      "formula": "uyu"
+    },
+    {
+      "id": "mC",
+      "name": "C",
+      "compartment": "cC"
+    },
+    {
+      "id": "mD",
+      "name": "D",
+      "compartment": "cD"
+    },
+    {
+      "id": "mE",
+      "name": "E",
+      "compartment": "cE"
+    },
+    {
+      "id": "mF",
+      "name": "F",
+      "compartment": "cF"
+    },
+    {
+      "id": "mG",
+      "name": "G",
+      "compartment": "cG"
+    },
+    {
+      "id": "mH",
+      "name": "H",
+      "compartment": "cH"
+    },
+    {
+      "id": "mI",
+      "name": "I",
+      "compartment": "cI",
+      "annotation": {
+        "chebi": [
+          "1452"
+        ]
+      }
+    }
+  ],
+  "reactions": [
+    {
+      "id": "growth_reaction",
+      "name": "Growth Reaction",
+      "metabolites": {},
+      "lower_bound": 0,
+      "upper_bound": 0,
+      "gene_reaction_rule": ""
+    },
+    {
+      "id": "B",
+      "name": "B",
+      "metabolites": {},
+      "lower_bound": -1000,
+      "upper_bound": 1000,
+      "gene_reaction_rule": ""
+    }
+  ],
+  "objective": {
+    "growth_reaction": 1.0
+  },
+  "genes": [
+    {
+      "id": "wAp",
+      "name": "A"
+    },
+    {
+      "id": "cAi",
+      "name": "B"
+    },
+    {
+      "id": "pAw",
+      "name": "C"
+    }
+  ],
+  "id": "16136",
+  "compartments": {
+    "cA": "cA",
+    "cB": "cB",
+    "cC": "cC",
+    "cD": "cD",
+    "cE": "cE",
+    "cF": "cF",
+    "cG": "cG",
+    "cH": "cH",
+    "cI": "cI"
+  },
+  "version": "1"
+}

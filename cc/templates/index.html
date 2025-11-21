@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport"              content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+        <title>
+            <%= htmlWebpackPlugin.options.app.title %> | <%= htmlWebpackPlugin.options.app.name %>
+        </title>
+
+        <meta name="application-name" content="<%= htmlWebpackPlugin.options.app.name %>">
+
+        <meta name="theme-color"      content="<%= htmlWebpackPlugin.options.app.color.primary %>">
+        <meta name="description"      content="<%= htmlWebpackPlugin.options.app.description %>">
+        
+        <meta name="robots"           content="nofollow">
+        <meta name="googlebot"        content="nofollow">
+        
+        <meta name="google-site-verification" content="<%= htmlWebpackPlugin.options.app.google_site_verification_token %>">
+        
+        <meta name="mobile-web-app-capable"   content="yes">
+
+        <!-- TODO -->
+        <link rel="manifest" href="manifest.json">
+
+        <link rel="author"   href="humans.txt">
+
+        <link rel="me" href="https://facebook.com/<%= htmlWebpackPlugin.options.app.social.facebook.username %>" type="text/html">
+        <link rel="me" href="mailto:<%= htmlWebpackPlugin.options.app.contact.email.hello %>">
+        <link rel="me" href="sms:<%= htmlWebpackPlugin.options.app.contact.phone %>">
+
+        <!-- Prefetching -->
+        <link rel="dns-prefetch" href="<%= htmlWebpackPlugin.options.app.urls.base %>">
+        <link rel="preconnect"   href="<%= htmlWebpackPlugin.options.app.urls.base %>">
+        <link rel="prefetch"     href="<%= htmlWebpackPlugin.options.app.urls.base %>">
+        <link rel="prerender"    href="<%= htmlWebpackPlugin.options.app.urls.base %>">
+
+				<!-- <link rel="preload" as="font" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,900&display=swap"> -->
+				<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,0,0" />
+        <!-- TODO -->
+        <!-- <link rel="icon"             href="/path/to/icon.png" sizes="192x192"> -->
+        <!-- <link rel="apple-touch-icon" href="/path/to/apple-touch-icon.png">     -->
+        <!-- <link rel="mask-icon"        href="/path/to/icon.svg" color="green">   -->
+
+        <!-- Facebook Open Graph -->
+        <meta property="fb:app_id"      content="<%= htmlWebpackPlugin.options.app.social.facebook.app_id %>">
+        <meta property="og:url"         content="<%= htmlWebpackPlugin.options.app.urls.base %>">
+        <meta property="og:type"        content="website">
+        <meta property="og:title"       content="<%= htmlWebpackPlugin.options.app.title %> | <%= htmlWebpackPlugin.options.app.name %>">
+        <!-- <meta property="og:image"       content=""> -->
+        <meta property="og:description" content="<%= htmlWebpackPlugin.options.app.description %>">
+        <meta property="og:site_name"   content="<%= htmlWebpackPlugin.options.app.name %>">
+        <meta property="og:locale"      content="en_US">
+
+        <!-- Twitter Card -->
+        <meta name="twitter:card"        content="<%= htmlWebpackPlugin.options.app.description %>">
+        <meta name="twitter:site"        content="@<%= htmlWebpackPlugin.options.app.social.twitter.username %>">
+        <meta name="twitter:url"         content="<%= htmlWebpackPlugin.options.app.urls.base %>">
+        <meta name="twitter:title"       content="<%= htmlWebpackPlugin.options.app.title %> | <%= htmlWebpackPlugin.options.app.name %>">
+        <meta name="twitter:description" content="<%= htmlWebpackPlugin.options.app.description %>">
+        <!-- <meta name="twitter:image"       content=""> -->
+				
+				<script type="application/ld+json">
+            {
+                "@context": "http://schema.org/",
+                "@type": "WebSite",
+                "name": "<%= htmlWebpackPlugin.options.app.name %>",
+                "url": "<%= htmlWebpackPlugin.options.app.urls.base %>",
+                "logo": "<%= htmlWebpackPlugin.options.app.urls.base %>/assets/images/landing/research/logo-rcc.png",
+                "sameAs": [
+                    "https://www.facebook.com/<%= htmlWebpackPlugin.options.app.social.facebook.username %>",
+                    "https://www.linkedin.com/company/<%= htmlWebpackPlugin.options.app.social.linkedin.username %>",
+                    "https://www.twitter.com/<%= htmlWebpackPlugin.options.app.social.twitter.username %>"
+                ]
+            }
+        </script>
+        <!-- // DISABLED: Check European GDPR -->
+        <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=UA-185629304-1"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'UA-185629304-1');
+        </script> -->
+    </head>
+    <body>
+        <style>
+            .center-div {
+                position: absolute;
+                margin: auto;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                width: 100px;
+                height: 100px;
+            }
+        </style>
+        <div class="center-div">
+            <div style="visibility:visible;" id="mainspinner">
+                <img alt="loading" src="/assets/images/loading.gif" height="22" width="22" />
+            </div>
+        </div>
+        <div style="display:invisible;" id="app"></div>
+        <script src="https://cdn.ravenjs.com/3.26.2/raven.min.js" crossorigin="anonymous"></script>
+    </body>
+</html>

@@ -1,0 +1,3 @@
+SHELL=/bin/sh
+
+0 * * * *		rclone sync ~/backups/ cc:"/ModelIt/Database Backups"

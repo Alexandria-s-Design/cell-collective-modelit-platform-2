@@ -1,0 +1,22 @@
+{
+  "root": true,
+  "extends": ["babel", "eslint:recommended", "plugin:react/recommended", "plugin:flowtype/recommended"],
+  "plugins": ["react", "prettier", "import", "flowtype"],
+  "rules": {
+    "linebreak-style": 0, //https://stackoverflow.com/questions/39114446/how-can-i-write-a-eslint-rule-for-linebreak-style-changing-depending-on-windo
+    "max-len": "off",
+    "no-unused-vars": "warn",
+		"no-useless-escape": "warn",
+		"prefer-const" : "warn",
+		"no-cond-assign" : "warn",
+		"no-fallthrough" : "off",
+		"no-prototype-builtins" : "warn",
+		"react/no-find-dom-node": "warn",
+		"react/no-deprecated" : "warn",
+    "react/prop-types": 0,
+    "react/jsx-key": "warn",
+    "react/no-children-prop": "warn",
+		"react/display-name": "warn",
+		"react/no-string-refs": "off"
+  }
+}

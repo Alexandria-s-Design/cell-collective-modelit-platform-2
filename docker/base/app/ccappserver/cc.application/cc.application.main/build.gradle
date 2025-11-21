@@ -1,0 +1,59 @@
+apply plugin: 'java'
+apply plugin: 'spring-boot'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+buildscript {
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:1.2.2.RELEASE")
+	}
+}
+
+jar {
+	baseName = 'app'
+}
+
+
+repositories {
+	mavenCentral()
+}
+
+sourceSets {
+	main {
+		java {
+			srcDir 'src'
+		}
+		resources {
+			srcDir 'resources'
+		}
+	}
+}
+
+dependencies {
+	compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '1.2.2.RELEASE'
+	compile group: 'org.springframework.boot', name: 'spring-boot-configuration-processor', version: '1.2.2.RELEASE'
+	
+	compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.5.1'
+	
+	compile group: 'org.springframework.security', name: 'spring-security-config', version: '3.2.5.RELEASE'
+	compile group: 'org.springframework.security', name: 'spring-security-web', version: '3.2.5.RELEASE'
+	
+	compile group: 'org.springframework.session', name: 'spring-session', version: '1.0.1.RELEASE'
+	
+	compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.4'
+	compile group: 'org.apache.commons', name: 'commons-compress', version: '1.10'
+	compile group: 'com.stripe', name: 'stripe-java', version: '5.21.0'
+	
+	
+	compile group: 'javax.mail', name: 'javax.mail-api', version: '1.5.5'
+	compile group: 'com.sun.mail', name: 'javax.mail', version: '1.5.5'
+
+	compile project(':cc.dataaccess')
+	compile project(':cc.common.simulate')
+	compile project(':cc.application.simulation')
+	compile project(':cc.application.jsbml')
+}

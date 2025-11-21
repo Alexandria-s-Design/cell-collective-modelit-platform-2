@@ -1,0 +1,9 @@
+node.name=search
+cluster.initial_master_nodes=search
+cluster.name=search-cluster
+bootstrap.memory_lock=true
+network.host=0.0.0.0
+http.port=9200
+transport.host=localhost
+
+ES_JAVA_OPTS=-Xms512m -Xmx512m

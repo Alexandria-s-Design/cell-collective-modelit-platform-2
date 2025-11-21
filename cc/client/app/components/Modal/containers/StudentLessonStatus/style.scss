@@ -1,0 +1,39 @@
+table.student-status{
+    th {
+        font-weight: bold;
+
+        div.icon.base-info {
+            display: inline-block;
+            vertical-align: middle;
+            margin-left: 10px;
+        }
+
+        div.infobox {
+            &>div {
+                left: -200px;
+                top: 3px;
+            }
+            div.infotext {
+                padding: 10px;
+                border-width: 2px;
+            }
+        }
+    }
+}
+
+div.loading-status {
+    position: relative;
+    top: 25px;
+
+    font-size: 14pt;
+}
+
+div.student-lesson-status {
+    div.error {
+        position: relative;
+        top: 25px;
+        
+        color: red;
+        font-size: 14pt;
+    }
+}

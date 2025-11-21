@@ -1,0 +1,58 @@
+
+variables:
+  GIT_DEPTH: 2
+  DOCKER_BUILDKIT: 1
+  COMPOSE_DOCKER_CLI_BUILD: 1
+  COMPOSE_HTTP_TIMEOUT: 3600
+
+  # CC_CI: 0
+
+  CC_ENVIRONMENT: production
+  CC_PROXY_PORT: 3999
+
+  DOCKER_HOST: tcp://docker:2375
+  DOCKER_TLS_CERTDIR: ""
+
+services:
+  - name: docker:20.10.16-dind
+    alias: docker
+
+stages:
+  - build
+  - test
+  - deploy
+
+.helpers: &helpers |
+  set -e
+
+before_script:
+  - *helpers
+
+build:
+  stage: build
+  script:
+    - echo "Building Docker image..."
+  artifacts:
+    paths:
+      - build/
+    expire_in: 1 hour
+  only:
+    - merge_requests
+    - main
+
+test:
+  stage: test
+  script:
+    - echo "Running tests..."
+  only:
+    - merge_requests
+    - main
+
+deploy:
+  stage: deploy
+  script:
+    - echo "Deploying application to $CC_ENVIRONMENT..."
+    - echo "Deployment successful"
+  when: manual
+  only:
+    - main

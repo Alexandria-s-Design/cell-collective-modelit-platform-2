@@ -1,0 +1,349 @@
+.app {
+	height: 100%;
+
+	&>div {
+
+		&.teaching,
+		&.learning,
+		&.research {
+			&>div.arrangement {
+				top: 3*$headHeight + 0.5*$spacing;
+			}
+		}
+
+		&.learning.education-home,
+		&.teaching.education-home,
+		&.layoutHome {
+			&>div.arrangement {
+				top: 2*$headHeight + 0.5*$spacing;
+			}
+		}
+	}
+
+
+
+	&>div {
+		height: 100%;
+
+		&>div {
+			position: absolute;
+
+			&.heading {
+				height: 2*$headHeight;
+				top: 0;
+				left: 0;
+				right: 0;
+			}
+
+			&.arrangement {
+				bottom: 0.5*$spacing;
+				left: 0.5*$spacing;
+				right: 0.5*$spacing;
+				overflow: hidden;
+			}
+
+			&.overlay {
+				background-color: rgba(black, 0.4);
+				z-index: 1000;
+				left: 0;
+				right: 0;
+				top: 0;
+				bottom: 0;
+			}
+		}
+	}
+}
+
+div.dragging {
+	position: fixed;
+	pointer-events: none;
+	z-index: 1000;
+	opacity: 0.75;
+
+	&>div {
+		position: absolute;
+		bottom: 0;
+	}
+}
+
+div.droppable {
+	position: relative;
+
+	&.over {
+		opacity: 0.6;
+	}
+
+	&.over,
+	&.static {
+		&:before {
+			position: absolute;
+			left: 0;
+			right: 0;
+			top: 0;
+			bottom: 0;
+			content: "";
+			border: 1px dashed rgba(black, 0.6);
+		}
+	}
+}
+
+div.bar,
+div.head {
+
+	.add {
+		.droppable {
+			margin-top: -2px;
+			padding: 4px $spacing;
+			font-size: $fontSize;
+
+			&:before {
+				position: absolute;
+				left: 0;
+				right: 0;
+				top: 0;
+				bottom: 0;
+				content: "";
+				border: 1px dashed;
+			}
+		}
+
+		&>div {
+			display: inline-block;
+			margin-right: $spacing;
+		}
+
+	}
+}
+
+div.content {
+	.reaction.elements {
+		.reaction.add {
+			.droppable {
+				padding: 10px 12px;
+				border: 1px dashed #cc6677;
+				width: 100%;
+			}
+		}
+	}
+}
+
+div.remove
+{
+  $size: 14px;
+  cursor: pointer;
+  position: absolute;
+  right: -$size + $spacing;
+  top: 0;
+  width: $size;
+  height: $size;
+  z-index: 1;
+  background-color: $baseColor;
+  background-image: url('/assets/images/icons/base/clear.png');
+  border: 1px solid $borderColor;
+  box-shadow: 1px 1px 4px 1px rgba(black, 0.1);
+  border-radius: 50%;
+  opacity: 0;
+  transition: all 0.5s;
+  transition-property: opacity, background-color, border-color;
+
+  &:hover {
+    background-color: $red;
+    border: 1px solid $red;
+    box-shadow: 1px 1px 4px 1px rgba($red, 0.3);
+    opacity: 1;
+  }
+}
+
+
+.loading:after {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	margin-left: -0.5*$spacing;
+	margin-top: -0.5*$spacing;
+	width: $iconSize;
+	height: $iconSize;
+	content: "";
+	background: url('/assets/images/loading.gif');
+}
+
+div.message {
+  $width: 180px;
+  $height: 80px;
+
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: $width;
+  margin-left: -0.5*$width;
+  margin-top: -0.5*$height;
+  padding: $spacing;
+  text-align: center;
+  border: 1px solid $borderColor;
+  box-sizing: border-box;
+}
+
+div.rating {
+	position: relative;
+	width: 5*$iconSize;
+	height: $iconSize;
+	background-color: #e6e6e6;
+
+	&>div {
+		height: 100%;
+		background-color: $orange;
+	}
+
+	&:after {
+		position: absolute;
+		left: 0;
+		right: 0;
+		top: 0;
+		bottom: 0;
+		content: "";
+		background-image: url('/assets/images/star.png');
+	}
+}
+
+.link {
+	cursor: pointer;
+
+	&:hover {
+		color: $blue;
+		transition: color 0.5s;
+	}
+}
+
+canvas {
+	width: 100%;
+	height: 100%;
+
+	&.pointer {
+		cursor: pointer;
+	}
+}
+
+.canvas {
+  position: absolute;
+  left: 0.5*$spacing;
+  right: 0.5*$spacing;
+  top: 0;
+  bottom: 0;
+  overflow: hidden;
+  user-select: none; 
+
+  &> * {
+    position: absolute;
+  }
+
+  &> canvas:not(:first-of-type) {
+    pointer-events: none;
+  }
+
+  &> div > img {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.graphErrBox {
+	left: 8px;
+	top: 50%;
+	bottom: 8px;
+	right: 8px;
+	text-align: center;
+	position: absolute;
+}
+
+.graphInfoBox {
+	left: 8px;
+	top: 50%;
+	bottom: 8px;
+	right: 8px;
+	text-align: center;
+	position: absolute;
+}
+
+.right {
+	float: right;
+}
+
+.bold {
+	font-weight: bold;
+}
+
+.ti-enter {
+	opacity: 0.01;
+}
+
+.ti-enter.ti-enter-active {
+	opacity: 1;
+	transition: opacity 0.5s ease-in;
+}
+
+.ti-leave {
+	opacity: 1;
+	transition: opacity 0.5s ease-in;
+}
+
+.ti-leave.ti-leave-active {
+	opacity: 0.01;
+}
+
+div.nodeinfo{
+  $width: 150px;
+  position: absolute;
+  left: 95%;
+  top: 3%;
+  background-color: rgba(#333, 0.9);
+  color: #fff;
+  width: $width;
+  margin-left: -0.5*$width;
+  padding: $spacing;
+  border: 1px solid $borderColor;
+  box-sizing: border-box;
+}
+
+body,
+html {
+	background-color: #efefef;
+}
+
+.metabolic-description {
+	padding-right: $spacing;
+}
+
+.annotation-remove {
+	margin-left: -15px !important;
+}
+
+.btnEnroll {
+	background-color: #506391;
+	border: 1px solid #3e4257;
+	border-radius: 3px;
+	padding: 4px 15px;
+	margin-top: -5px;
+	color: #fff;
+	cursor: pointer;
+}
+
+.btnEnroll:hover {
+	background-color: #5b71a6;
+}
+
+.overlay-flex {
+	background-color: rgba(0, 0, 0, 0.3);
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	z-index: 2000;
+	width: 100%;
+	height: 100%;
+}
+
+.kineticParameter {
+	div.editable.enabled {
+		width: 100%;
+	}
+}

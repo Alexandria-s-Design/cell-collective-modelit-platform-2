@@ -1,0 +1,9 @@
+PGHOST=db
+PGPORT=5432
+PGDATABASE=postgres
+PGUSER=ccadmin
+PGPASSWORD=HelikarLab@aZZnAmtz
+BACKUP_SERVER_USER=helikarlab
+BACKUP_SERVER_HOST=develop.cellcollective.org
+DB_BACKUP_PATH=cellcollective_db_backup
+APP_BACKUP_PATH=cellcollective_app_backup

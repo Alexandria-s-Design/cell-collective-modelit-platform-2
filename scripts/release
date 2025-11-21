@@ -1,0 +1,436 @@
+#!/usr/bin/env python
+
+# imports - compatibility imports
+from __future__ import print_function
+
+# imports - standard imports
+import sys
+import os, os.path as osp
+import io
+import argparse
+import subprocess  as sp
+import platform
+import json
+from   distutils.version import StrictVersion
+import logging
+
+NOTSET      = logging.NOTSET
+DEBUG       = logging.DEBUG
+INFO        = logging.INFO
+WARNING     = logging.WARNING
+ERROR       = logging.ERROR
+CRITICAL    = logging.CRITICAL
+
+_FORMAT     = '%(asctime)s | %(levelname)s | %(message)s'
+_LOGGER     = None
+
+def get_logger(name = __name__, level = DEBUG, format_ = _FORMAT):
+    global _LOGGER
+
+    if not _LOGGER:
+        formatter = logging.Formatter(format_)
+
+        handler   = logging.StreamHandler()
+        handler.setFormatter(formatter)
+
+        logger    = logging.getLogger(name)
+        logger.setLevel(level)
+
+        logger.addHandler(handler)
+        
+        _LOGGER   = logger
+    
+    return _LOGGER
+
+logger = get_logger()
+
+class PopenError(Exception):
+    pass
+
+PYTHON_VERSION = sys.version_info
+
+def _is_python_version(*args, **kwargs):
+    major  = kwargs.get("major", None)
+    minor  = kwargs.get("minor", None)
+    patch  = kwargs.get("patch", None)
+
+    result = True
+
+    if major:
+        result = result and major == PYTHON_VERSION.major
+    if minor:
+        result = result and minor == PYTHON_VERSION.minor
+    if patch:
+        result = result and patch == PYTHON_VERSION.micro
+        
+    return result
+
+PY2 = _is_python_version(major = 2)
+
+def iteritems(dict_, **kwargs):
+    if PY2:
+        iterator = dict_.iteritems()
+    else:
+        iterator = iter(dict_.items(), **kwargs)
+    return iterator
+
+if PY2:
+    from __builtin__ import raw_input as input
+else:
+    from builtins import input
+
+if platform.system() in ['Linux', 'Darwin']:
+    EX_OK      = os.EX_OK
+    EX_NOINPUT = os.EX_NOINPUT
+else:
+    EX_OK      = 0
+    EX_NOINPUT = 66
+
+def strip(string):
+    string = string.lstrip()
+    string = string.rstrip()
+
+    return string
+
+def safe_decode(obj, encoding = "utf-8"):
+    try:
+        obj = obj.decode(encoding)
+    except (AttributeError, UnicodeEncodeError):
+        pass
+    
+    return obj
+
+def pardir(fname, level = 1):
+    for _ in range(level):
+        fname = osp.dirname(fname)
+    return fname
+
+def compact(arr, type_ = list):
+    return type_(filter(bool, arr))
+
+def popen(*args, **kwargs):
+    output      = kwargs.get("output", False)
+    quiet       = kwargs.get("quiet" , False)
+    directory   = kwargs.get("cwd")
+    environment = kwargs.get("env")
+    shell       = kwargs.get("shell", True)
+    raise_err   = kwargs.get("raise_err", True)
+
+    environ     = os.environ.copy()
+    if environment:
+        environ.update(environment)
+
+    for k, v in iteritems(environ):
+        environ[k] = str(v)
+
+    command     = " ".join([str(arg) for arg in args])
+
+    logger.info("Executing command: %s" % command)
+
+    if quiet:
+        output  = True
+    
+    proc        = sp.Popen(command,
+        bufsize = -1,
+        stdin   = sp.PIPE if output else None,
+        stdout  = sp.PIPE if output else None,
+        stderr  = sp.PIPE if output else None,
+        env     = environ,
+        cwd     = directory,
+        shell   = shell
+    )
+
+    code       = proc.wait()
+
+    if code and raise_err:
+        raise PopenError(code, command)
+
+    if output:
+        output, error = proc.communicate()
+
+        if output:
+            output = safe_decode(output)
+            output = strip(output)
+
+        if error:
+            error  = safe_decode(error)
+            error  = strip(error)
+
+        if quiet:
+            return code
+        else:
+            return code, output, error
+    else:
+        return code
+
+def read(path, encoding = "utf8"):
+    with io.open(path, encoding = encoding) as f:
+        data = f.read()
+    return data
+
+def json_read(path):
+    content = read(path) or r"{}"
+    json_   = json.loads(content)
+
+    return json_
+
+def json_write(path, json_, force = False, indent = 2):
+    if not osp.exists(path) or force:
+        with open(path, 'w') as f:
+            json.dump(json_, f, indent = indent)
+
+_ACCEPTABLE_INPUTS_YES      = ("", "y", "Y")
+_ACCEPTABLE_INPUTS_QUIT     = ("q", "Q")
+
+# https://gist.github.com/RDCH106/6562cc7136b30a5c59628501d87906f7
+_CAN_ANSI_FORMAT_WINDOWS    = (
+    os.name == "nt" \
+        and platform.release() == "10" \
+        and platform.version() >= "10.0.14393"
+)
+_CAN_ANSI_FORMAT            = (
+    # check if output is a terminal
+    sys.stdout.isatty() \
+        # check if stdin and stdout are the same
+        or os.fstat(0) == os.fstat(1)
+) or _CAN_ANSI_FORMAT_WINDOWS
+
+_ANSI_FORMAT = "\033[{}m"
+_format_ansi = lambda x: _ANSI_FORMAT.format(x)
+
+BOLD      = _format_ansi("0;1")
+RED       = _format_ansi("0;91")
+GREEN     = _format_ansi("0;92")
+YELLOW    = _format_ansi("0;93")
+CYAN      = _format_ansi("0;96")
+ORANGE    = _format_ansi("0;40")
+CLEAR     = _format_ansi("0")
+
+def confirm(query, quit_ = True):
+    choices = "[Y/n%s]" % "/q" if quit_ else ""
+    query   = "%s %s: " % (query, choices)
+
+    output  = input(query)
+
+    if output in _ACCEPTABLE_INPUTS_QUIT:
+        sys.exit(EX_OK)
+    
+    return output in _ACCEPTABLE_INPUTS_YES
+
+def format(string, type_):
+    if _CAN_ANSI_FORMAT_WINDOWS:
+        import ctypes
+        kernel32 = ctypes.windll.kernel32
+        kernel32.SetConsoleMode(kernel32.GetStdHandle(-11), 7)
+
+    if _CAN_ANSI_FORMAT:
+        string = "{}{}{}".format(type_, string, CLEAR)
+
+    return string
+
+def echo(string = "", nl = True):
+    print(string, end = "\n" if nl else "")
+
+def get_next_version(version, type_):
+    current_version = StrictVersion(version)
+    version         = list(current_version.version)
+
+    if   type_ == "major":
+        version[0] = version[0] + 1
+        version[1] = 0
+        version[2] = 0
+    elif type_ == "minor":
+        version[1] = version[1] + 1
+        version[2] = 0
+    elif type_ == "patch":
+        version[2] = version[2] + 1
+
+    next_version    = ".".join(map(str, version))
+
+    return next_version
+
+def get_parser():
+    parser = argparse.ArgumentParser(
+        description = "Release Script."
+    )
+    parser.add_argument("type",
+        choices     = ["major", "minor", "patch"],
+        help        = "Release Type"
+    )
+    parser.add_argument("-p", "--path",
+        help        = "Path to Project",
+        default     = os.getcwd()
+    )
+    parser.add_argument("--source",
+        help        = "Source Branch",
+        default     = "develop"
+    )
+    parser.add_argument("--target",
+        help        = "Target Branch",
+        default     = "master"
+    )
+    parser.add_argument("--remote",
+        help        = "Remote Name",
+        default     = "origin"
+    )
+    parser.add_argument("--check",
+        help        = "Perform a Dry Run.",
+        action      = "store_true"
+    )
+    parser.add_argument("--allremotes",
+        choices     = ["true", "false"],
+        help        = "Whether to fetch from all remotes. If false, only fetches from origin.",
+        default     = "true")
+
+    return parser
+
+def get_branch(repo, branch, remote = "origin", fetchAll=True):
+    track = "%s/%s" % (remote, branch)
+
+    fAll = ""
+    if fetchAll:
+        fAll = " --all"
+
+    popen("git fetch" + fAll, cwd = repo)
+    popen("git checkout -B %s --track %s" % (branch, track), cwd = repo)
+    popen("git reset --hard %s" % track, cwd = repo)
+
+def merge_branch(repo, from_, to, **kwargs):
+    logger.info("Merging Branch from %s to %s" % (from_, to))
+
+    remote      = kwargs.get("remote") 
+    merge_args  = kwargs.get("merge_args")
+    
+    popen("git checkout -B {branch} --track {remote}/{branch}".format(
+			remote = remote,
+			branch = to
+		), cwd = repo)
+    
+    try:
+        args = compact(["git", "merge", from_, merge_args])
+        popen(*args, cwd = repo)
+    except PopenError:
+        echo(format("There seems to be a merge conflict while merging %s into %s. \
+            Please resolve all conflicts and continue." % (from_, to) , RED))
+
+        while not confirm("Did you resolve merge conflicts?"):
+            continue
+
+def get_commits(repo, source, target, remote = "origin"):
+    _, output, _ = popen("git log {remote}/{target}..{remote}/{source} \
+        --format=format:%s --no-merges".format(
+            remote  = remote,
+            source  = source,
+            target  = target
+        ), cwd = repo, output = True)
+    
+    commits = output.splitlines()
+
+    return commits
+
+def get_current_version(project):
+    path    = osp.join(project, "package.json")
+    package = json_read(path)
+
+    return package["version"]
+
+def set_version(project, version):
+    path    = osp.join(project, "package.json")
+    package = json_read(path)
+    
+    package["version"] = version
+
+    json_write(path, package, force = True)
+
+    popen("git add package.json", cwd = project)
+    popen("git commit -m 'Bumped to Version %s.'" % version, cwd = project)
+
+def get_args():
+    parser  = get_parser()
+    args    = parser.parse_args()
+
+    return args 
+
+def main():
+    args = get_args()
+
+    path = osp.abspath(args.path)
+
+    allremotes = args.allremotes == "true"
+    get_branch(repo = path, branch = args.source, remote = args.remote, fetchAll = allremotes)
+    get_branch(repo = path, branch = args.target, remote = args.remote, fetchAll = allremotes)
+
+    hotfix  = args.source == "hotfix"
+
+    if hotfix:
+        get_branch(repo = path, branch = "develop", remote = args.remote, fetchAll = allremotes)
+    
+    popen("git checkout %s" % args.source)
+
+    commits = get_commits(
+        repo    = path,
+        source  = args.source,
+        target  = args.target,
+        remote  = args.remote
+    )
+    log     = "\n".join(map(lambda i: "%s. %s" % (i + 1, commits[i]), range(len(commits))))
+
+    if not log:
+        echo(format("No commits found to perform a release.", RED))
+        sys.exit(0)
+    else:
+        current_version = get_current_version(project = path)
+        next_version    = get_next_version(current_version, args.type)
+        
+        echo(format("Releasing Version: %s..." % next_version, YELLOW))
+        echo(format("Release Log: \n%s" % log, CYAN))
+
+        if confirm(format("Do you wish to continue?", YELLOW)):
+            popen("yarn release -r %s" % (args.type), cwd = path)
+
+            merge_branch(path, from_ = args.source, to = args.target,
+                remote = args.remote, merge_args = "--no-ff")
+
+
+            tags = []
+            def releaseTag(suffix="", tags=tags):
+                if not args.check:
+                    tag = "v%s%s" % (next_version, suffix)
+                    popen("git tag %s -m 'Release %s'" % (tag, next_version), cwd = path)
+                    tags.append(tag)
+
+						#release tag for master
+            releaseTag("")
+
+            merge_branch(path, from_ = args.target, to = args.source, remote = args.remote)
+
+            if hotfix:
+								#release tag for hotfix
+                releaseTag("-hotfix")
+								#merge branches
+                merge_branch(path, from_ = args.source, to = "develop",
+                    remote = args.remote)
+								#release tag for develop
+                releaseTag("-develop")
+            else:
+								#release tag for develop
+                releaseTag("-develop")
+								#merge branches
+                merge_branch(path, from_ = args.source, to = "hotfix",
+                    remote = args.remote)
+								#release tag for hotfix
+                releaseTag("-hotfix")
+
+            _push_args = [
+                "{branch}:{branch}".format(branch = args.source),
+                "{branch}:{branch}".format(branch = args.target)
+            ]
+            _push_args.extend(tags)
+            _push_args.append("develop:develop" if hotfix else "hotfix:hotfix")
+            push_args = compact(_push_args)
+            
+            if not args.check:
+                popen("git", "push", args.remote, *push_args, cwd = path)
+
+if __name__ == "__main__":
+    main()

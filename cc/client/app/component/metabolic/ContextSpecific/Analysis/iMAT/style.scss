@@ -1,0 +1,196 @@
+.panel .content {
+	.underline {
+		border-bottom: 1px solid #dadada;
+		margin-top: 5px;
+		font-size: 12px;
+		padding-bottom: 2px;
+		font-weight: bold;
+	}
+
+	h4 {
+		margin-bottom: 5px;
+	}
+}
+
+.panel-model-creation-settings {
+	.content {
+		.sliderInput>.track {
+			width: 80px;
+		}
+
+		&>div {
+			margin-top: 15px;
+			width: 100%;
+		}
+
+		dl {
+			margin: 5px auto;
+			width: 100%;
+			line-height: 1.9em;
+
+
+			dd {
+				font-weight: 300;
+				margin-right: 5px;
+			}
+		}
+
+		dl:not(.checkboxes)>dt {
+			display: block;
+
+			dd {
+				margin-right: 5px;
+			}
+		}
+
+		dl.checkboxes>dt {
+			display: block;
+
+			.header {
+				display: flex;
+				margin: 5px auto;
+				align-items: center;
+			}
+		}
+		dl.checkboxes > div:last-child {
+			margin-bottom: 100px;
+		}
+	}
+}
+
+.panel-button-create-model {
+	& {
+		height: inherit;
+	}
+
+	&>button {
+		background-color: #fd5050;
+		color: #fff;
+		height: 100%;
+		float: left;
+		width: 100%;
+		font-size: 1.5em;
+		font-weight: 600;
+		border: none;
+		cursor: pointer;
+	}
+
+	&>button:disabled {
+		opacity: 0.6;
+		cursor: default;
+	}
+}
+
+.section-import-file {
+	input[type="file"] {
+		display: initial;
+	}
+
+	h3 {
+		margin-top: 2px;
+		margin-bottom: 4px;
+	}
+
+	&>div {
+
+		&>span {
+			width: 100%;
+			display: block;
+		}
+
+		&>span.uploadedFile {
+			font-weight: bold;
+		}
+	}
+}
+
+.panel-model-creation-settings {
+	.section-import-file {
+		input[type="file"] {
+			display: initial;
+		}
+
+		&>div {
+			margin-bottom: 0px;
+
+			&>span {
+				width: 100%;
+				display: block;
+			}
+
+			&>span.uploadedFile {
+				font-weight: bold;
+			}
+		}
+	}
+	.scrollable {
+		top: 80px !important;
+	}
+
+}
+
+.panel .content dl dt {
+	display: block;
+}
+
+.editable.enabled.editablePlaceholder {
+	opacity: 0.5;
+}
+
+.editable.enabled.valuePlaceholder {
+	opacity: 1;
+}
+
+.panel .content dl.checkboxes {
+	dt {
+		&.disabled span.option {
+			opacity: 0.6;
+		}
+
+		&>.bottom {
+			background-color: #ebebeb;
+			padding: 5px 10px;
+		}
+
+		&>.bottom>dt {
+			width: 100%;
+		}
+
+		&.checked .header span.option {
+			font-weight: bold;
+		}
+
+		&>.bottom dt>dd>span.options {
+			margin-left: 5px;
+			font-weight: bold;
+		}
+
+		&.disabled {
+			&>dd {
+				color: #8b8b8b;
+			}
+
+			&>.sliderInput>.track {
+				&::before {
+					border-color: #8b8b8b;
+				}
+
+				&>div>div {
+					background-color: #ebebeb;
+				}
+			}
+		}
+	}
+}
+
+.bottom {
+	background-color: #ebebeb;
+};
+
+.dropdown-icon-closed {
+	transform: rotate(0deg);
+}
+
+.dropdown-icon-open {
+	transform: rotate(-180deg);
+}

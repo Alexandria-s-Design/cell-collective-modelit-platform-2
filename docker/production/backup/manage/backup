@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+basedir="$(dirname "${0}")"
+source "${basedir}/includes/constants"
+source "${basedir}/includes/utils/time"
+
+timestamp=$(get_timestamp "%Y_%m_%d__%H_%M_%S")
+
+# Backup metadata (git tag, commit hash, branch name, etc.)
+folderpath="${PATH_BACKUPS}/${timestamp}"
+mkdir -p "${folderpath}"
+echo "$(env)" > "${folderpath}/version.txt"
+
+backup-db "$timestamp"
+backup-app "$timestamp"
+backup-web "$timestamp"
+
+echo "Backup successful"

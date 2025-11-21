@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}ModelIt!{% endblock %}</title>
+</head>
+<body>   
+		<style>
+
+			body {
+				background-color: rgb(244, 244, 244);
+				font-family: 'Roboto', sans-serif;
+			}
+
+			footer {
+				text-align: center;
+			}
+
+			.page-title h3 {
+				text-align: center;
+			}
+
+			.page-content.password-reset {
+				width: 300px;
+				margin: 0 auto;
+			}
+			
+			input[type="text"], input[type="email"], input[type="password"], textarea {
+					width: 100%;
+					padding: 10px;
+					margin: 8px 0;
+					border: 1px solid #ccc;
+					border-radius: 4px;
+					box-sizing: border-box;
+					font-size: 16px;
+					font-family: Arial, sans-serif;
+					background-color: #f9f9f9;
+					transition: border-color 0.3s ease;
+			}
+
+			input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus, textarea:focus {
+					border-color: #4A90E2; /* Highlight border color on focus */
+					outline: none;
+			}
+
+			button, input[type="submit"] {
+					background-color: #4A90E2; /* Primary button color */
+					color: white;
+					padding: 12px 20px;
+					margin: 10px 0;
+					border: none;
+					border-radius: 4px;
+					cursor: pointer;
+					font-size: 16px;
+					font-family: Arial, sans-serif;
+					transition: background-color 0.3s ease;
+			}
+
+			button:hover, input[type="submit"]:hover {
+					background-color: #357ABD; /* Darker shade on hover */
+			}
+
+			button:active, input[type="submit"]:active {
+					background-color: #2C6A99; /* Even darker shade when clicked */
+					transform: scale(0.98); /* Slightly shrink when clicked */
+			}
+
+			form {
+					max-width: 400px;
+					margin: auto;
+					padding: 20px;
+					border: 1px solid #f0f0f0;
+					border-radius: 8px;
+					background-color: #fff;
+					box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+			}
+
+			.form-row {
+				display: block;
+			}
+
+			.alert {
+				padding: 8px 15px;
+				border-radius: 10px;
+			}
+
+			.alert.alert-success {			
+				background-color: #b8dfbb;				
+				border: 1px solid #87c187;
+			}
+
+			.alert.alert-danger {
+				background-color: #f7bbbb;
+				border: 1px solid #ff8572;
+			}
+
+			.alert.alert-warning {
+				background-color: #f7e8bb;
+				border: 1px solid #faa254;
+			}
+		</style>
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; 2024 ModelIt!</p>
+    </footer>
+</body>
+</html>

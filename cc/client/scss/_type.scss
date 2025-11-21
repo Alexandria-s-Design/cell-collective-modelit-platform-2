@@ -1,0 +1,32 @@
+// @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,900');
+
+$font-weight-bold:                                      700;
+$font-weight-heavy:                                     900;
+
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Open Sans'), url(https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,900) format('woff2');
+  font-display: swap;
+}
+
+.text-center
+{
+    text-align: center;
+}
+
+.font-normal
+{
+    font-weight: normal !important;
+}
+
+.font-bold
+{
+    font-weight: $font-weight-bold !important;
+}
+
+.font-heavy
+{
+    font-weight: $font-weight-heavy !important;
+}

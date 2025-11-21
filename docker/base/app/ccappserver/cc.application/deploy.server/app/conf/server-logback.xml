@@ -1,0 +1,188 @@
+<configuration scan="true" debug="true">
+
+	<appender name="consoleAppender" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n
+			</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="performanceAppender"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${CC_ROOT_DIR}/logs/performance-%d{yyyy-MM-dd}.log
+			</fileNamePattern>
+			<maxHistory>30</maxHistory>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} %-5level - %msg%n
+			</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="persistAppender"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${CC_ROOT_DIR}/logs/persist-%d{yyyy-MM-dd}.log
+			</fileNamePattern>
+			<maxHistory>30</maxHistory>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} %-5level %logger{35} - %msg%n
+			</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="modelManagementAppender"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${CC_ROOT_DIR}/logs/model-management-%d{yyyy-MM-dd}.log
+			</fileNamePattern>
+			<maxHistory>30</maxHistory>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} %-5level %logger{35} - %msg%n
+			</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="clientAppender"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${CC_ROOT_DIR}/logs/client-%d{yyyy-MM-dd}.log
+			</fileNamePattern>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} %-5level %logger{35} - %msg%n
+			</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="supportFeedbackAppender"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${CC_ROOT_DIR}/logs/support-feedback-%d{yyyy-MM-dd}.log
+			</fileNamePattern>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} %msg%n
+			</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="simulationAppender"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${CC_ROOT_DIR}/logs/simulation-%d{yyyy-MM-dd}.log
+			</fileNamePattern>
+			<maxHistory>30</maxHistory>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} %-5level %logger{35} - %msg%n
+			</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="jsonRequestAppender"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${CC_ROOT_DIR}/logs/json-request-%d{yyyy-MM-dd}.log
+			</fileNamePattern>
+			<maxHistory>30</maxHistory>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} %-5level %logger{35} - %msg%n
+			</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="jsonResponseAppender"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${CC_ROOT_DIR}/logs/json-response-%d{yyyy-MM-dd}.log
+			</fileNamePattern>
+			<maxHistory>30</maxHistory>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} %-5level %logger{35} - %msg%n
+			</pattern>
+		</encoder>
+	</appender>
+
+	<logger name="performanceLogger" additivity="false">
+		<level value="INFO" />
+		<appender-ref ref="performanceAppender" />
+	</logger>
+
+	<logger name="jsonRequestLogger" additivity="false">
+		<level value="INFO" />
+		<appender-ref ref="jsonRequestAppender" />
+	</logger>
+
+	<logger name="jsonResponseLogger" additivity="false">
+		<level value="INFO" />
+		<appender-ref ref="jsonResponseAppender" />
+	</logger>
+
+	<logger name="cc.application.main.controller.ModelController"
+		additivity="false">
+		<level value="INFO" />
+		<appender-ref ref="modelManagementAppender" />
+	</logger>
+
+	<logger name="cc.dataaccess.main.dao.ModelBiologicDao"
+		additivity="false">
+		<level value="INFO" />
+		<appender-ref ref="persistAppender" />
+	</logger>
+
+	<logger name="cc.dataaccess.main.dao.ModelDao" additivity="false">
+		<level value="INFO" />
+		<appender-ref ref="persistAppender" />
+	</logger>
+
+	<logger name="cc.application.main.controller.SimulationController"
+		additivity="false">
+		<level value="INFO" />
+		<appender-ref ref="simulationAppender" />
+	</logger>
+
+	<logger name="cc.application.simulation.executor.DynamicSimulationExecutor"
+		additivity="false">
+		<level value="INFO" />
+		<appender-ref ref="simulationAppender" />
+	</logger>
+
+	<logger name="cc.application.main.controller.DynamicSimulationController"
+		additivity="false">
+		<level value="INFO" />
+		<appender-ref ref="simulationAppender" />
+	</logger>
+
+	<logger name="cc.application.simulation.DynamicSimulationManager"
+		additivity="false">
+		<level value="INFO" />
+		<appender-ref ref="simulationAppender" />
+	</logger>
+
+	<logger name="cc.dataaccess.main.dao.SimulationDao" additivity="false">
+		<level value="INFO" />
+		<appender-ref ref="simulationAppender" />
+	</logger>
+
+	<logger name="cc.application.main.controller.ClientLoggingController"
+		additivity="false">
+		<level value="INFO" />
+		<appender-ref ref="clientAppender" />
+	</logger>
+	
+    <logger name="cc.application.main.controller.SupportFeedbackController"
+        additivity="false">
+        <level value="INFO" />
+        <appender-ref ref="supportFeedbackAppender" />
+    </logger>
+
+	<root level="INFO">
+		<appender-ref ref="consoleAppender" />
+	</root>
+</configuration>

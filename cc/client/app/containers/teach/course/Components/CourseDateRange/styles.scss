@@ -1,0 +1,32 @@
+.course-datepicker {
+
+	.courseDateRange {
+		font-family: "Courier New", Courier, monospace;
+		letter-spacing: 1px;
+		font-weight: inherit;
+		font-size: 13px;	
+		overflow-x: inherit;
+	}
+
+	.react-datepicker-wrapper{
+		z-index: 100;
+		display: inline-block;
+		padding-left: 7px;
+	}
+
+	.react-datepicker{
+		display: inline-flex !important;
+		.react-datepicker__input-container {
+			z-index: 199;
+		}
+		.react-datepicker__tab-loop{
+			display: inline-block;
+		}
+	}
+
+	.react-datepicker-popper {
+		left: -270px !important;
+		top: -17px !important;
+	}
+
+}

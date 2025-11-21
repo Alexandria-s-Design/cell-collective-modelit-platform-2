@@ -1,0 +1,367 @@
+@import "../../../scss/variables.scss";
+
+.appBar {
+    .username {
+        font-size: 13px !important;
+    }
+}
+
+.heading {
+    color: #eee;
+    background-color: #232323;
+
+    & > div {
+        height: 36px;
+
+				&:first-child {
+					.topbar {
+						max-width: 80%;
+						div.editable {
+							max-width: 100%;
+							& > span {
+								display: inline-block;
+								max-width: 100%;
+								span.modelName {
+									display: inline-block;
+									max-width: 100%;
+									overflow-x: hidden;
+									text-overflow: ellipsis;
+								}
+							}
+						}
+					}
+				}
+
+        &:first-child .logoImg {
+            padding-right: 10px;
+            position: relative;
+        }
+
+        &> .topbar {
+            display: inline-block;
+
+            & > div:first-child {
+                &> div span {
+                    font-size: 11pt;
+
+                    &> .modelName {
+                        font-weight: bold;
+                        font-size: 14pt;
+												margin-left: 3px;
+                    }
+                }
+
+								span.not-saved {
+									color: #c67;
+								}
+
+                                span.saved {
+									color: #2ecc71;
+								}
+
+                &> div.search {
+                    position: relative;
+                    top: -10px;
+                }
+
+            }
+
+            &> div > div.search {
+                display: inline-flex;
+
+                &> div.editable {
+                    padding-top: 5px;
+                }
+            }
+
+            &> .menu {
+                z-index:100;
+            }
+        }
+
+        &>span {
+            padding-top: 10px;
+        }
+    }
+
+    &> div:nth-child(2) {
+        display: flex;
+
+        & > span {
+            padding-top: 10px;
+        }
+
+        &> div.name {
+            &> div.version {
+                &> ul {
+                    top: 12px;
+                    display: none;
+                }
+
+                &:hover > ul {
+                    display: block;
+                }
+            }
+        }
+
+        & > div.menu.version {
+            &>div.modelVersionEdit, &>form input {
+                font-size: 11px;
+                padding-top: 12px;
+            }
+
+            &>ul.ul {
+                top: 36px;
+            }
+        }
+
+    }
+
+    &> div:nth-child(2), &> div:nth-child(3) {
+
+        .learning_activity, .learning_overview {
+
+            & > div.bottom_name > div.remove {
+                top: 5px;
+            }
+
+            & > div > div.remove {
+                top: 0px;
+                transform: translateY(-50%);
+            }
+
+            &:hover > div > div.remove {
+                opacity: 1;
+            }
+
+            &> div.versionsMenu {
+                font-size: 9pt;
+            }
+        }
+
+        &> div.menu.menuBar {
+            display: inline-flex;
+            width: 100%;
+
+						.menuSlideBtn {
+							display: flex;
+							z-index: 2;
+							padding: 3px;
+							cursor: pointer;
+							width: 10px;
+							height: 15px;
+							background-repeat: no-repeat;
+							background-position: center;
+							border: 0;
+							content: "";
+							opacity: 0.5;
+							margin: 14px 5px 5px 5px;
+							transition: opacity 0.2s;
+
+							&:not(.show-slide) {
+								display: none;
+							}
+							&.left {
+								background-image: url('/assets/images/icons/base/left-dark.png');
+							}
+							&.right {
+								margin-right: 45px;
+								background-image: url('/assets/images/icons/base/right-dark.png');
+							}
+							&:hover {
+								opacity: 1;
+							}
+						}
+
+						.menuSlideWrap {
+							width: 75%;
+							display: flex;
+							overflow: hidden;
+							&> ul {
+								display: inline-flex;
+								position: relative;
+								li {
+									padding: 3px 20px !important;
+									justify-content: center;
+									align-items: center;
+									display: flex;
+									height: 25px;
+								}
+							}
+						}
+
+            &> ul {
+                z-index: auto;
+                user-select: none;
+//                position: relative;
+//                top: 13px;
+
+
+                &.menuScrollbar {
+                    flex-grow: 1;
+                    flex-shrink: 1;
+                }
+
+                &:not(.menuScrollbar) {
+                    flex-grow: 0;
+                    flex-shrink: 0;
+                }
+
+                & li {
+                    &> ul {
+                        display: none;
+                    }
+                    &:hover > ul {
+                        display: inline-block;
+                    }
+                }
+
+                &> li {
+                    padding: 3px;
+                    padding-top: 15px;
+                    display: inline-block;
+                    min-width: 100px;
+                    font-size: 11px;
+                    cursor: pointer;
+                    text-align: center;
+                    // position: relative; // fix for issue #2228 remove version
+
+                    &.selected {
+                        color: $lightBlue;
+                        text-decoration: underline;
+                    }
+
+                    &:hover {
+                        color: $lightBlue;
+                    }
+
+                }
+            }
+
+            &.CONTENT, &.MODEL {
+                & > .icon.base-add-activity-group {
+                    position: relative;
+                    top: 9px;
+                }
+
+								& > .icon.medium-shuffle {
+									background-image: url('/assets/images/icons/medium/shuffle.png');
+									background-color: transparent;
+									content: "";
+								}
+
+								& > .icon.medium-check-circle {
+									background-image: url('/assets/images/icons/medium/check-circle.png');
+									background-color: transparent;
+									content: "";
+								}
+
+                & > .icon.base-add-activity {
+                    position: relative;
+                    top: 5px;
+                }
+
+                & > ul  > li,
+								& > div.menuSlideWrap > ul > li {
+                    position: relative;
+
+                    & .versionsMenu > ul {
+                        top:29px;
+                        z-index:100;
+                    }
+
+                    & .bottom_name > .remove {
+                        top: 15px;
+                    }
+                }
+            }
+
+            &>div.moveOrShuffle{
+                position: absolute;
+                right: 20px;
+								top: 5px;
+            }
+
+        }
+    }
+
+
+    &> div:nth-child(3) {
+        background-color: #444;
+
+        & > div.menu.menuBar{
+            &.CONTENT > ul  li {
+                padding: 3px;
+                padding-top: 3px;
+            }
+
+        }
+    }
+
+    &> div:nth-child(2) > div.menu.menuBar{
+
+        &> ul > li,
+				&> div.menuSlideWrap > ul > li {
+            border-radius: 3px 3px 0px 0px;
+            padding-top: 8px;
+            margin-top: 7px;
+
+            &:hover {
+                background-color:#333;
+                color: $lightBlue;
+                height: 25px;
+            }
+
+            &.selected {
+                background-color:#444;
+                height: 25px;
+            }
+
+        }
+
+        &.CONTENT > ul  > li .bottom_name > .remove,
+				&.CONTENT > div.menuSlideWrap > ul  > li .bottom_name > .remove {
+            top: 21px;
+        }
+    }
+
+}
+
+.topRightMenu {
+    & ul {
+        left: auto;
+        right: 0px;
+
+        & > li {
+            &:hover > div {
+                background-color: #3598db !important;
+            }
+
+            &> div {
+                background-color: #444;
+            }
+        }
+    }
+
+    &:hover ul {
+        display: block;
+    }
+}
+
+.learning_activity > .versionsMenu:hover > ul {
+    display: block;
+}
+
+.search{
+    color: #999999;
+    position: relative;
+    margin-top: -1px;
+    margin-left: 0px;
+}
+
+.searchAppBar{
+    color: #999999;
+    position: relative;
+    margin-top: -21px;
+    margin-left: 45px;
+}

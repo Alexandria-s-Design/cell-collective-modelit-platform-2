@@ -1,0 +1,27 @@
+.search {
+  display: inline-block;
+  line-height: $fontSize + 11px;
+
+  input:not([type]), .editable {
+    min-width: 60px;
+  }
+
+  &> * {
+    vertical-align: bottom;
+  }
+
+  &> div {
+    display: inline-block;
+  }
+
+
+  &> .icon {
+    margin: 0.5*$spacing 0;
+
+    &.base-menu {
+      background-image: url('/assets/images/icons/base/menu.png');
+      width: $iconSize - $spacing;
+      margin-right: $spacing;
+    }
+  }
+}

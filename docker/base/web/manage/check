@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+set -e
+
+curl -fsSL "http://${CC_WEB_HOST}:${CC_WEB_PORT}/api/ping" | grep -q "pong" && echo "OK"

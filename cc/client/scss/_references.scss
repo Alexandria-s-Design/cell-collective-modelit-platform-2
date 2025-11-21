@@ -1,0 +1,31 @@
+ol.references li {
+  line-height: $fontSize + $spacing;
+  margin-bottom: 0.5*$spacing;
+
+  &> div {
+    display: inline-block;
+    vertical-align: top;
+
+    div.remove {
+      position: static;
+      display: inline-block;
+      vertical-align: bottom;
+      margin-left: 0.5*$spacing;
+    }
+
+    &:hover div.remove {
+      opacity: 1;
+    }
+
+    form.editable ~ div.remove {
+      visibility: hidden;
+    }
+  }
+}
+
+ol.references li, ul.references li {
+  span.error {
+    color: red;
+    font-weight: bold;
+  }
+}

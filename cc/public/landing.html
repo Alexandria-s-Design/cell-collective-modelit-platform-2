@@ -1,0 +1,1486 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+
+	<title>
+		Interactive Modeling of Biological Networks | ModelIt!
+	</title>
+
+	<meta name="application-name" content="ModelIt!">
+
+	<meta name="theme-color" content="#1ABC9C">
+	<meta name="description"
+		content="ModelIt! is an interactive, open and collaborative modeling platform for Biological Networks for researchers, students and teachers worldwide.">
+
+	<meta name="robots" content="nofollow">
+	<meta name="googlebot" content="nofollow">
+
+	<meta name="google-site-verification" content="">
+
+	<meta name="mobile-web-app-capable" content="yes">
+
+	<!-- TODO -->
+	<link rel="manifest" href="manifest.json">
+
+	<link rel="author" href="humans.txt">
+
+	<link rel="me" href="https://facebook.com/CellCollectiveByDC" type="text/html">
+	<link rel="me" href="mailto:info@discoverycollective.com">
+	<link rel="me" href="sms:+14025478904">
+
+	<!-- Prefetching -->
+	<link rel="dns-prefetch" href="http://localhost:5000">
+	<link rel="preconnect" href="http://localhost:5000">
+	<link rel="prefetch" href="http://localhost:5000">
+	<link rel="prerender" href="http://localhost:5000">
+
+	<!-- <link rel="preload" as="font" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,900&display=swap"> -->
+	<link rel="stylesheet"
+		href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,0,0">
+	<!-- TODO -->
+	<!-- <link rel="icon"             href="/path/to/icon.png" sizes="192x192"> -->
+	<!-- <link rel="apple-touch-icon" href="/path/to/apple-touch-icon.png">     -->
+	<!-- <link rel="mask-icon"        href="/path/to/icon.svg" color="green">   -->
+
+	<!-- Facebook Open Graph -->
+	<meta property="fb:app_id" content="1902437750060978">
+	<meta property="og:url" content="http://localhost:5000">
+	<meta property="og:type" content="website">
+	<meta property="og:title" content="Interactive Modeling of Biological Networks | ModelIt!">
+	<!-- <meta property="og:image"       content=""> -->
+	<meta property="og:description"
+		content="ModelIt! is an interactive, open and collaborative modeling platform for Biological Networks for researchers, students and teachers worldwide.">
+	<meta property="og:site_name" content="ModelIt!">
+	<meta property="og:locale" content="en_US">
+
+	<!-- Twitter Card -->
+	<meta name="twitter:card"
+		content="ModelIt! is an interactive, open and collaborative modeling platform for Biological Networks for researchers, students and teachers worldwide.">
+	<meta name="twitter:site" content="@biocollective">
+	<meta name="twitter:url" content="http://localhost:5000">
+	<meta name="twitter:title" content="Interactive Modeling of Biological Networks | ModelIt!">
+	<meta name="twitter:description"
+		content="ModelIt! is an interactive, open and collaborative modeling platform for Biological Networks for researchers, students and teachers worldwide.">
+	<!-- <meta name="twitter:image"       content=""> -->
+
+	<script type="application/ld+json">
+					{
+							"@context": "http://schema.org/",
+							"@type": "WebSite",
+							"name": "ModelIt!",
+							"url": "http://localhost:5000",
+							"logo": "http://localhost:5000/assets/images/landing/research/logo-rcc.png",
+							"sameAs": [
+									"https://www.facebook.com/CellCollectiveByDC",
+									"https://www.linkedin.com/company/discovery-collective",
+									"https://www.twitter.com/biocollective"
+							]
+					}
+			</script>
+
+	<script>
+		(function () {
+			const hostname = window.location.hostname;
+				let measurementId;
+
+				switch (hostname) {
+					case "cellcollective.org":
+						measurementId = "G-V89ZEJMZDR"; // Production landing
+						break;
+					case "research.cellcollective.org":
+						measurementId = "G-FC5WJX5422"; // Production research
+						break;
+					case "teach.cellcollective.org":
+						measurementId = "G-Q1M61MJ78H"; // Production teach
+						break;
+					case "learn.cellcollective.org":
+						measurementId = "G-N15N4L9JEG"; // Production learn
+						break;
+					case "develop.cellcollective.org":
+						measurementId = "G-EZ1XK3WELR"; // Develop
+						break;
+					case "staging.cellcollective.org":
+						measurementId = "G-PDKQEH4GM4"; // Staging
+						break;
+					case "hotfix.cellcollective.org":
+						measurementId = "G-9TJ0R5S67X"; // Hotfix
+						break;
+					case "localhost":
+						measurementId = "G-ZP37KP1MJR"; // Localhost
+						break;
+					default:
+						console.warn("Undefined host name", window.location.hostname);
+						return;
+				}
+		
+				// DISABLED: Check European GDPR
+				// const script = document.createElement("script");
+				// script.async = true;
+				// script.src = `https://www.googletagmanager.com/gtag/js?id=${measurementId}`;
+				// document.head.appendChild(script);
+		
+				// window.dataLayer = window.dataLayer || [];
+				// function gtag() {
+				// 	dataLayer.push(arguments);
+				// }
+				// gtag("js", new Date());
+				// gtag("config", measurementId);
+		})();
+	</script>
+
+	<style type="text/css">
+		@import url(https://fonts.googleapis.com/css?family=Roboto:300,400,600,700,900);
+	</style>
+	<style type="text/css">
+		@import url(https://fonts.googleapis.com/css?family=Economica);
+	</style>
+	
+	<style type="text/css">
+		@import url(https://fonts.googleapis.com/css2?family=Anton&display=swap);
+	</style>
+	<link rel="stylesheet" href="bootstrap.css">
+	<link rel="stylesheet" href="chrome-tabs.css">
+	<link rel="stylesheet" href="landing.css">
+	<style type="text/css">
+		@import url(https://fonts.googleapis.com/css2?family=Roboto&display=swap);
+	</style>
+</head>
+
+<body>
+	<style>
+		.center-div {
+			position: absolute;
+			margin: auto;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			left: 0;
+			width: 100px;
+			height: 100px;
+		}
+	</style>
+	<div class="center-div">
+		<div style="visibility: visible; display: none;" id="mainspinner">
+			<img alt="loading" src="/assets/images/loading.gif" height="22" width="22">
+		</div>
+	</div>
+	<div style="display:invisible;" id="app">
+		<div>
+			<div style="">
+				<div class="landing">
+					<div class="bootstrap-scope">
+						<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+							<div class="container"><a class="navbar-brand" title="Home" href="/"><img
+										src="/assets/img/logo/base-title-inverse.png" height="30" alt="Brand ModelIt!"></a><button
+									class="navbar-toggler" type="button" data-toggle="collapse" data-target="#appbar-landing"><span
+										class="navbar-toggler-icon"></span></button></div>
+						</nav><a id="start" style="display: none;"></a>
+						<div class="c">
+							<div class="contain">
+								<div class="bloc-tabs">
+									<button id="1" class="tabs active-tabs one" data-id="one">Student</button>
+									<button id="2" class="tabs margin" data-id="two">Teacher</button>
+									<button id="3" class="tabs " data-id="three">Researcher</button>
+								</div>
+								<div class="content-tabs">
+						
+									<div class="content active-content border-one" id="one">
+										<div class="h2">
+											<h2>Students apply system thinking skills to learn life sciences concepts</h2>
+										</div>
+										<div class="table"><img src="/assets/img/landing/icons/cc.png" width="45px" height="45px"
+												alt="Icon build model">
+											<h3 class="landing-sub-heading">Build Models</h3>
+											<p>Identify and add components &amp; relationships</p><img class="storage"
+												src="/assets/img/landing/icons/storage.png" width="45px" height="45px" alt="Icon design model">
+											<h3 class="landing-sub-heading">Design Experiments</h3>
+											<p>Set activity for independent variable(s), select variables to visualize, and start/stop/pause
+												the simulations</p><img class="insight" src="/assets/img/landing/icons/insight.png" width="45px"
+												height="45px" alt="Icon interpret data">
+											<h3 class="landing-sub-heading">Interpret Data</h3>
+											<p>Examine simulation graph data, interpret the meaning of the results, and modify the
+												model/simulation based on results</p>
+										</div>
+										<div class="flex"><a href="http://localhost:5000/?dashboard=true" class="button-one">Get Started as
+												Student</a></div>
+									</div>
+									<div class="content" id="two">
+										<div class="h2">
+											<h2>Help students build transferable systems modeling, simulation, and thinking skills</h2>
+										</div>
+										<div class="table"><img src="/assets/img/landing/icons/cc.png" width="45px" height="45px"
+												alt="Icon select lesson">
+											<h3 class="landing-sub-heading">Select lessons</h3>
+											<p>Select ~3-5 lessons to cover a range of biological systems / complexity</p><img class="storage"
+												src="/assets/img/landing/icons/storage.png" width="45px" height="45px" alt="Icon assess">
+											<h3 class="landing-sub-heading">Assess immediate skills</h3>
+											<p>Assess student skills after each lesson</p><img class="insight"
+												src="/assets/img/landing/icons/insight.png" width="45px" height="45px"
+												alt="Icon assess transferable">
+											<h3 class="landing-sub-heading">Assess transferable skills</h3>
+											<p>Assess student skills over time</p>
+										</div>
+										<div class="flex"><a href="http://localhost:5000/?dashboard=true" class="button-two">Get Started as
+												Teacher</a></div>
+									</div>
+
+									<div class="content" id="three">
+										<div class="h2">
+											<h2>Build large-scale models of biological systems, validate, simulate, perturb, and analyze data
+											</h2>
+										</div>
+										<div class="table"><img src="/assets/img/landing/icons/cc.png" width="45px" height="45px"
+												alt="Icon build">
+											<h3 class="landing-sub-heading">Build Models</h3>
+											<p>Collaboratively construct and annotate comprehensive mechanistic models</p><img class="storage"
+												src="/assets/img/landing/icons/storage.png" width="45px" height="45px" alt="Icon simulate">
+											<h3 class="landing-sub-heading">Simulate</h3>
+											<p>Interactively simulate and analyze biological behaviors using a variety of built-in tools</p>
+											<img class="insight" src="/assets/img/landing/icons/insight.png" width="45px" height="45px"
+												alt="Icon distribute">
+											<h3 class="landing-sub-heading">Distribute</h3>
+											<p>Share, distribute, and re-use models for and within the scientific community</p>
+										</div>
+										<div class="flex"><a href="http://localhost:5000/?dashboard=true" class="button-three">Get Started
+												as Researcher</a></div>
+									</div>
+
+								</div> <!-- End of Content tabs -->
+							</div>
+						</div>
+						<div class="section bg-light">
+							<div class="container">
+								<div class="text-center">
+									<div class="h6 text-muted">Demo: Click the tabs below to explore</div>
+									<div class="my-4">
+										<div class="feature-tabs">
+											<div class="chrome-tabs" data-chrome-tabs-instance-id="0" style="--tab-content-margin: 9px;">
+												<div class="chrome-tabs-content">
+													<div class="chrome-tab" active="" style="width: 241px;">
+														<div class="chrome-tab-dividers"></div>
+														<div class="chrome-tab-background">
+															<svg version="1.1" xmlns="http://www.w3.org/2000/svg">
+																<defs>
+																	<symbol id="chrome-tab-geometry-left" viewBox="0 0 214 36">
+																		<path d="M17 0h197v36H0v-2c4.5 0 9-3.5 9-8V8c0-4.5 3.5-8 8-8z"></path>
+																	</symbol>
+																	<symbol id="chrome-tab-geometry-right" viewBox="0 0 214 36">
+																		<use xlink:href="#chrome-tab-geometry-left"></use>
+																	</symbol>
+																	<clipPath id="crop">
+																		<rect class="mask" width="100%" height="100%" x="0"></rect>
+																	</clipPath>
+																</defs><svg width="52%" height="100%">
+																	<use xlink:href="#chrome-tab-geometry-left" width="214" height="36"
+																		class="chrome-tab-geometry"></use>
+																</svg>
+																<g transform="scale(-1, 1)"><svg width="52%" height="100%" x="-100%" y="0">
+																		<use xlink:href="#chrome-tab-geometry-right" width="214" height="36"
+																			class="chrome-tab-geometry"></use>
+																	</svg></g>
+															</svg>
+														</div>
+														<div class="chrome-tab-content">
+															<div class="chrome-tab-favicon"
+																style="background-image: url(&quot;/assets/img/logo/research.png&quot;);"></div>
+															<div class="chrome-tab-title">Model Building</div>
+															<div class="chrome-tab-drag-handle" style="touch-action: none;"></div>
+															<div class="chrome-tab-close"></div>
+														</div>
+													</div>
+													<div class="chrome-tab" style="width: 240px;">
+														<div class="chrome-tab-dividers"></div>
+														<div class="chrome-tab-background">
+															<svg version="1.1" xmlns="http://www.w3.org/2000/svg">
+																<defs>
+																	<symbol id="chrome-tab-geometry-left" viewBox="0 0 214 36">
+																		<path d="M17 0h197v36H0v-2c4.5 0 9-3.5 9-8V8c0-4.5 3.5-8 8-8z"></path>
+																	</symbol>
+																	<symbol id="chrome-tab-geometry-right" viewBox="0 0 214 36">
+																		<use xlink:href="#chrome-tab-geometry-left"></use>
+																	</symbol>
+																	<clipPath id="crop">
+																		<rect class="mask" width="100%" height="100%" x="0"></rect>
+																	</clipPath>
+																</defs><svg width="52%" height="100%">
+																	<use xlink:href="#chrome-tab-geometry-left" width="214" height="36"
+																		class="chrome-tab-geometry"></use>
+																</svg>
+																<g transform="scale(-1, 1)"><svg width="52%" height="100%" x="-100%" y="0">
+																		<use xlink:href="#chrome-tab-geometry-right" width="214" height="36"
+																			class="chrome-tab-geometry"></use>
+																	</svg></g>
+															</svg>
+														</div>
+														<div class="chrome-tab-content">
+															<div class="chrome-tab-favicon"
+																style="background-image: url(&quot;/assets/img/logo/research.png&quot;);"></div>
+															<div class="chrome-tab-title">Model Analysis</div>
+															<div class="chrome-tab-drag-handle" style="touch-action: none;"></div>
+															<div class="chrome-tab-close"></div>
+														</div>
+													</div>
+													<div class="chrome-tab" style="width: 240px;">
+														<div class="chrome-tab-dividers"></div>
+														<div class="chrome-tab-background">
+															<svg version="1.1" xmlns="http://www.w3.org/2000/svg">
+																<defs>
+																	<symbol id="chrome-tab-geometry-left" viewBox="0 0 214 36">
+																		<path d="M17 0h197v36H0v-2c4.5 0 9-3.5 9-8V8c0-4.5 3.5-8 8-8z"></path>
+																	</symbol>
+																	<symbol id="chrome-tab-geometry-right" viewBox="0 0 214 36">
+																		<use xlink:href="#chrome-tab-geometry-left"></use>
+																	</symbol>
+																	<clipPath id="crop">
+																		<rect class="mask" width="100%" height="100%" x="0"></rect>
+																	</clipPath>
+																</defs><svg width="52%" height="100%">
+																	<use xlink:href="#chrome-tab-geometry-left" width="214" height="36"
+																		class="chrome-tab-geometry"></use>
+																</svg>
+																<g transform="scale(-1, 1)"><svg width="52%" height="100%" x="-100%" y="0">
+																		<use xlink:href="#chrome-tab-geometry-right" width="214" height="36"
+																			class="chrome-tab-geometry"></use>
+																	</svg></g>
+															</svg>
+														</div>
+														<div class="chrome-tab-content">
+															<div class="chrome-tab-favicon"
+																style="background-image: url(&quot;/assets/img/logo/teaching.png&quot;);"></div>
+															<div class="chrome-tab-title">Learning Activities</div>
+															<div class="chrome-tab-drag-handle" style="touch-action: none;"></div>
+															<div class="chrome-tab-close"></div>
+														</div>
+													</div>
+													<div class="chrome-tab" style="width: 240px;">
+														<div class="chrome-tab-dividers"></div>
+														<div class="chrome-tab-background">
+															<svg version="1.1" xmlns="http://www.w3.org/2000/svg">
+																<defs>
+																	<symbol id="chrome-tab-geometry-left" viewBox="0 0 214 36">
+																		<path d="M17 0h197v36H0v-2c4.5 0 9-3.5 9-8V8c0-4.5 3.5-8 8-8z"></path>
+																	</symbol>
+																	<symbol id="chrome-tab-geometry-right" viewBox="0 0 214 36">
+																		<use xlink:href="#chrome-tab-geometry-left"></use>
+																	</symbol>
+																	<clipPath id="crop">
+																		<rect class="mask" width="100%" height="100%" x="0"></rect>
+																	</clipPath>
+																</defs><svg width="52%" height="100%">
+																	<use xlink:href="#chrome-tab-geometry-left" width="214" height="36"
+																		class="chrome-tab-geometry"></use>
+																</svg>
+																<g transform="scale(-1, 1)"><svg width="52%" height="100%" x="-100%" y="0">
+																		<use xlink:href="#chrome-tab-geometry-right" width="214" height="36"
+																			class="chrome-tab-geometry"></use>
+																	</svg></g>
+															</svg>
+														</div>
+														<div class="chrome-tab-content">
+															<div class="chrome-tab-favicon"
+																style="background-image: url(&quot;/assets/img/logo/research.png&quot;);"></div>
+															<div class="chrome-tab-title">Publishing Models</div>
+															<div class="chrome-tab-drag-handle" style="touch-action: none;"></div>
+															<div class="chrome-tab-close"></div>
+														</div>
+													</div>
+												</div>
+												<div class="chrome-tabs-bottom-bar"></div>
+												<style>
+													.chrome-tabs[data-chrome-tabs-instance-id="0"] .chrome-tab:nth-child(1) {
+														transform: translate3d(0px, 0, 0)
+													}
+
+													.chrome-tabs[data-chrome-tabs-instance-id="0"] .chrome-tab:nth-child(2) {
+														transform: translate3d(220px, 0, 0)
+													}
+
+													.chrome-tabs[data-chrome-tabs-instance-id="0"] .chrome-tab:nth-child(3) {
+														transform: translate3d(440px, 0, 0)
+													}
+
+													.chrome-tabs[data-chrome-tabs-instance-id="0"] .chrome-tab:nth-child(4) {
+														transform: translate3d(660px, 0, 0)
+													}
+												</style>
+											</div>
+											<div class="tab-content"><img src="/assets/img/landing/gifs/model-building.gif"
+													class="img-responsive" width="100%" alt="Demo in gif"></div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="section">
+							<div class="container-fluid">
+								<div class="card-deck text-center">
+									<div class="mx-4 card no-background no-border">
+										<div class="card-body">
+											<div class="my-4"><img class="rounded" src="/assets/img/landing/icons/cells.png" height="96"
+													alt="Icon cells"></div>
+											<h4 class="font-bold text-primary"><span>Build Models</span></h4>
+											<h6 class="my-4 text-justify" style="line-height: 1.5rem;"><span>Model a multitude of biological processes, including metabolic networks, gene regulation, signal transduction, cell-cell interaction networks, food webs, etc. related to various organisms ranging from bacteria to viruses to flies to plants to humans. Define models without the need to enter or modify complex mathematical equations.</span></h6>
+										</div>
+									</div>
+									<div class="mx-4 card no-background no-border">
+										<div class="card-body">
+											<div class="my-4"><img class="rounded" src="/assets/img/landing/icons/gears-2.png" height="96"
+													alt="Icon gears"></div>
+											<h4 class="font-bold text-primary"><span>Perform Simulations</span></h4>
+											<h6 class="my-4 text-justify" style="line-height: 1.5rem;"><span>Use real-time, interactive simulations to visualize the dynamics of the biological process under various extracellular as well as mutational (i.e., diseased) conditions. Run hundreds of simulation experiments in a matter of minutes and perform input-output analysis to visualize cellular responses under different conditions</span></h6>
+										</div>
+									</div>
+									<div class="mx-4 card no-background no-border">
+										<div class="card-body">
+											<div class="my-4"><img class="rounded" src="/assets/img/landing/icons/report.png" height="96"
+													alt="Icon report"></div>
+											<h4 class="font-bold text-primary"><span>Analyze Results</span></h4>
+											<h6 class="my-4 text-justify" style="line-height: 1.5rem;"><span>Analyze the dynamics and responses of biological systems under different conditions. Run system-wide perturbation analyses to predict and rank the effects of individual and combinations of components on the system. Predict and explore drug re-purposing and combinatorial therapy opportunities.</span></h6>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="section bg-light">
+							<div class="container">
+								<div class="row">
+									<div class="col-md-7">
+										<div class="embed-responsive embed-responsive-16by9 rounded"><iframe title="Video about us"
+												class="embed-responsive-item" src="https://www.youtube.com/embed/c3e6RDhie1M?rel=0"
+												allowfullscreen=""></iframe></div>
+									</div>
+									<div class="col-md-5">
+										<div class="h3 font-normal text-center text-lg-left"><span>Transforming <b> Life Sciences
+												</b></span></div>
+										<div class="my-4">
+											<h6 class="my-4 text-justify"><span>Students no longer need to memorize biological concepts - they can model and simulate the dynamical interactions instead using ModelIt! modeling software.</span></h6>
+											<blockquote class="blockquote"><small class="text-justify"><span><em> I found that by actually doing these types of simulations, I understand the concepts a lot more afterwards.</em></span></small>
+											</blockquote>
+											<div class="media"><img class="rounded-circle" src="/assets/img/landing/avatar/gretchen-lusso.jpg"
+													width="64" alt="Avatar gretchen">
+												<div class="media-body ml-3">
+													<div class="h6 font-bold">Gretchen Lusso</div><span>Student of Biological Sciences,  <em> University
+															of Nebraska-Lincoln </em></span>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="section">
+							<div class="container">
+								<div class="text-center">
+									<div class="my-2"><img src="/assets/img/landing/icons/earth.png" height="64" alt="Icon earth"></div>
+									<div class="my-4 h3 font-bold"><span>From Researchers, to the World's Top Universities</span></div>
+									<div class="my-2">
+										<div class="h5 font-normal text-muted"><span>1000s of researchers, teachers and students across the world use ModelIt! to learn, build and simulate biological models.</span></div>
+									</div>
+									<div class="my-2">
+										<div class="h5 font-normal text-muted"><span>If you have questions, please contact us at info@discoverycollective.com.</span></div>
+									</div>
+									<div class="my-5"><img class="img-fluid" src="/assets/img/landing/brand-logos.png" height="300"
+											alt="Cases"></div>
+								</div>
+							</div>
+						</div>
+						<div class="footer">
+							<div class="bg-dark">
+								<div class="container">
+									<div class="card no-background no-border">
+										<div class="card-body">
+											<div class="text-center">
+												<div class="text-muted">2018 © ModelIt!</div><br>
+												<div class="text-muted" style="height: 50px; overflow: scroll;">
+													MODELIT! TERMS OF USE AND PRIVACY POLICY
+													1. General
+													The Terms of Use and Privacy Policy (collectively, the “Terms and Conditions”) are entered
+													into by and between you and ModelIt! (the “Company”, “we,” “us”, or “our.”). The Terms
+													and Conditions govern your access to and use of cellcollective.org, including any content,
+													functionality, programs and services offered on or through cellcollective.org (the “Website”),
+													whether as a guest or a registered user.
+													We may revise and update the Terms and Conditions from time to time in our sole discretion,
+													but its content is not necessarily complete or up-to-date. Any of the material on the Website
+													may be out of date at any given time, and we are under no obligation to update such material.
+													All changes are effective immediately when posted, and apply to all access to and use of the
+													Website thereafter. Your continued use of the Website following the posting of revised Terms
+													and Conditions means that you accept and agree to the changes. You are expected to check this
+													page each time you access the Website so you are aware of any changes, as they are binding on
+													you.
+													The Website is offered and available to users who are under 18 years of age. By using the
+													Website, you represent and warrant that you are 18 years of age, or an emancipated minor, or
+													are fully able and competent to agree to the Terms and Conditions. Notwithstanding the
+													foregoing, you represent and warrant that you are over 13 years of age or that your access to
+													the Website has been approved by a parent or a guardian, as the Website is not intended for
+													children under 13 years of age that are unaccompanied by his or her parent or legal guardian.
+													If you do not meet all of these requirements, you must not access or use the Website. By
+													accessing the Website you represent that (a) you have not been previously suspended or removed
+													from the Website by the Company; (b) that you are either (i) at least 13 years of age or (ii)
+													your parent or guardian has consented to your use of the Website; and (c) that your
+													registration and use of the Website is in compliance with any and all applicable laws and
+													regulations.
+													A user under 13 years of age may use the Website if registered through certain educational
+													organizations through which the legal parent and/or guardian of such user has consented to use
+													of the Website. A user under 13 years of age that has registered through such external
+													educational organizations will only be permitted to use the Website for so long as the Company
+													reasonably believes that such access has been consented to by the user’s parent or guardian.
+													If you are over 18 years of age and register, approve the registration of, or otherwise assume
+													responsibility for a user under 13 years of age, you represent and warrant that you are such
+													user’s parent or guardian and you agree to be bound by the terms on behalf of such user,
+													including without limitation being liable for all use of the Website by such user.
+													2. Online Account
+													For certain types of features available through the Website, we require the use of encryption
+													technologies that are provided for your protection and/or your use of a user identification
+													name (the “UserID”) and password (the “Password”) in order to set up a user account (the “User
+													Account”). To create a User Account, you must provide account-specific information to
+													authenticate yourself, including but not limited to: User ID, Password, account owner first
+													and last name, email address and institution. To access your User Account, you will be asked
+													account-specific information to authenticate yourself. In the Terms and Conditions, “you” and
+													“your” refers to each person, or, if applicable, the entity who is an owner, signer or has
+													unrestricted access to a User Account and each person that uses the Website with your
+													permission (the “Authorized User”). You may never use another person’s User Account and/or
+													UserID without permission. The Company may act on the oral, written or electronic instructions
+													of any authorized signer regarding your User Account. It is your responsibility to notify the
+													Company if an Authorized User should no longer be given access to a User Account.
+													We use reasonable precautions to protect the privacy of your UserID, Password and User Account
+													information pursuant to the Privacy Policy set forth below. Accordingly, your UserID, Password
+													and User Account information are encrypted using a secure connection and are not expected to
+													be read in an intelligible form as they travel to the Website. You, however, are ultimately
+													responsible for protecting your UserID, Password and User Account information from disclosure
+													to third-parties, and you are not permitted to circumvent the use of required encryption
+													technologies. You are required to take reasonable precautions to safeguard your UserID and
+													Password. You agree to never leave your computer unattended while using the Website and to
+													always exit the Website by clicking on “Log Out.” You also agree to immediately notify the
+													Company of any unauthorized use of your UserID, Password or User Account, or any other breach
+													of security by email at info@discoverycollective.com. You are solely responsible for any
+													activity that occurs with respect to your User Account and UserID. While we provide certain
+													encryption technologies and use other reasonable precautions to protect your confidential
+													information and provide suitable security, we do not and cannot guarantee or warrant that
+													information transmitted through the Internet is secure, or that such transmissions are free
+													from delay, error, interception or interruption.
+													3. Termination of User Account
+													The Company reserves the right to terminate your User Account or use of the Website for any
+													reason including inactivity and at any time without notice to you. You have the right to
+													terminate your User Account or use of the Website by contacting the Company by email at
+													info@discoverycollective.com. Any termination of your User Account or use of the Website,
+													whether initiated by you or by the Company, will not affect any of your or the Company’s
+													rights and obligations under the Terms and Conditions that have arisen before the effective
+													date of such termination.
+													4. Accessing the Website and Account Security
+													We reserve the right to withdraw or amend the Website, and any service or material we provide
+													on the Website, in our sole discretion without notice. We will not be liable if for any reason
+													all or any part of the Website is unavailable at any time or for any period. From time to
+													time, we may restrict access to some parts of the Website, or the entire Website, to users,
+													including registered users. You are responsible for making all arrangements necessary to have
+													access to the Website and ensuring that all persons who access the Website through your
+													internet connection are aware of the Terms and Conditions and comply with them.
+													To access the Website or the resources it offers, you may be asked to provide certain
+													registration details or other information. It is a condition of your use of the Website that
+													all the information you provide on the Website is correct, current, and complete. You agree
+													that all information you provide to create a User Account for access to the Website or
+													otherwise, including but not limited to through the use of any interactive features on the
+													Website, is governed by the Terms and Conditions, and you consent to all actions we take with
+													respect to your information consistent with the Terms and Conditions.
+													If you choose, or are provided with, a UserID, Password, or any other piece of information as
+													part of our security procedures, you must treat such information as confidential, and you must
+													not disclose it to any other person or entity. You also acknowledge that your account is
+													personal to you and agree not to provide any other person with access to the Website or
+													portions of it using your UserID, Password, or other security information. You agree to notify
+													us immediately of any unauthorized access to or use of your UserID or Password or any other
+													breach of security. You also agree to ensure that you exit from your account at the end of
+													each session. You should use particular caution when accessing your account from a public or
+													shared computer so that others are not able to view or record your password or other personal
+													information.
+													We have the right to disable any UserID, Password, or other identifier, whether chosen by you
+													or provided by us, at any time in our sole discretion, including if, in our opinion, you have
+													violated any provision of the Terms and Conditions.
+													5. Intellectual Property Rights
+													The Website and its entire contents, features, and functionality (including but not limited to
+													all information, software, text, displays, images, video, and audio, and the design,
+													selection, and arrangement thereof), are owned by the Company, its licensors, or other
+													providers of such material and are protected by United States and international copyright,
+													trademark, patent, trade secret, and other intellectual property or proprietary rights laws.
+													The Terms and Conditions permit you to view, copy, publish or print User Contributions
+													(defined in Section 7 below) for your personal, non-commercial use only, consistent with
+													requirements set forth in the Terms and Conditions. You must not reproduce, distribute,
+													modify, create derivative works of, publicly display, publicly perform, republish, download,
+													store, or transmit any of the material on our Website, except as follows:
+													• Your computer may temporarily store copies of such materials in RAM incidental to your
+													accessing and viewing those materials;
+													• You may store files that are automatically cached by your Web browser for display
+													enhancement purposes;
+													• You may print or download one copy of a reasonable number of pages of the Website for your
+													own personal, non-commercial use and not for further reproduction, publication, or
+													distribution;
+													• If we provide desktop, mobile, or other applications for download, you may download a single
+													copy to your computer or mobile device solely for your own personal, non-commercial use,
+													provided you agree to be bound by our end user license agreement for such applications; and
+													• If we provide social media features with certain content, you may take such actions as are
+													enabled by such features.
+													You must not modify copies of any materials from the Website, use any illustrations,
+													photographs, video or audio sequences, or any graphics separately from the accompanying text,
+													or delete or alter any copyright, trademark, or other proprietary rights notices from copies
+													of materials from the Website.
+													You must not access or use for any commercial purposes any part of the Website or any services
+													or materials available through the Website. If you wish to make any use of material on the
+													Website other than that set out in this section, please address your request to:
+													info@discoverycollective.com.
+													If you print, copy, modify, download, or otherwise use or provide any other person with access
+													to any part of the Website in breach of the Terms and Conditions, your right to use the
+													Website will terminate and, at our option, you may be required return or destroy any copies of
+													the materials you have made. No right, title, or interest in or to the Website or any content
+													on the Website is transferred to you, and all rights not expressly granted are reserved by the
+													Company. Any use of the Website not expressly permitted by the Terms and Conditions is a
+													breach of the Terms and Conditions and may violate copyright, trademark, and other laws.
+													The Company name, the terms “Discovery Collective” and “ModelIt!,” and all related
+													names, logos, product and service names, designs, and slogans are trademarks of the Company or
+													its affiliates or licensors. You must not use such marks without the prior written permission
+													of the Company. All other names, logos, product and service names, designs, and slogans on the
+													Website are the trademarks of their respective owners.
+													6. Prohibited Uses
+													You may use the Website only for lawful purposes and in accordance with the Terms and
+													Conditions. You agree not to use the Website:
+													• In any way that violates any applicable federal, state, local, or international law or
+													regulation (including, without limitation, any laws regarding the export of data or software
+													to and from the US or other countries).
+													• For the purpose of exploiting, harming, or attempting to exploit or harm minors in any way
+													by exposing them to inappropriate content, asking for personally identifiable information, or
+													otherwise.
+													• To send, knowingly receive, upload, download, use, or re-use any material that does not
+													comply with the Terms and Conditions.
+													• To transmit, or procure the sending of, any advertising or promotional material without our
+													prior written consent, including any “junk mail”, “chain letter”, “spam”, or any other similar
+													solicitation.
+													• To impersonate or attempt to impersonate the Company, a Company employee, another user, or
+													any other person or entity (including, without limitation, by using email addresses or screen
+													names associated with any of the foregoing).
+													• To engage in any other conduct that restricts or inhibits anyone’s use or enjoyment of the
+													Website, or which, as determined by us, may harm the Company or users of the Website or expose
+													them to liability.
+													• Use the Website in any manner that could disable, overburden, damage, or impair the Website
+													or interfere with any other party’s use of the Website, including their ability to engage in
+													real time activities through the Website.
+													• Use any robot, spider, or other automatic device, process, or means to access the Website
+													for any purpose, including monitoring or copying any of the material on the Website.
+													• Use any manual process to monitor or copy any of the material on the Website or for any
+													other unauthorized purpose without our prior written consent.
+													• Use any device, software, or routine that interferes with the proper working of the Website.
+													• Introduce any viruses, trojan horses, worms, logic bombs, or other material that is
+													malicious or technologically harmful.
+													• Attempt to gain unauthorized access to, interfere with, damage, or disrupt any parts of the
+													Website, the server on which the Website is stored, or any server, computer, or database
+													connected to the Website.
+													• Attack the Website via a denial-of-service attack or a distributed denial-of-service attack.
+													• Otherwise attempt to interfere with the proper working of the Website.
+													7. User Contributions
+													The Website may contain message boards, chat rooms, personal web pages or profiles, forums,
+													bulletin boards, and other interactive features (collectively, the “Interactive Services”)
+													that allow users to post, submit, publish, display, or transmit to other users or other
+													persons (hereinafter, “Post”) content or materials (collectively, the “User Contributions”) on
+													or through the Website. All User Contributions must comply with the Terms and Conditions.
+													Any User Contributions you post to the Website will be considered non-confidential and
+													non-proprietary. By providing any User Contributions on the Website, you grant us and our
+													affiliates and service providers, and each of their and our licensees, successors, and assigns
+													the right to use, reproduce, modify, perform, display, distribute, and otherwise disclose to
+													third-parties any such material for any purpose and as governed by the latest version of the
+													GNU GPL license available at http://www.gnu.org/licenses/gpl-3.0.en.html.
+													You represent and warrant that you own or control all rights in and to the User Contributions
+													and have the right to grant the license granted above to us and our affiliates and service
+													providers, and each of their and our licensees, successors, and assigns.
+													You understand and acknowledge that you are responsible for any User Contributions you submit
+													or contribute, and you, not the Company, have fully responsibility for such content, including
+													its legality, reliability, accuracy, and appropriateness.
+													We are not responsible or liable to any third party for the content or accuracy of any User
+													Contributions posted by you or any other user of the Website.
+													8. Monitoring and Enforcement; Termination
+													We have the right to:
+													• Remove or refuse to post any User Contributions for any or no reason in our sole discretion.
+													• Take any action with respect to any User Contribution that we deem necessary or appropriate
+													in our sole discretion, including if we believe that such User Contribution violates the Terms
+													and Conditions, infringes any intellectual property right or other right of any person or
+													entity, threatens the personal safety of users of the Website or the public, or could create
+													liability for the Company.
+													• Disclose your identity or other information about you to any third party who claims that
+													material posted by you violates their rights, including their intellectual property rights or
+													their right to privacy.
+													• Take appropriate legal action, including without limitation, referral to law enforcement,
+													for any illegal or unauthorized use of the Website.
+													• Terminate or suspend your access to all or part of the Website for any violation of the
+													Terms and Conditions.
+													Without limiting the foregoing, we have the right to fully cooperate with any law enforcement
+													authorities or court order requesting or directing us to disclose the identity or other
+													information of anyone posting any materials on or through the Website. You waive and hold
+													harmless the Company and its affiliates, licensees and service providers from any claims
+													resulting from any action taken by any of the foregoing parties during, or taken as a
+													consequence of, investigations by such parties or law enforcement authorities. However, we
+													cannot review all material before it is posted on the Website, and cannot ensure prompt
+													removal of objectionable material after it has been posted. Accordingly, we assume no
+													liability for any action or inaction regarding transmissions, communications, or content
+													provided by any user or third party. We have no liability or responsibility to anyone for
+													performance or nonperformance of the activities described in this section.
+													9. Content Standards
+													User Contributions must in their entirety comply with all applicable federal, state, local,
+													and international laws and regulations. Without limiting the foregoing, User Contributions
+													must not:
+													• Contain any material that is defamatory, obscene, indecent, abusive, offensive, harassing,
+													violent, hateful, inflammatory, or otherwise objectionable.
+													• Promote sexually explicit or pornographic material, violence, or discrimination based on
+													race, sex, religion, nationality, disability, sexual orientation, or age.
+													• Infringe any patent, trademark, trade secret, copyright, or other intellectual property or
+													other rights of any other person.
+													• Violate the legal rights (including the rights of publicity and privacy) of others or
+													contain any material that could give rise to any civil or criminal liability under applicable
+													laws or regulations or that otherwise may be in conflict with the Terms and Conditions.
+													• Be likely to deceive any person.
+													• Promote any illegal activity, or advocate, promote, or assist any unlawful act.
+													• Cause annoyance, inconvenience, or needless anxiety or be likely to upset, embarrass, alarm,
+													or annoy any other person.
+													• Impersonate any person, or misrepresent your identity or affiliation with any person or
+													organization.
+													• Involve commercial activities or sales, such as contests, sweepstakes and other sales
+													promotions, barter, or advertising.
+													• Give the impression that they emanate from or are endorsed by us or any other person or
+													entity, if this is not the case.
+													10. Copyright Infringement
+													It is the policy of the Company to terminate the User Accounts of repeat infringers. A repeat
+													infringer is a user who has been notified by the Company of infringing activity violations
+													more than twice and/or who has had User Contributions or any other user-submitted content
+													removed from the Website more than twice.
+													11. Reliance on Information Posted
+													The information presented on or through the Website is made available solely for general
+													information purposes. We do not warrant the accuracy, completeness, or usefulness of this
+													information. Any reliance you place on such information is strictly at your own risk. We
+													disclaim all liability and responsibility arising from any reliance placed on such materials
+													by you or any other visitor to the Website, or by anyone who may be informed of any of its
+													contents.
+													The Website may include content provided by third-parties, including materials provided by
+													other users, bloggers, and third-party licensors, syndicators, aggregators, and/or reporting
+													services. All statements and/or opinions expressed in these materials, and all articles and
+													responses to questions and other content, other than the content provided by the Company, are
+													solely the opinions and the responsibility of the person or entity providing those materials.
+													These materials do not necessarily reflect the opinion of the Company. We are not responsible,
+													or liable to you or any third party, for the content or accuracy of any materials provided by
+													any third-parties.
+													12. Information About You and Your Visits to the Website
+													By using the Website, you consent to all actions taken by us with respect to your information
+													in compliance with the Terms and Conditions.
+													13. Linking to the Website, Social Media Features and API Use
+													The Website may provide certain social media features that enable you to link from your own or
+													certain third-party websites to certain content on the Website, send emails or other
+													communications with certain content, or links to certain content, on the Website, or cause
+													limited portions of content on the Website to be displayed or appear to be displayed on your
+													own or certain third-party websites. You may use these features solely as they are provided by
+													us and solely with respect to the content they are displayed with and otherwise in accordance
+													with any additional terms and conditions we provide with respect to such features.
+													Subject to the foregoing, you must not establish a link from any website that is not owned by
+													you, cause the Website or portions of it to be displayed on, or appear to be displayed by, any
+													other site, for example, framing, deep linking, or in-line linking, link to any part of the
+													Website other than the homepage, or otherwise take any action with respect to the materials on
+													the Website that is inconsistent with any other provision of the Terms and Conditions. The
+													website from which you are linking, or on which you make certain content accessible, must
+													comply in all respects with the Content Standards set out in the Terms and Conditions. You
+													agree to cooperate with us in causing any unauthorized framing or linking immediately to stop.
+													We reserve the right to withdraw linking permission without notice. We may disable all or any
+													social media features and any links at any time without notice in our discretion.
+													The Company permits you to create compatibility between an application, service, or product
+													created by you (the “Application”) and Interactive Services created on the Website by you or
+													another user. Subject to the Terms and Conditions, you are hereby granted a limited,
+													worldwide, non-exclusive, non-transferable, non-sublicenseable and perpetual license to use
+													the Website’s application programming interface (“API”) solely for the purpose of creating
+													compatibility between the Website and the Application. All rights not expressly granted to you
+													herein are reserved by the Company. From time to time, the Company may monitor, review and
+													inspect the Application and audit your access to and use of the Website. You hereby grant the
+													Company the right to monitor, review and inspect your Application for the purpose of verifying
+													compliance with the Terms and Conditions.
+													14. Links from the Website
+													If the Website contains links to other sites and resources provided by third-parties, these
+													links are provided for your convenience only. This includes links contained in advertisements,
+													including banner advertisements and sponsored links. We have no control over the contents of
+													those sites or resources, and accept no responsibility for them or for any loss or damage that
+													may arise from your use of them. If you decide to access any of the third-party websites
+													linked to the Website, you do so entirely at your own risk and subject to the Terms and
+													Conditions for such websites.
+													15. Disclaimer of Warranties
+													You understand that we cannot and do not guarantee or warrant that files available for
+													downloading from the internet or the Website will be free of viruses or other destructive
+													code. You are responsible for implementing sufficient procedures and checkpoints to satisfy
+													your particular requirements for anti-virus protection and accuracy of data input and output,
+													and for maintaining a means external to our Website for any reconstruction of any lost data.
+													To the fullest extent provided by law, we will not be liable for any loss or damage caused by
+													a distributed denial-of-service attack, viruses, or other technologically harmful material
+													that may infect your computer equipment, computer programs, data, or other proprietary
+													material due to your use of the Website or any services or items obtained through the Website
+													or to your downloading of any material posted on it, or on any website linked to it.
+													Your use of the Website, its content, and any services or items obtained through the Website
+													is at your own risk. The Website, its content, and any services or items obtained through the
+													Website are provided on an “as is” and “as available” basis, without any warranties of any
+													kind, either express or implied. Neither the company nor any person associated with the
+													company makes any warranty or representation with respect to the completeness, security,
+													reliability, quality, accuracy, or availability of the website. Without limiting the
+													foregoing, neither the Company nor anyone associated with the Company represents or warrants
+													that the Website, its content, or any services or items obtained through the Website will be
+													accurate, reliable, error-free, or uninterrupted, that defects will be corrected, that our
+													Website or the server that makes it available are free of viruses or other harmful components,
+													or that the Website or any services or items obtained through the Website will otherwise meet
+													your needs or expectations.
+													To the fullest extent provided by law, the Company hereby disclaims all warranties of any
+													kind, whether express or implied, statutory, or otherwise, including but not limited to any
+													warranties of merchantability, non-infringement, and fitness for particular purpose. The
+													foregoing does not affect any warranties that cannot be excluded or limited under applicable
+													law.
+													16. Limitation on Liability
+													To the fullest extent provided by law, in no event will the Company, its affiliates, or their
+													licensors, service providers, employees, agents, officers, or directors be liable for damages
+													of any kind, under any legal theory, arising out of or in connection with your use, or
+													inability to use, the Website, any websites linked to it, any content on the Website or such
+													other websites, including any direct, indirect, special, incidental, consequential, or
+													punitive damages, including but not limited to, personal injury, pain and suffering, emotional
+													distress, loss of revenue, loss of profits, loss of business or anticipated savings, loss of
+													use, loss of goodwill, loss of data, and whether caused by tort (including negligence), breach
+													of contract, or otherwise, even if foreseeable. The foregoing does not affect any liability
+													that cannot be excluded or limited under applicable law.
+													17. Indemnification
+													You agree to defend, indemnify, and hold harmless the Company, its affiliates, licensors, and
+													service providers, and its and their respective officers, directors, employees, contractors,
+													agents, licensors, suppliers, successors, and assigns from and against any claims,
+													liabilities, damages, judgments, awards, losses, costs, expenses, or fees (including
+													reasonable attorneys’ fees) arising out of or relating to your violation of the Terms and
+													Conditions or your use of the Website, including, but not limited to, your User Contributions,
+													any use of the Website’s content, services, and products other than as expressly authorized in
+													the Terms and Conditions or your use of any information obtained from the Website.
+													18. Governing Law and Jurisdiction
+													All matters relating to the Website and the Terms and Conditions and any dispute or claim
+													arising therefrom or related thereto (in each case, including non-contractual disputes or
+													claims), shall be governed by and construed in accordance with the internal laws of the State
+													of Nebraska without giving effect to any choice or conflict of law provision or rule (whether
+													of the State of Nebraska or any other jurisdiction).
+													Any legal suit, action, or proceeding arising out of, or related to, the Terms and Conditions
+													or the Website shall be instituted exclusively in the federal courts of the United States or
+													the courts of the State of Nebraska in each case located in the City of Omaha and County of
+													Douglas, although we retain the right to bring any suit, action, or proceeding against you for
+													breach of the Terms and Conditions in your country of residence or any other relevant country.
+													You waive any and all objections to the exercise of jurisdiction over you by such courts and
+													to venue in such courts.
+													19. Arbitration
+													In our sole discretion, we may require you to submit any disputes arising from the use of the
+													Website or breach of the Terms and Conditions, including disputes arising from or concerning
+													their interpretation, violation, invalidity, non-performance, or termination, to final and
+													binding arbitration under the Rules of Arbitration of the American Arbitration Association
+													applying Nebraska law.
+													20. Limitation on Time to File Claims
+													Any cause of action or claim you may have arising out of or relating to the Terms and
+													Conditions or the Website must be commenced within one (1) year after the cause of action
+													accrues, otherwise, such cause of action or claim is permanently barred.
+													21. Waiver and Severability
+													No waiver by the Company of any term or condition set out in the Terms and Conditions shall be
+													deemed a further or continuing waiver of such term or condition or a waiver of any other term
+													or condition, and any failure of the Company to assert a right or provision under the Terms
+													and Conditions shall not constitute a waiver of such right or provision.
+													If any provision of the Terms and Conditions is held by a court or other tribunal of competent
+													jurisdiction to be invalid, illegal or unenforceable for any reason, such provision shall be
+													eliminated or limited to the minimum extent such that the remaining provisions of the Terms
+													and Conditions will continue in full force and effect.
+													22. Entire Agreement
+													The Terms and Conditions constitutes the sole and entire agreement between you and Cell
+													Collective regarding the Website and supersedes all prior and contemporaneous understandings,
+													agreements, representations, and warranties, both written and oral, regarding the Website.
+													23. Your Comments and Concerns
+													The Website is operated by ModelIt! All feedback, comments, requests for technical
+													support, and other communications relating to the Website, including cellcollective.org,
+													learn.cellcollective.org, and teach.cellcollective.org, should be directed to:
+													info@discoverycollective.com.
+													CELLCOLLECTIVE.ORG PRIVACY POLICY
+													24. General
+													The Company is committed to your right to privacy and takes your privacy seriously. The
+													Website has prepared this privacy policy statement (the “Privacy Policy”) to describe our
+													collection, use, and disclosure of your personal information through the Website. The Privacy
+													Policy is incorporated into the Terms and Conditions. The Company will collect, use, and
+													disclose your personal information as described in the Privacy Policy.
+													25. Information Collected
+													The Company uses a combination of both internal and third-party tracking code as well as
+													cookies to track certain information. The categories of information tracked when a visitor
+													enters the Website includes, but is not limited to: (1) IP address, (2) domain servers, (3)
+													type of computer used to access the Website, (4) types of web browsers, (5) information
+													provided to the Company through Google Analytics, such as the domain that directed users to
+													the Website (collectively “Anonymous Data”). For users without a UserID, such data does not
+													collect information that identifies you as an individual. For users with a UserID, such data
+													is tracked with the UserID. Company uses Anonymous Data and data tracked with a UserID to help
+													enhance customer experience on the Website.
+													For you to access certain services that we offer through the Website, we may require you to
+													provide us with information that can identify you as an individual (the “Personally
+													Identifiable Information”). Personally Identifiable Information includes: (i) “Contact Data”
+													(such as your first and last name, physical street address, city, state, zip code, phone
+													number and email address), and (ii) “Financial Data” (such as your credit card number,
+													expiration date, and verification code). Company uses Personally Identifiable Information to
+													help enhance customer experience on the Website. Please note that Contact Data and Anonymous
+													Data is used to gather general statistics regarding our customers and visitors, in order to
+													enhance the consumer experience on the Website. We may also use demographic data in a manner
+													that does not identify you specifically or allow you to be contacted but does identify certain
+													criteria about our users in general. For example, we may inform third-parties about the number
+													of registered users, number of unique visitors, and the pages most frequently browsed.
+													We use your Contact Data to provide you with special information and promotions regarding our
+													products or to contact a customer regarding an order or to respond to a question or request.
+													Any Financial Data gathered is used for the purposes of processing or completing the financial
+													transaction for your order. If you post information on any of our chat groups, message boards
+													or forums, such information you provide may be available to other members of the Website and
+													other Website visitors. You should use caution when deciding to disclose your personal
+													information in these venues, as we do not control who may participate in these interactive
+													forums.
+													26. Choice Regarding Disclosure of Contact Information
+													You may choose not to create a User Account or provide us with any contact information. In
+													such an event, you can still access and use some portions of the Website; however you will not
+													be able to access and use portions of the Website that require a User Account.
+													27. Confidentiality and Security of Contact Information
+													Except as described in the Privacy Policy, we will not share your contact information with
+													third-parties, unless such disclosure is necessary (as determined in our sole discretion) to:
+													(a) comply with a court order or other legal process; (b) protect the rights, property, or
+													safety of the Website or any third party; or (c) enforce the Terms and Conditions. We use
+													reasonable measures to maintain the security of your contact information. However, no company,
+													organization, or online community, including the Website can fully eliminate security risks
+													associated with personal information.
+													28. Other Limits to Your Privacy
+													The Website contains links to other third-party websites (the “Linked Websites”). We are not
+													responsible for the privacy practices or the content of the Linked Websites. If you choose to
+													visit other websites, we are not responsible for the privacy practices or content of those
+													other websites, and it is your responsibility to review the privacy policies at those websites
+													to confirm that you understand and agree with their policies. As discussed above, we also make
+													chat groups, forums, and message boards available to you, but please understand that any
+													information you disclose in these areas becomes public information and accordingly, such
+													information is not subject to the Privacy Policy. We have no control over its use and you
+													should exercise caution
+													when deciding to disclose any personal information.
+													29. Updates and Changes to Privacy Policy
+													We reserve the right, at any time and without notice, to add to, change, update or modify the
+													Privacy Policy, by posting such change, update or modification on the Website. Any such
+													change, update or modification will be effective immediately upon posting.
+													30. Contact
+													If you have any questions about the Privacy Policy, or your dealings with the Website,
+													you can contact us at info@discoverycollective.com.
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="modal fade">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">Terms and Conditions</div>
+									<div class="modal-body">
+										MODELIT! TERMS OF USE AND PRIVACY POLICY
+										1. General
+										The Terms of Use and Privacy Policy (collectively, the “Terms and Conditions”) are entered into by
+										and between you and ModelIt! (the “Company”, “we,” “us”, or “our.”). The Terms and Conditions
+										govern your access to and use of cellcollective.org, including any content, functionality, programs
+										and services offered on or through cellcollective.org (the “Website”), whether as a guest or a
+										registered user.
+										We may revise and update the Terms and Conditions from time to time in our sole discretion, but its
+										content is not necessarily complete or up-to-date. Any of the material on the Website may be out of
+										date at any given time, and we are under no obligation to update such material. All changes are
+										effective immediately when posted, and apply to all access to and use of the Website thereafter.
+										Your continued use of the Website following the posting of revised Terms and Conditions means that
+										you accept and agree to the changes. You are expected to check this page each time you access the
+										Website so you are aware of any changes, as they are binding on you.
+										The Website is offered and available to users who are under 18 years of age. By using the Website,
+										you represent and warrant that you are 18 years of age, or an emancipated minor, or are fully able
+										and competent to agree to the Terms and Conditions. Notwithstanding the foregoing, you represent and
+										warrant that you are over 13 years of age or that your access to the Website has been approved by a
+										parent or a guardian, as the Website is not intended for children under 13 years of age that are
+										unaccompanied by his or her parent or legal guardian. If you do not meet all of these requirements,
+										you must not access or use the Website. By accessing the Website you represent that (a) you have not
+										been previously suspended or removed from the Website by the Company; (b) that you are either (i) at
+										least 13 years of age or (ii) your parent or guardian has consented to your use of the Website; and
+										(c) that your registration and use of the Website is in compliance with any and all applicable laws
+										and regulations.
+										A user under 13 years of age may use the Website if registered through certain educational
+										organizations through which the legal parent and/or guardian of such user has consented to use of
+										the Website. A user under 13 years of age that has registered through such external educational
+										organizations will only be permitted to use the Website for so long as the Company reasonably
+										believes that such access has been consented to by the user’s parent or guardian. If you are over 18
+										years of age and register, approve the registration of, or otherwise assume responsibility for a
+										user under 13 years of age, you represent and warrant that you are such user’s parent or guardian
+										and you agree to be bound by the terms on behalf of such user, including without limitation being
+										liable for all use of the Website by such user.
+										2. Online Account
+										For certain types of features available through the Website, we require the use of encryption
+										technologies that are provided for your protection and/or your use of a user identification name
+										(the “UserID”) and password (the “Password”) in order to set up a user account (the “User Account”).
+										To create a User Account, you must provide account-specific information to authenticate yourself,
+										including but not limited to: User ID, Password, account owner first and last name, email address
+										and institution. To access your User Account, you will be asked account-specific information to
+										authenticate yourself. In the Terms and Conditions, “you” and “your” refers to each person, or, if
+										applicable, the entity who is an owner, signer or has unrestricted access to a User Account and each
+										person that uses the Website with your permission (the “Authorized User”). You may never use another
+										person’s User Account and/or UserID without permission. The Company may act on the oral, written or
+										electronic instructions of any authorized signer regarding your User Account. It is your
+										responsibility to notify the Company if an Authorized User should no longer be given access to a
+										User Account.
+										We use reasonable precautions to protect the privacy of your UserID, Password and User Account
+										information pursuant to the Privacy Policy set forth below. Accordingly, your UserID, Password and
+										User Account information are encrypted using a secure connection and are not expected to be read in
+										an intelligible form as they travel to the Website. You, however, are ultimately responsible for
+										protecting your UserID, Password and User Account information from disclosure to third-parties, and
+										you are not permitted to circumvent the use of required encryption technologies. You are required to
+										take reasonable precautions to safeguard your UserID and Password. You agree to never leave your
+										computer unattended while using the Website and to always exit the Website by clicking on “Log Out.”
+										You also agree to immediately notify the Company of any unauthorized use of your UserID, Password or
+										User Account, or any other breach of security by email at info@discoverycollective.com. You are solely
+										responsible for any activity that occurs with respect to your User Account and UserID. While we
+										provide certain encryption technologies and use other reasonable precautions to protect your
+										confidential information and provide suitable security, we do not and cannot guarantee or warrant
+										that information transmitted through the Internet is secure, or that such transmissions are free
+										from delay, error, interception or interruption.
+										3. Termination of User Account
+										The Company reserves the right to terminate your User Account or use of the Website for any reason
+										including inactivity and at any time without notice to you. You have the right to terminate your
+										User Account or use of the Website by contacting the Company by email at info@discoverycollective.com.
+										Any termination of your User Account or use of the Website, whether initiated by you or by the
+										Company, will not affect any of your or the Company’s rights and obligations under the Terms and
+										Conditions that have arisen before the effective date of such termination.
+										4. Accessing the Website and Account Security
+										We reserve the right to withdraw or amend the Website, and any service or material we provide on the
+										Website, in our sole discretion without notice. We will not be liable if for any reason all or any
+										part of the Website is unavailable at any time or for any period. From time to time, we may restrict
+										access to some parts of the Website, or the entire Website, to users, including registered users.
+										You are responsible for making all arrangements necessary to have access to the Website and ensuring
+										that all persons who access the Website through your internet connection are aware of the Terms and
+										Conditions and comply with them.
+										To access the Website or the resources it offers, you may be asked to provide certain registration
+										details or other information. It is a condition of your use of the Website that all the information
+										you provide on the Website is correct, current, and complete. You agree that all information you
+										provide to create a User Account for access to the Website or otherwise, including but not limited
+										to through the use of any interactive features on the Website, is governed by the Terms and
+										Conditions, and you consent to all actions we take with respect to your information consistent with
+										the Terms and Conditions.
+										If you choose, or are provided with, a UserID, Password, or any other piece of information as part
+										of our security procedures, you must treat such information as confidential, and you must not
+										disclose it to any other person or entity. You also acknowledge that your account is personal to you
+										and agree not to provide any other person with access to the Website or portions of it using your
+										UserID, Password, or other security information. You agree to notify us immediately of any
+										unauthorized access to or use of your UserID or Password or any other breach of security. You also
+										agree to ensure that you exit from your account at the end of each session. You should use
+										particular caution when accessing your account from a public or shared computer so that others are
+										not able to view or record your password or other personal information.
+										We have the right to disable any UserID, Password, or other identifier, whether chosen by you or
+										provided by us, at any time in our sole discretion, including if, in our opinion, you have violated
+										any provision of the Terms and Conditions.
+										5. Intellectual Property Rights
+										The Website and its entire contents, features, and functionality (including but not limited to all
+										information, software, text, displays, images, video, and audio, and the design, selection, and
+										arrangement thereof), are owned by the Company, its licensors, or other providers of such material
+										and are protected by United States and international copyright, trademark, patent, trade secret, and
+										other intellectual property or proprietary rights laws.
+										The Terms and Conditions permit you to view, copy, publish or print User Contributions (defined in
+										Section 7 below) for your personal, non-commercial use only, consistent with requirements set forth
+										in the Terms and Conditions. You must not reproduce, distribute, modify, create derivative works of,
+										publicly display, publicly perform, republish, download, store, or transmit any of the material on
+										our Website, except as follows:
+										• Your computer may temporarily store copies of such materials in RAM incidental to your accessing
+										and viewing those materials;
+										• You may store files that are automatically cached by your Web browser for display enhancement
+										purposes;
+										• You may print or download one copy of a reasonable number of pages of the Website for your own
+										personal, non-commercial use and not for further reproduction, publication, or distribution;
+										• If we provide desktop, mobile, or other applications for download, you may download a single copy
+										to your computer or mobile device solely for your own personal, non-commercial use, provided you
+										agree to be bound by our end user license agreement for such applications; and
+										• If we provide social media features with certain content, you may take such actions as are enabled
+										by such features.
+										You must not modify copies of any materials from the Website, use any illustrations, photographs,
+										video or audio sequences, or any graphics separately from the accompanying text, or delete or alter
+										any copyright, trademark, or other proprietary rights notices from copies of materials from the
+										Website.
+										You must not access or use for any commercial purposes any part of the Website or any services or
+										materials available through the Website. If you wish to make any use of material on the Website
+										other than that set out in this section, please address your request to: info@discoverycollective.com.
+										If you print, copy, modify, download, or otherwise use or provide any other person with access to
+										any part of the Website in breach of the Terms and Conditions, your right to use the Website will
+										terminate and, at our option, you may be required return or destroy any copies of the materials you
+										have made. No right, title, or interest in or to the Website or any content on the Website is
+										transferred to you, and all rights not expressly granted are reserved by the Company. Any use of the
+										Website not expressly permitted by the Terms and Conditions is a breach of the Terms and Conditions
+										and may violate copyright, trademark, and other laws.
+										The Company name, the terms “Discovery Collective” and “ModelIt!,” and all related names,
+										logos, product and service names, designs, and slogans are trademarks of the Company or its
+										affiliates or licensors. You must not use such marks without the prior written permission of the
+										Company. All other names, logos, product and service names, designs, and slogans on the Website are
+										the trademarks of their respective owners.
+										6. Prohibited Uses
+										You may use the Website only for lawful purposes and in accordance with the Terms and Conditions.
+										You agree not to use the Website:
+										• In any way that violates any applicable federal, state, local, or international law or regulation
+										(including, without limitation, any laws regarding the export of data or software to and from the US
+										or other countries).
+										• For the purpose of exploiting, harming, or attempting to exploit or harm minors in any way by
+										exposing them to inappropriate content, asking for personally identifiable information, or
+										otherwise.
+										• To send, knowingly receive, upload, download, use, or re-use any material that does not comply
+										with the Terms and Conditions.
+										• To transmit, or procure the sending of, any advertising or promotional material without our prior
+										written consent, including any “junk mail”, “chain letter”, “spam”, or any other similar
+										solicitation.
+										• To impersonate or attempt to impersonate the Company, a Company employee, another user, or any
+										other person or entity (including, without limitation, by using email addresses or screen names
+										associated with any of the foregoing).
+										• To engage in any other conduct that restricts or inhibits anyone’s use or enjoyment of the
+										Website, or which, as determined by us, may harm the Company or users of the Website or expose them
+										to liability.
+										• Use the Website in any manner that could disable, overburden, damage, or impair the Website or
+										interfere with any other party’s use of the Website, including their ability to engage in real time
+										activities through the Website.
+										• Use any robot, spider, or other automatic device, process, or means to access the Website for any
+										purpose, including monitoring or copying any of the material on the Website.
+										• Use any manual process to monitor or copy any of the material on the Website or for any other
+										unauthorized purpose without our prior written consent.
+										• Use any device, software, or routine that interferes with the proper working of the Website.
+										• Introduce any viruses, trojan horses, worms, logic bombs, or other material that is malicious or
+										technologically harmful.
+										• Attempt to gain unauthorized access to, interfere with, damage, or disrupt any parts of the
+										Website, the server on which the Website is stored, or any server, computer, or database connected
+										to the Website.
+										• Attack the Website via a denial-of-service attack or a distributed denial-of-service attack.
+										• Otherwise attempt to interfere with the proper working of the Website.
+										7. User Contributions
+										The Website may contain message boards, chat rooms, personal web pages or profiles, forums, bulletin
+										boards, and other interactive features (collectively, the “Interactive Services”) that allow users
+										to post, submit, publish, display, or transmit to other users or other persons (hereinafter, “Post”)
+										content or materials (collectively, the “User Contributions”) on or through the Website. All User
+										Contributions must comply with the Terms and Conditions.
+										Any User Contributions you post to the Website will be considered non-confidential and
+										non-proprietary. By providing any User Contributions on the Website, you grant us and our affiliates
+										and service providers, and each of their and our licensees, successors, and assigns the right to
+										use, reproduce, modify, perform, display, distribute, and otherwise disclose to third-parties any
+										such material for any purpose and as governed by the latest version of the GNU GPL license available
+										at http://www.gnu.org/licenses/gpl-3.0.en.html.
+										You represent and warrant that you own or control all rights in and to the User Contributions and
+										have the right to grant the license granted above to us and our affiliates and service providers,
+										and each of their and our licensees, successors, and assigns.
+										You understand and acknowledge that you are responsible for any User Contributions you submit or
+										contribute, and you, not the Company, have fully responsibility for such content, including its
+										legality, reliability, accuracy, and appropriateness.
+										We are not responsible or liable to any third party for the content or accuracy of any User
+										Contributions posted by you or any other user of the Website.
+										8. Monitoring and Enforcement; Termination
+										We have the right to:
+										• Remove or refuse to post any User Contributions for any or no reason in our sole discretion.
+										• Take any action with respect to any User Contribution that we deem necessary or appropriate in our
+										sole discretion, including if we believe that such User Contribution violates the Terms and
+										Conditions, infringes any intellectual property right or other right of any person or entity,
+										threatens the personal safety of users of the Website or the public, or could create liability for
+										the Company.
+										• Disclose your identity or other information about you to any third party who claims that material
+										posted by you violates their rights, including their intellectual property rights or their right to
+										privacy.
+										• Take appropriate legal action, including without limitation, referral to law enforcement, for any
+										illegal or unauthorized use of the Website.
+										• Terminate or suspend your access to all or part of the Website for any violation of the Terms and
+										Conditions.
+										Without limiting the foregoing, we have the right to fully cooperate with any law enforcement
+										authorities or court order requesting or directing us to disclose the identity or other information
+										of anyone posting any materials on or through the Website. You waive and hold harmless the Company
+										and its affiliates, licensees and service providers from any claims resulting from any action taken
+										by any of the foregoing parties during, or taken as a consequence of, investigations by such parties
+										or law enforcement authorities. However, we cannot review all material before it is posted on the
+										Website, and cannot ensure prompt removal of objectionable material after it has been posted.
+										Accordingly, we assume no liability for any action or inaction regarding transmissions,
+										communications, or content provided by any user or third party. We have no liability or
+										responsibility to anyone for performance or nonperformance of the activities described in this
+										section.
+										9. Content Standards
+										User Contributions must in their entirety comply with all applicable federal, state, local, and
+										international laws and regulations. Without limiting the foregoing, User Contributions must not:
+										• Contain any material that is defamatory, obscene, indecent, abusive, offensive, harassing,
+										violent, hateful, inflammatory, or otherwise objectionable.
+										• Promote sexually explicit or pornographic material, violence, or discrimination based on race,
+										sex, religion, nationality, disability, sexual orientation, or age.
+										• Infringe any patent, trademark, trade secret, copyright, or other intellectual property or other
+										rights of any other person.
+										• Violate the legal rights (including the rights of publicity and privacy) of others or contain any
+										material that could give rise to any civil or criminal liability under applicable laws or
+										regulations or that otherwise may be in conflict with the Terms and Conditions.
+										• Be likely to deceive any person.
+										• Promote any illegal activity, or advocate, promote, or assist any unlawful act.
+										• Cause annoyance, inconvenience, or needless anxiety or be likely to upset, embarrass, alarm, or
+										annoy any other person.
+										• Impersonate any person, or misrepresent your identity or affiliation with any person or
+										organization.
+										• Involve commercial activities or sales, such as contests, sweepstakes and other sales promotions,
+										barter, or advertising.
+										• Give the impression that they emanate from or are endorsed by us or any other person or entity, if
+										this is not the case.
+										10. Copyright Infringement
+										It is the policy of the Company to terminate the User Accounts of repeat infringers. A repeat
+										infringer is a user who has been notified by the Company of infringing activity violations more than
+										twice and/or who has had User Contributions or any other user-submitted content removed from the
+										Website more than twice.
+										11. Reliance on Information Posted
+										The information presented on or through the Website is made available solely for general information
+										purposes. We do not warrant the accuracy, completeness, or usefulness of this information. Any
+										reliance you place on such information is strictly at your own risk. We disclaim all liability and
+										responsibility arising from any reliance placed on such materials by you or any other visitor to the
+										Website, or by anyone who may be informed of any of its contents.
+										The Website may include content provided by third-parties, including materials provided by other
+										users, bloggers, and third-party licensors, syndicators, aggregators, and/or reporting services. All
+										statements and/or opinions expressed in these materials, and all articles and responses to questions
+										and other content, other than the content provided by the Company, are solely the opinions and the
+										responsibility of the person or entity providing those materials. These materials do not necessarily
+										reflect the opinion of the Company. We are not responsible, or liable to you or any third party, for
+										the content or accuracy of any materials provided by any third-parties.
+										12. Information About You and Your Visits to the Website
+										By using the Website, you consent to all actions taken by us with respect to your information in
+										compliance with the Terms and Conditions.
+										13. Linking to the Website, Social Media Features and API Use
+										The Website may provide certain social media features that enable you to link from your own or
+										certain third-party websites to certain content on the Website, send emails or other communications
+										with certain content, or links to certain content, on the Website, or cause limited portions of
+										content on the Website to be displayed or appear to be displayed on your own or certain third-party
+										websites. You may use these features solely as they are provided by us and solely with respect to
+										the content they are displayed with and otherwise in accordance with any additional terms and
+										conditions we provide with respect to such features.
+										Subject to the foregoing, you must not establish a link from any website that is not owned by you,
+										cause the Website or portions of it to be displayed on, or appear to be displayed by, any other
+										site, for example, framing, deep linking, or in-line linking, link to any part of the Website other
+										than the homepage, or otherwise take any action with respect to the materials on the Website that is
+										inconsistent with any other provision of the Terms and Conditions. The website from which you are
+										linking, or on which you make certain content accessible, must comply in all respects with the
+										Content Standards set out in the Terms and Conditions. You agree to cooperate with us in causing any
+										unauthorized framing or linking immediately to stop. We reserve the right to withdraw linking
+										permission without notice. We may disable all or any social media features and any links at any time
+										without notice in our discretion.
+										The Company permits you to create compatibility between an application, service, or product created
+										by you (the “Application”) and Interactive Services created on the Website by you or another user.
+										Subject to the Terms and Conditions, you are hereby granted a limited, worldwide, non-exclusive,
+										non-transferable, non-sublicenseable and perpetual license to use the Website’s application
+										programming interface (“API”) solely for the purpose of creating compatibility between the Website
+										and the Application. All rights not expressly granted to you herein are reserved by the Company.
+										From time to time, the Company may monitor, review and inspect the Application and audit your access
+										to and use of the Website. You hereby grant the Company the right to monitor, review and inspect
+										your Application for the purpose of verifying compliance with the Terms and Conditions.
+										14. Links from the Website
+										If the Website contains links to other sites and resources provided by third-parties, these links
+										are provided for your convenience only. This includes links contained in advertisements, including
+										banner advertisements and sponsored links. We have no control over the contents of those sites or
+										resources, and accept no responsibility for them or for any loss or damage that may arise from your
+										use of them. If you decide to access any of the third-party websites linked to the Website, you do
+										so entirely at your own risk and subject to the Terms and Conditions for such websites.
+										15. Disclaimer of Warranties
+										You understand that we cannot and do not guarantee or warrant that files available for downloading
+										from the internet or the Website will be free of viruses or other destructive code. You are
+										responsible for implementing sufficient procedures and checkpoints to satisfy your particular
+										requirements for anti-virus protection and accuracy of data input and output, and for maintaining a
+										means external to our Website for any reconstruction of any lost data. To the fullest extent
+										provided by law, we will not be liable for any loss or damage caused by a distributed
+										denial-of-service attack, viruses, or other technologically harmful material that may infect your
+										computer equipment, computer programs, data, or other proprietary material due to your use of the
+										Website or any services or items obtained through the Website or to your downloading of any material
+										posted on it, or on any website linked to it.
+										Your use of the Website, its content, and any services or items obtained through the Website is at
+										your own risk. The Website, its content, and any services or items obtained through the Website are
+										provided on an “as is” and “as available” basis, without any warranties of any kind, either express
+										or implied. Neither the company nor any person associated with the company makes any warranty or
+										representation with respect to the completeness, security, reliability, quality, accuracy, or
+										availability of the website. Without limiting the foregoing, neither the Company nor anyone
+										associated with the Company represents or warrants that the Website, its content, or any services or
+										items obtained through the Website will be accurate, reliable, error-free, or uninterrupted, that
+										defects will be corrected, that our Website or the server that makes it available are free of
+										viruses or other harmful components, or that the Website or any services or items obtained through
+										the Website will otherwise meet your needs or expectations.
+										To the fullest extent provided by law, the Company hereby disclaims all warranties of any kind,
+										whether express or implied, statutory, or otherwise, including but not limited to any warranties of
+										merchantability, non-infringement, and fitness for particular purpose. The foregoing does not affect
+										any warranties that cannot be excluded or limited under applicable law.
+										16. Limitation on Liability
+										To the fullest extent provided by law, in no event will the Company, its affiliates, or their
+										licensors, service providers, employees, agents, officers, or directors be liable for damages of any
+										kind, under any legal theory, arising out of or in connection with your use, or inability to use,
+										the Website, any websites linked to it, any content on the Website or such other websites, including
+										any direct, indirect, special, incidental, consequential, or punitive damages, including but not
+										limited to, personal injury, pain and suffering, emotional distress, loss of revenue, loss of
+										profits, loss of business or anticipated savings, loss of use, loss of goodwill, loss of data, and
+										whether caused by tort (including negligence), breach of contract, or otherwise, even if
+										foreseeable. The foregoing does not affect any liability that cannot be excluded or limited under
+										applicable law.
+										17. Indemnification
+										You agree to defend, indemnify, and hold harmless the Company, its affiliates, licensors, and
+										service providers, and its and their respective officers, directors, employees, contractors, agents,
+										licensors, suppliers, successors, and assigns from and against any claims, liabilities, damages,
+										judgments, awards, losses, costs, expenses, or fees (including reasonable attorneys’ fees) arising
+										out of or relating to your violation of the Terms and Conditions or your use of the Website,
+										including, but not limited to, your User Contributions, any use of the Website’s content, services,
+										and products other than as expressly authorized in the Terms and Conditions or your use of any
+										information obtained from the Website.
+										18. Governing Law and Jurisdiction
+										All matters relating to the Website and the Terms and Conditions and any dispute or claim arising
+										therefrom or related thereto (in each case, including non-contractual disputes or claims), shall be
+										governed by and construed in accordance with the internal laws of the State of Nebraska without
+										giving effect to any choice or conflict of law provision or rule (whether of the State of Nebraska
+										or any other jurisdiction).
+										Any legal suit, action, or proceeding arising out of, or related to, the Terms and Conditions or the
+										Website shall be instituted exclusively in the federal courts of the United States or the courts of
+										the State of Nebraska in each case located in the City of Omaha and County of Douglas, although we
+										retain the right to bring any suit, action, or proceeding against you for breach of the Terms and
+										Conditions in your country of residence or any other relevant country. You waive any and all
+										objections to the exercise of jurisdiction over you by such courts and to venue in such courts.
+										19. Arbitration
+										In our sole discretion, we may require you to submit any disputes arising from the use of the
+										Website or breach of the Terms and Conditions, including disputes arising from or concerning their
+										interpretation, violation, invalidity, non-performance, or termination, to final and binding
+										arbitration under the Rules of Arbitration of the American Arbitration Association applying Nebraska
+										law.
+										20. Limitation on Time to File Claims
+										Any cause of action or claim you may have arising out of or relating to the Terms and Conditions or
+										the Website must be commenced within one (1) year after the cause of action accrues, otherwise, such
+										cause of action or claim is permanently barred.
+										21. Waiver and Severability
+										No waiver by the Company of any term or condition set out in the Terms and Conditions shall be
+										deemed a further or continuing waiver of such term or condition or a waiver of any other term or
+										condition, and any failure of the Company to assert a right or provision under the Terms and
+										Conditions shall not constitute a waiver of such right or provision.
+										If any provision of the Terms and Conditions is held by a court or other tribunal of competent
+										jurisdiction to be invalid, illegal or unenforceable for any reason, such provision shall be
+										eliminated or limited to the minimum extent such that the remaining provisions of the Terms and
+										Conditions will continue in full force and effect.
+										22. Entire Agreement
+										The Terms and Conditions constitutes the sole and entire agreement between you and ModelIt!
+										regarding the Website and supersedes all prior and contemporaneous understandings, agreements,
+										representations, and warranties, both written and oral, regarding the Website.
+										23. Your Comments and Concerns
+										The Website is operated by ModelIt! All feedback, comments, requests for technical support,
+										and other communications relating to the Website, including cellcollective.org,
+										learn.cellcollective.org, and teach.cellcollective.org, should be directed to:
+										info@discoverycollective.com.
+										CELLCOLLECTIVE.ORG PRIVACY POLICY
+										24. General
+										The Company is committed to your right to privacy and takes your privacy seriously. The Website has
+										prepared this privacy policy statement (the “Privacy Policy”) to describe our collection, use, and
+										disclosure of your personal information through the Website. The Privacy Policy is incorporated into
+										the Terms and Conditions. The Company will collect, use, and disclose your personal information as
+										described in the Privacy Policy.
+										25. Information Collected
+										The Company uses a combination of both internal and third-party tracking code as well as cookies to
+										track certain information. The categories of information tracked when a visitor enters the Website
+										includes, but is not limited to: (1) IP address, (2) domain servers, (3) type of computer used to
+										access the Website, (4) types of web browsers, (5) information provided to the Company through
+										Google Analytics, such as the domain that directed users to the Website (collectively “Anonymous
+										Data”). For users without a UserID, such data does not collect information that identifies you as an
+										individual. For users with a UserID, such data is tracked with the UserID. Company uses Anonymous
+										Data and data tracked with a UserID to help enhance customer experience on the Website.
+										For you to access certain services that we offer through the Website, we may require you to provide
+										us with information that can identify you as an individual (the “Personally Identifiable
+										Information”). Personally Identifiable Information includes: (i) “Contact Data” (such as your first
+										and last name, physical street address, city, state, zip code, phone number and email address), and
+										(ii) “Financial Data” (such as your credit card number, expiration date, and verification code).
+										Company uses Personally Identifiable Information to help enhance customer experience on the Website.
+										Please note that Contact Data and Anonymous Data is used to gather general statistics regarding our
+										customers and visitors, in order to enhance the consumer experience on the Website. We may also use
+										demographic data in a manner that does not identify you specifically or allow you to be contacted
+										but does identify certain criteria about our users in general. For example, we may inform
+										third-parties about the number of registered users, number of unique visitors, and the pages most
+										frequently browsed.
+										We use your Contact Data to provide you with special information and promotions regarding our
+										products or to contact a customer regarding an order or to respond to a question or request. Any
+										Financial Data gathered is used for the purposes of processing or completing the financial
+										transaction for your order. If you post information on any of our chat groups, message boards or
+										forums, such information you provide may be available to other members of the Website and other
+										Website visitors. You should use caution when deciding to disclose your personal information in
+										these venues, as we do not control who may participate in these interactive forums.
+										26. Choice Regarding Disclosure of Contact Information
+										You may choose not to create a User Account or provide us with any contact information. In such an
+										event, you can still access and use some portions of the Website; however you will not be able to
+										access and use portions of the Website that require a User Account.
+										27. Confidentiality and Security of Contact Information
+										Except as described in the Privacy Policy, we will not share your contact information with
+										third-parties, unless such disclosure is necessary (as determined in our sole discretion) to: (a)
+										comply with a court order or other legal process; (b) protect the rights, property, or safety of the
+										Website or any third party; or (c) enforce the Terms and Conditions. We use reasonable measures to
+										maintain the security of your contact information. However, no company, organization, or online
+										community, including the Website can fully eliminate security risks associated with personal
+										information.
+										28. Other Limits to Your Privacy
+										The Website contains links to other third-party websites (the “Linked Websites”). We are not
+										responsible for the privacy practices or the content of the Linked Websites. If you choose to visit
+										other websites, we are not responsible for the privacy practices or content of those other websites,
+										and it is your responsibility to review the privacy policies at those websites to confirm that you
+										understand and agree with their policies. As discussed above, we also make chat groups, forums, and
+										message boards available to you, but please understand that any information you disclose in these
+										areas becomes public information and accordingly, such information is not subject to the Privacy
+										Policy. We have no control over its use and you should exercise caution
+										when deciding to disclose any personal information.
+										29. Updates and Changes to Privacy Policy
+										We reserve the right, at any time and without notice, to add to, change, update or modify the
+										Privacy Policy, by posting such change, update or modification on the Website. Any such change,
+										update or modification will be effective immediately upon posting.
+										30. Contact
+										If you have any questions about the Privacy Policy, or your dealings with the Website,
+										you can contact us at info@discoverycollective.com.
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+<script>
+
+	
+	document.addEventListener("DOMContentLoaded", function() {
+		 setBlockTabsEventListeners();
+	});
+
+	function setBlockTabsEventListeners() {
+		const tabHeaders = document.querySelectorAll(".bloc-tabs > button");
+		const contents = document.querySelectorAll(".content-tabs > .content");
+	  const tabClasses  = ["one", "two", "three"]
+
+		// set up slide show for the tabs
+		let activeBlockTabIndex = 0;
+		let intervalTimer = setInterval(()=>{
+			activateBlockTab(tabHeaders[activeBlockTabIndex], tabHeaders, contents, tabClasses);
+		  activeBlockTabIndex = (activeBlockTabIndex + 1) % tabHeaders.length;
+		}, 5000);
+		
+		// Add event listeners to the tab headers to change the active tab 
+		tabHeaders.forEach(header => {
+			header.addEventListener("click", () => {
+				// cancel the slider show
+				clearInterval(intervalTimer);
+        // activate the tab
+        activateBlockTab(header, tabHeaders, contents, tabClasses)
+      })
+		});
+	}
+
+	function activateBlockTab(header, tabHeaders, contents, tabClasses) {
+		tabHeaders.forEach((tabHeader, i) => {
+			tabHeader.classList.remove("active-tabs");
+			if (tabHeader.classList.contains(tabClasses[i])) {
+				tabHeader.classList.remove(tabClasses[i])
+			}
+		})
+		header.classList.add("active-tabs");
+		const contentId = header.getAttribute("data-id");
+		header.classList.add(`${contentId}`)
+		
+		const content = document.getElementById(contentId);
+		contents.forEach((content, i) => {
+			if(content.id === contentId) {
+				content.classList.add("active-content");
+				content.classList.add(`border-${contentId}`);
+			} else {
+				content.classList.remove("active-content", `border-${tabClasses[i]}`);
+			}
+		})
+	}
+
+</script>
+
+</html>

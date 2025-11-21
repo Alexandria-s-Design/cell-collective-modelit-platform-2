@@ -1,0 +1,4 @@
+SHELL=/bin/sh
+
+# 8 AM UTC is 3 AM CDT
+0 8 * * *		backup

@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+set -e
+
+echo "Waiting for DataBase service...";
+while ! nc -z "${CC_DATABASE_HOST}" "${CC_DATABASE_PORT}"; do sleep $timeout; done
+
+echo "Using java opts: $CC_APP_JAVA_OPTS"
+
+if [[ "${CC_ENVIRONMENT}" == "development" ]]; then
+	echo "environment is development"
+	java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005 -jar /app/app.jar
+else
+	echo "Running with java opts: $CC_APP_JAVA_OPTS"
+	java $CC_APP_JAVA_OPTS -jar /app/app.jar
+fi

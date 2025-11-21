@@ -1,0 +1,35 @@
+
+.analysis2-phase2.panel.drug-experiment-settings {
+	.icon.base-menu.closed {
+    transform: rotate(-90deg);
+	}
+	.uploads-settings {
+		h4 {
+			&.hover:hover {
+				&.highlight {
+					cursor: pointer;
+				}
+			}
+		}
+		h4.top-title {
+			font-weight: bold;
+			margin: 15px 0 6px 0;
+			display: flex;
+			align-items: center;
+		}
+		section {
+			padding-left: 4px;
+			margin: 5px 0;
+		}
+		.dge-advanced-section{
+			background-color: #eee;
+			padding-bottom: 5px;
+			p {
+				margin-bottom: 5px;
+			}
+		}
+		.sliderInput > .track {
+			width: 70px;
+		}
+	}
+}

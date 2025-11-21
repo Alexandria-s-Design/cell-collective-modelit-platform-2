@@ -1,0 +1,208 @@
+@import "../../../../../scss/variables.scss";
+
+.insightsContainer {
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+}
+
+.insightsContainer > div {
+	margin: 10px 15px 10px 15px;
+	width: 50%;
+	position: relative;
+}
+
+.insightsContainer .hasTitle {
+	cursor: help;
+	text-decoration: underline;
+	text-decoration-style: dotted;
+}
+
+.insightsRefreshData {
+	cursor: pointer;
+}
+
+.insightsUnavailable {
+	padding: 10px;
+	text-align: center;
+	font-size: 18pt;
+	font-weight: bold;
+}
+div.insightsObjectiveSelect {
+	font-size: 12pt;
+
+	input.icon {
+		vertical-align: text-bottom;
+	}
+
+	div.menu {
+		font-size: 10pt;
+		font-weight: bold;
+	}
+}
+
+div.insightsMessageCenter {
+	position: absolute;
+	left: 50%;
+	top: 45%;
+	transform: translate(-50%, -50%);
+	font-size: 14pt;
+}
+
+.insightsBenchmarks {
+
+	&> div.content {	
+		div.panel {
+			text-align: center;
+			&.you {
+				border-right: 1px solid $baseColor;
+			}
+
+			div.progress {
+				position: relative;
+				top: 15px;
+			}
+
+			div.label {
+				position: absolute;
+				font-size: 14pt;
+				&.score {
+					text-align: center;
+					width: 100%;
+				}
+				&.percentile {
+					left: 5px;
+				}
+			}
+		}
+	}
+}
+
+.insightsOverview {
+	padding: 5px;
+
+	div.students {
+		font-size: 14pt;
+	}
+
+	div.blocks {
+		margin-top: 15px;
+		display: flex;
+
+		div {
+			flex-grow: 1;
+			text-align: center;
+		}
+
+		table {
+			width: 60%;
+			margin: 0 auto;
+			border-spacing: 4px;
+			border-collapse: separate;
+
+			td {
+				&.marked {
+					background-color: blue;
+				}
+
+				&.unmarked {
+					background-color: lightgray;
+				}
+
+				&.empty {
+					background-color: white;
+					border: none;
+				}
+			}
+		}
+	}
+
+	div.email {
+		display: flex;
+		flex-direction: horizontal;
+
+		button.send-email {
+			background-color: black;
+			border-radius: 5px;
+			color: white;
+			padding: 5px;
+			border: 2px solid black;
+			min-width: 75px;
+			float: right;
+			margin-top: 15px;
+
+			&[disabled] {
+				background-color: gray;
+				border-color: gray;
+				color: #444;
+			}
+
+			&:not([disabled]) {
+				cursor: pointer;
+				
+				&:hover {
+					color: black;
+					background-color: white;
+				}
+
+				&:active {
+					color: gray;
+				}
+			}
+		}
+
+		div {
+			padding: 15px;
+			ul.checkboxes {
+				li {
+					text-align: right;
+					padding: 3px;
+
+					input {
+						vertical-align: middle;
+					}
+				}
+			}
+			ul:not(.checkboxes) {
+				li {
+					padding-left: 7px;
+					list-style-type: disc;
+				}
+			}
+		}
+
+		div.emailPreview {
+			margin-left: 50px;
+			font-size: 14px;
+			color: black;
+			font-family: "Times New Roman", serif;
+		}
+	}
+}
+
+div.unmatched, div.stats {
+	h2 {
+		margin: 2px;
+	}
+
+	dd {
+		display: inline-block;
+		width: 100%;
+		height: 100%;
+		span.options {
+			display: inline-block;
+			width: 100%;
+			height: 100%;
+			text-align: center;
+			position: relative;
+
+			input[type="button"] {
+				position: absolute;
+				right: 5px;
+				top: 50%;
+				transform: translateY(-50%);
+				margin: 0;
+			}
+		}
+	}
+}

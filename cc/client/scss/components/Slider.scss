@@ -1,0 +1,44 @@
+.slider {
+  position: relative;
+  margin-bottom: 2*$spacing;
+  padding: 0 $spacing;
+
+  &> input[type="button"] {
+    $size: 0.5*$spacing;
+    margin: 0 0 (-$size) ($spacing - $size);
+    padding: $size;
+    font-size: $fontSize + 2px;
+    text-shadow: 1px 1px ($size - 1px) rgba(0,0,0,0.3);
+  }
+
+  &> input.icon {
+    position: absolute;
+    width: 10px;
+    top: 50%;
+    margin: -0.5*$iconSize 0 0 0;
+
+    &.base-left {
+      left: 0;
+    }
+
+    &.base-right {
+      right: 0;
+    }
+  }
+
+  &> div {
+    overflow: hidden;
+  }
+
+  div.cards {
+    @for $i from 1 through 10 {
+      &.row-#{$i} {
+        width: percentage(calc(100 / $i));
+      }
+    }
+  }
+
+  div.card {
+    width: 1%;
+  }
+}

@@ -1,0 +1,9 @@
+.notification-item {
+	height: 25px;
+	padding-top: 7px;
+	border: 1px solid #eee;
+}
+.notification-item:hover{
+	background-color: rgb(248, 242, 248);
+	color: black;
+}

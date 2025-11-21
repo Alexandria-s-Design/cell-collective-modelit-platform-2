@@ -1,0 +1,408 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  description: |
+    The ModelIt! (CC) REST API provides programmatic (read-only) access to the information in the ModelIt!. 
+
+    Users are able to access the following types of information:
+    - Models
+    - Species
+    - Biologic
+    - Knowledge Base
+    - Dynamic Analysis Experiments
+    - The API also allows users to search for Models or Species.
+
+    The API provides both public methods and user methods. The public methods do not require authentication. The user methods require authentication and the user will need to login to access them using their CC credentials.
+     
+     
+     ### Instruction to authenticate
+     
+     1. login with Cellcollective info email and password under `/_api/login` below
+     2. If success then response header will included a `X-AUTH-TOKEN`(refer to picture below)
+
+    > <img src="https://user-images.githubusercontent.com/35666615/70079546-92482480-15ca-11ea-8076-33b3b2d1a575.png" height="300" width="750">
+
+    3. User are now able to authorize with `X-AUTH-TOKEN`             
+  title: Cellcollective API
+servers:
+  - url: 'https://cellcollective.org'
+    description: Main api server
+  - url: 'https://test.cellcollective.org/'
+    description: Test server
+tags:
+  - name: user
+    description: User info - authentication
+  - name: healthCheck
+    description: server status check
+  - name: models
+    description: ModelIt! models
+    
+paths:
+  /api/ping:
+    get:
+      tags:
+        - healthCheck
+      summary: server status
+      description: get server status
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+        '400':
+          description: Invalid status value
+          
+  /_api/login:
+    post:
+      tags:
+        - user
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                password:   
+                  type: string
+                  format: password
+              required:
+                - username
+                - password
+      responses:
+        '200':
+          description: successful operation
+          headers:
+            x-auth-token:
+              description: The Authorization Token
+              schema:
+                type: string
+                description: User Authentication
+          
+  /_api/model/get:
+    get:
+      tags:
+        - models
+      summary: Get all model or filtered models by specifying `search` query parameters
+      description: GET all model
+      parameters:
+        - name: search
+          description: search query. example. `/_api/model/get?search=species&search=knowledge&name=test`
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - name: name
+          in: query
+          description: model name search query
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ModelLite'
+      security:
+        - x_auth_token: []
+    
+  /_api/model/get/{id}:
+    get:
+      tags:
+      - models
+      summary: Get a model detail(species map) given id
+      description: Get model given id
+      parameters:
+        - name: id
+          description: model id
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: version
+          description: model version
+          in: query
+          required: true
+          schema:
+            type: integer
+        - name: description
+          description: if true. then return all detail model information like name, description.
+          in: query
+          required: false
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Model'
+
+  /_api/model/export/{id}:
+    get:
+      tags: 
+      - models
+      summary: export a model given id
+      description: >
+        export model given id. > 
+        export type:
+          * `SBML` - SBML format
+          * `EXPR` - Boolean expression
+          * `TT` - Truth table
+          * `MATRIX` - Interaction matrix (.csv file)
+          * `GML` - GML file
+      parameters:
+        - name: id
+          description: model id
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: version
+          description: model version(default 1)
+          in: query
+          required: true
+          schema:
+            type: integer
+        - name: type
+          description: export type 
+          in: query
+          required: true
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - SBML
+                - EXPR
+                - TT
+                - MATRIX
+                - GML
+      responses:
+        '201':
+          description: successful downloading
+
+  /_api/model/import:
+    post:
+      tags:
+        - models
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                upload:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: successful operation
+        
+components:
+  schemas:
+    ModelLite:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        creationdate:
+          type: string
+        description:
+          type: string
+        published:
+          type: boolean
+        components:
+          type: integer
+        interactions:
+          type: integer
+        type:
+          type: string
+        originid:
+          type: integer
+
+    Model:
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
+        tags:
+          type: string
+        userid:
+          type: integer
+        author:
+          type: string
+        creationdate:
+          type: string
+        biologicupdatedate:
+          type: string
+        knowledgebaseupdatedate:
+          type: string
+        components:
+          type: integer
+          description: total numbers of components
+        interactions:
+          type: integer
+          description: total numbers of interactions
+        type:
+          type: string
+        score:
+          type: object
+          $ref: '#/components/schemas/Score'
+        modelVersionMap:
+          type: object
+          additionalProperties:
+            type: object
+            properties:
+              name:
+                type: string
+              description: 
+                type: string
+              userId:
+                type: int
+              creationDate:
+                type: string
+              selected:
+                type: boolean
+        speciesMap:
+          type: object
+          additionalProperties:
+            type: object
+            properties:
+              name: 
+                type: string
+              external:
+                type: boolean
+              creationDate:
+                type: string
+              updateDate:
+                type: string
+        regulatorMap:
+          type: object
+          additionalProperties:
+            type: object
+            $ref: '#/components/schemas/Regulator'
+
+        dominanceMap:
+          type: object
+          additionalProperties:
+            type: object
+            properties:
+              negativeRegulatorId: 
+                type: int
+              positiveRegulatorId	:
+                type: int
+        conditionMap:
+          type: object
+          additionalProperties:
+            type: object
+            properties:
+              type: 
+                type: string
+              state	:
+                type: string
+              speciesRelation: 
+                type: string
+              subConditionRelation:
+                type: string
+              regulatorId:
+                type: int
+        conditionSpeciesMap:
+          type: object
+          additionalProperties:
+            type: object
+            properties:
+              conditionId: 
+                type: int
+              speciesId:
+                type: int
+
+        referenceMap:
+          type: object
+          additionalProperties:
+            type: object
+            $ref: '#/components/schemas/Reference'
+        
+        modelPermissions:
+          type: object
+          properties:
+            view:
+              type: boolean
+            edit:
+              type: boolean
+            delete:
+              type: boolean
+            share: 
+              type: boolean
+
+    Regulator:
+      properties:
+        regulationType: 
+          type: string
+        conditionRelation:
+          type: string
+        regulatorSpeciesId:
+          type: int
+        speciesId:
+          type: int
+
+    Score:
+      properties:
+        id:
+          type: int
+        score: 
+          type: float
+        lastCalculationDate:
+          type: string
+
+    Response:
+      properties:
+        id:
+          type: string
+        status:
+          type: string
+        code:
+          type: integer
+        data:
+          type: string
+
+    Reference:
+      properties:
+        pmid:
+          type: int
+        doi:
+          type: string
+        text:
+          type: string
+        shortCitation:
+          type: string
+        creationDate:
+          type: string
+        creationUser:
+          type: int
+        updateDate:
+          type: string
+        updateUser:
+          type: int
+
+  securitySchemes:
+    x_auth_token:
+      type: apiKey
+      name: x-auth-token
+      in: header

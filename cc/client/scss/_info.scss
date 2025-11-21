@@ -1,0 +1,41 @@
+.infobox{     
+        $color : #333;    
+
+        &>div{
+            visibility: hidden;
+            position: relative; 
+            left:-432px;   
+            z-index: 100;   
+        }
+
+        .infotext {
+            position: fixed;
+            display: block;
+            background-color: $windowBackgroundColor;
+            color: $baseColor;
+            margin-top: 16px;
+            opacity: 1;
+            padding: 6px;
+            padding-top: 0px;
+            border:solid 0.1px #434343;
+            border-radius: 5px;
+
+            &>span>p {
+                font-weight: bold;
+                font-size: 13px;
+                padding-top: 2px;
+                padding-bottom: 6px;
+                text-align: center;
+            }
+            &>ul>li {
+                font-size: 11px
+            }
+        }
+
+        &:hover>div{
+            visibility: visible;
+        }
+    
+}
+
+

@@ -1,0 +1,178 @@
+.regulation.biologic {
+  $backgroundColor: #f8f8f8;
+
+  padding-bottom: 3px;
+
+  li {
+    margin-bottom: $spacing;
+    border: 1px solid $borderColor;
+
+    &> div, &> ul, .droppable.static {
+      padding: 0 $spacing;
+    }
+
+    &> div:first-child {
+      padding-right: 0;
+    }
+
+    &.condition {
+      background-color: $backgroundColor;
+
+      &:hover > .base-close-gray {
+        opacity: 1;
+      }
+    }
+
+    div.droppable {
+      &:before {
+        left: 0.5*$spacing;
+        right: 0.5*$spacing;
+      }
+
+      &:hover > .icon.hidden {
+        opacity: 1;
+      }
+    }
+
+    &.condition > div.droppable:before {
+      top: 1px;
+      bottom: 1px;
+    }
+  }
+
+  &> div > li {
+    margin-bottom: 2*$spacing;
+
+    &> div:first-child {
+      display: block;
+      border-bottom: 1px solid $borderColor;
+      background-color: $backgroundColor;
+
+      &> div:first-child {
+        left: 0.5*$spacing;
+      }
+
+      div.internal, div.external {
+        margin-left: $iconSize;
+
+        &>.remove {
+          display: none;
+        }
+      }
+
+      input[type="button"][value="Dominance"] {
+        margin-right: 0.5*$spacing;
+      }
+
+      .base-close-gray ~ input[type="button"][value="Dominance"] {
+        margin-right: 0;
+      }
+    }
+
+    &:hover > div:first-child > .base-close-gray {
+      opacity: 1;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    &> div.droppable:before {
+      top: 1px;
+      bottom: 1px;
+    }
+  }
+
+  div.internal {
+    background-color: white;
+  }
+
+  div.external {
+    background-color: rgb(254, 245, 231);
+  }
+
+  div.condition .editable input {
+    font-weight: bold;
+  }
+
+  input.icon {
+    margin: 0.5*$spacing;
+  }
+
+  input[type="button"][value="Dominance"] {
+    text-transform: none;
+  }
+
+  span.relation {
+    white-space: nowrap;
+  }
+
+  span.positive, span.negative {
+    cursor: pointer;
+  }
+
+  span.positive {
+    color: $green;
+  }
+
+  span.negative {
+    color: $red;
+  }
+
+  .base-close-gray {
+    float: right;
+    margin-top: 0.5*$spacing;
+    margin-bottom: 0.5*$spacing;
+    opacity: 0;
+    transition: all 0.5s;
+    transition-property: opacity, background-color;
+  }
+}
+
+.editable.bold {
+  font-weight: bold;
+}
+
+div.dominance.menu {
+  position: fixed;
+  z-index: 1;
+  margin: -2px 0;
+
+  &> ul.ul {
+    $height: $fontSize + 1.5*$spacing;
+    position: static;
+    width: auto;
+    max-width: 250px;
+
+    &> div:first-child {
+      position: absolute;
+      left: 0;
+      right: 0;
+      padding: 0 $height;
+      line-height: $height;
+
+      &> input {
+        display: inline;
+        width: 50%;
+      }
+    }
+
+    &.down {
+      padding-top: $height + 1px;
+
+      &> div:first-child {
+        top: 1px;
+        border-bottom: 1px solid $borderColor;
+      }
+    }
+
+    &.up {
+      padding-bottom: $height + 1px;
+
+      &> div:first-child {
+        bottom: 1px;
+        border-top: 1px solid $borderColor;
+      }
+    }
+  }
+}

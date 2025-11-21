@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+set -e
+
+# case "$1" in
+# 	add|build|build:langs|start:development)
+# 		set -- yarn "$@"
+# 	;;
+# esac
+
+# if [ "$1" = 'yarn' ]; then
+# 	set -- tini -- "$@"
+# fi
+
+exec "$@"

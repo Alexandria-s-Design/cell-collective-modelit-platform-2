@@ -1,0 +1,26 @@
+span.checkbox:not(.icon) {
+  display: inline-block;
+  vertical-align: bottom;
+  width: $iconSize - 2px;
+  height: $iconSize - 2px;
+  cursor: pointer;
+  border: 1px solid $borderColor;
+  user-select: none;
+
+  &.checked {
+    background-image: url('/assets/images/icons/base/check.png');
+  }
+
+  &+ span {
+    margin-left: 0.5*$spacing;
+  }
+
+  &.disabled {
+    cursor: auto;
+    opacity: 0.5;
+  }
+}
+
+dl > span.checkbox:not(.icon) {
+  margin-bottom: 0.5*$spacing;
+}

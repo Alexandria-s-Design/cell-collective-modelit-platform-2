@@ -1,0 +1,26 @@
+[ 
+		{
+			"id" : 2,
+		"displayName" : "0-9 Students",
+		"price" : 50,
+		"name": "CustomerSupportPlan1" 
+		},
+		{
+			"id" : 2,
+			"displayName" : "10-39 Students",
+			"price" : 75,
+			"name": "CustomerSupportPlan2" 
+		},
+		{
+			"id" : 2,
+			"displayName" : "40-79 Students",
+			"price" : 150,
+			"name": "CustomerSupportPlan3" 
+		},
+		{
+			"id" : 2,
+			"displayName" : "80+ Students",
+			"price" : 300,
+			"name": "CustomerSupportPlan4" 
+		}
+]

@@ -1,0 +1,83 @@
+div.editable, form.editable {
+  display: inline-block;
+  vertical-align: bottom;
+}
+
+span.editable {
+  position: fixed;
+  white-space: nowrap;
+  visibility: hidden;
+}
+
+div.editable {
+  overflow: hidden;
+  white-space: nowrap;
+  
+  &.multiline {
+    white-space: normal;
+  }
+
+  &.def {
+    opacity: $defOpacity;
+  }
+}
+
+div.clear {
+  position: relative;
+  padding-right: $iconSize + $spacing;
+
+  div.remove {
+    top: 2px;
+    right: 0;
+  }
+
+  &:hover div.remove {
+    opacity: 1;
+  }
+}
+
+form.editable.menu > ul {
+  position: fixed;
+  margin-top: -2px;
+
+  &> li {
+    margin: 0;
+    border: none;
+
+    &> div {
+      display: block;
+
+      &> span {
+        opacity: 0.6;
+      }
+
+      &:hover {
+        opacity: 0.6;
+        background-color: transparent;
+
+        &:after {
+          @include overflowRight($windowBackgroundColor, 0);
+        }
+      }
+    }
+
+    &.selected > div {
+      opacity: 1;
+      background-color: $selected;
+
+      &:after {
+        @include overflowRight($selected, 0);
+      }
+    }
+  }
+}
+
+dl {
+  &> div.editable, &> form.editable > input {
+    font-weight: bold;
+  }
+}
+
+div.editable.enabled, table.selected td.editable {
+  cursor: url('/assets/images/editable16.png'), pointer;
+}

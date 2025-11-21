@@ -1,0 +1,51 @@
+.courseCard > div:hover > .remove {
+	opacity: 1;
+}
+
+.courseCard > div > .remove{
+	right: -1px;
+	top: 4px;
+}
+
+.grid.cards {
+	@for $i from 1 through 10 {
+		&.row-#{$i} {
+				div.slick-slider.slick-initialized > div.slick-list > .slick-track {
+					margin-left:inherit;
+					transform: none !important;
+				}
+			}
+		}
+	}
+
+.courseCarousel {
+	min-height: 200px;
+}
+
+.addModelDropdownIcon {
+	margin-top: 50%;
+}
+    
+.bar .actions > span.icon {
+	margin-left: 5px;
+	margin-right: auto;
+}
+
+.bar .actions > span > input[type=button] {
+	&:hover:disabled {
+		background-color: #52a7e0 !important;
+	}
+}
+
+.bar .actions > span > .tooltip {
+	background-color: #232323;
+	color: white;
+}
+
+.bar .options {
+	li:not(.selected),
+	.filter-label span,
+	.icon.base-filter {
+			color: #555555 !important;
+	}
+}

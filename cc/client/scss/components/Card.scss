@@ -1,0 +1,32 @@
+.cards {
+  div.card {
+    display: inline-block;
+
+    &> div {
+      padding-top: 100%;
+      position: relative;
+    }
+
+    &.selected > div:before {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 62px;
+      height: 62px;
+      background-color: rgb(209, 232, 255);
+      border: 1px solid rgb(62, 138, 214);
+      content: "";
+    }
+
+    div.frame {
+      position: absolute;
+      left: $spacing;
+      right: $spacing;
+      top: $spacing;
+      bottom: $spacing;
+      background-color: $windowBackgroundColor;
+      border: 1px solid rgba(black, 0.5);
+      box-shadow: 1px 1px 5px 1px rgba(grey, 0.3);
+    }
+  }
+}

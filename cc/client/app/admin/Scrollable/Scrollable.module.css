@@ -1,0 +1,19 @@
+.scrollable {
+    overflow-y: auto; 
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* Custom scrollbar styles (optional) */
+.scrollable::-webkit-scrollbar {
+    width: 4px;
+}
+
+.scrollable::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 2px;
+}
+
+.scrollable::-webkit-scrollbar-track {
+    background: transparent;
+}

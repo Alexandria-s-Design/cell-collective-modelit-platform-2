@@ -1,0 +1,47 @@
+.logger {
+  dt {
+    font-size: $fontSize - 2px;
+  }
+
+  dd {
+    font-style: italic;
+    font-weight: normal;
+  }
+
+  .add {
+    color: $green;
+  }
+
+  .remove {
+    color: $red;
+  }
+
+  .save {
+    color: $blue;
+  }
+
+  .properties > dl ~ dl:before {
+    margin-right: 0.5*$spacing;
+    content: ",";
+  }
+
+  dl ~ .properties {
+    margin-left: 0.5*$spacing;
+
+    &:before {
+      content: "(";
+    }
+
+    &:after {
+      content: ")";
+    }
+  }
+
+  tr.new > td:last-child:after {
+    content: none;
+  }
+
+  .dirty {
+    opacity: $defOpacity;
+  }
+}

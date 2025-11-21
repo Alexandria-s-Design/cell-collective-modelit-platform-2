@@ -1,0 +1,50 @@
+div.view-modal {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+
+    z-index: 100;
+
+    background-color: rgba(0, 0, 0, 0.55);
+
+    div.dialog {
+        background-color: white;
+
+        position: absolute;
+        left: 50%;
+        top: 45%;
+        transform: translate(-50%, -50%);
+
+        min-width: 300px;
+        min-height: 150px;
+
+        div.content {
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            width: 100%;
+
+            font-size: 12pt;
+
+            .error {
+                color: red;
+            }
+            .success {
+                color: green;
+            }
+        }
+
+        div.ok {
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            cursor: pointer;
+            font-weight: bold;
+        }
+    }
+}

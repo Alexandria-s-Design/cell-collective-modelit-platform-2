@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charSet="utf-8"/>
+		<title>CC - Logs</title>
+	</head>
+	<body>
+		<ul id="LogsView" style="margin-right: 35px;">
+			{{range .}}
+			{{ if ne .Id "" }}
+			<li id="{{ .Id }}">
+				<h3>#{{ .Id }}</h3>
+				<ul id="LogContent">
+					<li>
+						<b>Level</b>:
+						<b
+							{{ if eq .Level "INFO" }}
+							style="color: #054399;"
+							{{ end }}
+							{{ if eq .Level "ERROR" }}
+							style="color: #b53535;"
+							{{ end }}>
+							{{ .Level }}
+						</b>
+					</li>
+					<li><b>Date</b>: {{ .Date }}</li>
+					<li><b>Group/Action</b>: {{ .Group }}/{{ .Action }}</li>
+					<li><b>Message</b>: {{ .Message }}</li>
+					<li><b>User</b>: {{ .UserId }}
+						{{ if ne .UserEmail "" }}
+						 - {{ .UserName }} ({{ .UserEmail }})
+						{{ end }}						
+					</li>
+					<li><b>Stack trace</b>: <pre style="white-space: preserve-spaces">{{ .Stack }}</pre></li>
+					<li><b>File</b>: {{ .File }}</li>
+				</ul>
+				<hr style="margin-top: 25px; color: #c1c1c1;"/>
+			</li>
+			{{end}}
+			{{end}}
+		</ul>
+	</body>
+</html>

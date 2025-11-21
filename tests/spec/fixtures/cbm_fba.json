@@ -1,0 +1,145 @@
+{
+	"id": "12566",
+	"name": "CBM naiveB IMat experiment",
+	"modelType": "metabolic",
+	"compartments": [
+			{
+					"id": "315",
+					"name": "c"
+			},
+			{
+					"id": "316",
+					"name": "e"
+			},
+			{
+					"id": "317",
+					"name": "cA"
+			}
+	],
+	"metabolites": [
+			{
+					"id": "10038",
+					"speciesId": "cl[e]",
+					"name": "Chloride",
+					"compartment": 316,
+					"charge": 0
+			},
+			{
+					"id": "10039",
+					"speciesId": "cl[c]",
+					"name": "Chloride",
+					"compartment": 315,
+					"charge": 0
+			},
+			{
+					"id": "10040",
+					"speciesId": "tmd[e]",
+					"name": "Torasemide",
+					"compartment": 316,
+					"charge": 0
+			},
+			{
+					"id": "10041",
+					"speciesId": "tmd[c]",
+					"name": "Torasemide",
+					"compartment": 315,
+					"charge": 0
+			},
+			{
+					"id": "10042",
+					"speciesId": "adp[c]",
+					"name": "Adenosine Diphosphate",
+					"compartment": 315,
+					"charge": 0
+			},
+			{
+					"id": "10043",
+					"speciesId": "h[c]",
+					"name": "Proton",
+					"compartment": 315,
+					"charge": 0
+			},
+			{
+					"id": "10044",
+					"speciesId": "h2o[c]",
+					"name": "Water",
+					"compartment": 315,
+					"charge": 0
+			},
+			{
+					"id": "10045",
+					"speciesId": "atp[c]",
+					"name": "Adenosine Triphosphate",
+					"compartment": 315,
+					"charge": 0
+			},
+			{
+					"id": "10046",
+					"speciesId": null,
+					"name": "A",
+					"compartment": 317,
+					"charge": null
+			}
+	],
+	"reactions": [
+			{
+					"id": "13723",
+					"reactionId": "TMDOATtev",
+					"name": "efflux of Torasemide into hepatic vein",
+					"lower_bound": -1000,
+					"upper_bound": 1000,
+					"subsystem": 333,
+					"objective_coefficient": 0,
+					"gene_reaction_rule": "",
+					"metabolites": {}
+			},
+			{
+					"id": "13724",
+					"reactionId": "biomass_maintenance",
+					"name": "Biomass maintenance reaction without replication precursors",
+					"lower_bound": -736,
+					"upper_bound": 523,
+					"subsystem": 334,
+					"objective_coefficient": 1,
+					"gene_reaction_rule": "",
+					"metabolites": {}
+			},
+			{
+					"id": "22796",
+					"reactionId": null,
+					"name": "A",
+					"lower_bound": -760,
+					"upper_bound": 1000,
+					"objective_coefficient": 1,
+					"gene_reaction_rule": "(4582 and 4583)",
+					"metabolites": {
+							"10046": 1
+					}
+			}
+	],
+	"genes": [
+			{
+					"id": "4581",
+					"name": "G_189",
+					"knockOut": false
+			},
+			{
+					"id": "4582",
+					"name": "G_11212",
+					"knockOut": false
+			},
+			{
+					"id": "4583",
+					"name": "G_64902",
+					"knockOut": false
+			}
+	],
+	"regulators": [],
+	"conditions": [],
+	"objective": {
+			"coefficients": {
+				"22796": 1
+			},
+			"sense": "maximize"
+	}
+}

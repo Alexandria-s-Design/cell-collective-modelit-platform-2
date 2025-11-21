@@ -1,0 +1,45 @@
+.publishing {
+  &> input {
+    margin: 3*$spacing 2*$spacing 3*$spacing 0;
+  }
+
+  &> h1 {
+    font-size: $fontSize + 1px;
+    border-bottom: 1px solid $borderColor;
+  }
+
+  &> ul, &>.versions-rules > ul {
+    margin-top: $spacing;
+
+    &> li {
+      position: relative;
+      line-height: $fontSize + $spacing;
+      padding-left: $iconSize + $spacing;
+      margin-bottom: 2*$spacing;
+
+      &:before {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: $iconSize;
+        height: $iconSize;
+        content: "";
+        background-image: url('/assets/images/icons/base/check-green.png');
+      }
+
+      &.error:before {
+        background-color: $red;
+        background-image: url('/assets/images/icons/base/close.png');
+      }
+    }
+  }
+
+  .components {
+    line-height: $fontSize + $spacing + 3px;
+
+    .internal, .external {
+      line-height: $fontSize + 3px;
+      margin-right: $spacing;
+    }
+  }
+}

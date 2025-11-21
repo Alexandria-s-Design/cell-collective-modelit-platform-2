@@ -1,0 +1,296 @@
+version: "3.5"
+
+x-defaults:
+  &defaults
+  restart: always
+  deploy:
+    restart_policy:
+      condition: on-failure
+
+x-web:
+  &web
+  <<: *defaults
+  build:
+    dockerfile: ./docker/production/web/Dockerfile
+    args:
+      - CC_GIT_COMMIT=${CC_GIT_COMMIT}
+      - CC_GIT_BRANCH=${CC_GIT_BRANCH}
+      - CC_GIT_TAG=${CC_GIT_TAG}
+    cache_from:
+        - ${CC_DOCKER_REGISTRY_PREFIX:-registry.gitlab.com/unebraska/lagbh/modelit}/web:${CC_DOCKER_IMAGES_PREV_TAG:-latest}
+  image: ${CC_DOCKER_REGISTRY_PREFIX:-registry.gitlab.com/unebraska/lagbh/modelit}/web:${CC_DOCKER_IMAGES_TAG:-latest}
+  volumes:
+    - production_web_backups:/web/backups
+    - production_web_uploads:/uploads
+    - production_web_data_cache:/cache
+    - production_web_model_images:/cache/model_images
+  depends_on:
+    - backup
+  environment:
+    - VIRTUAL_HOST=${VIRTUAL_HOST}
+    - CC_URL_RESEARCH=${CC_URL_RESEARCH}
+    - CC_URL_TEACH=${CC_URL_TEACH}
+    - CC_URL_LEARN=${CC_URL_LEARN}
+  env_file:
+    - ./.envs/.production/.web
+  # cpus: "16.8" # 24 cores * 0.7 (70%)
+
+services:
+  web:
+    <<: *web
+    ports:
+      - "5003:5003"
+
+  worker:
+    <<: *web
+    environment:
+      - CC_WEB_PORT=5005
+      - CC_WORKER=true
+
+  db:
+    <<: *defaults
+    build:
+      cache_from:
+        - ${CC_DOCKER_REGISTRY_PREFIX:-registry.gitlab.com/unebraska/lagbh/modelit}/db:${CC_DOCKER_IMAGES_PREV_TAG:-latest}
+      shm_size: "4gb"
+    image: ${CC_DOCKER_REGISTRY_PREFIX:-registry.gitlab.com/unebraska/lagbh/modelit}/db:${CC_DOCKER_IMAGES_TAG:-latest}
+    shm_size: "4gb"
+    volumes:
+      - production_db_data:/var/lib/postgresql/data
+      - production_db_backups:/backups
+    env_file:
+      - ./.envs/.production/.db
+    ports:
+      - 6000:5432
+
+  dbccapp:
+    <<: *defaults
+    build:
+      cache_from:
+        - ${CC_DOCKER_REGISTRY_PREFIX:-registry.gitlab.com/unebraska/lagbh/modelit}/dbccapp:${CC_DOCKER_IMAGES_PREV_TAG:-latest}
+    image: ${CC_DOCKER_REGISTRY_PREFIX:-registry.gitlab.com/unebraska/lagbh/modelit}/dbccapp:${CC_DOCKER_IMAGES_TAG:-latest}
+    shm_size: "4gb"
+    volumes:
+      - production_dbccapp_data:/var/lib/postgresql/data
+      - production_dbccapp_backups:/backups
+    env_file:
+      - ./.envs/.production/.dbccapp
+    ports:
+      - 6003:5432
+
+  app:
+    <<: *defaults
+    ulimits:
+      nofile:
+        soft: 65535
+        hard: 65535
+    build:
+      cache_from:
+        - ${CC_DOCKER_REGISTRY_PREFIX:-registry.gitlab.com/unebraska/lagbh/modelit}/app:${CC_DOCKER_IMAGES_PREV_TAG:-latest}
+    image: ${CC_DOCKER_REGISTRY_PREFIX:-registry.gitlab.com/unebraska/lagbh/modelit}/app:${CC_DOCKER_IMAGES_TAG:-latest}
+    volumes:
+      - production_app_data:/app/data
+      - production_app_data_export:/app/data_export
+      - production_app_export:/app/export
+      - production_app_import:/app/import
+      - production_app_backups:/app/backups
+    depends_on:
+      - backup
+    env_file:
+      - ./.envs/.production/.app
+    environment:
+      - ES_JAVA_OPTS=-Xms2g -Xmx2g
+    # cpus: "19.2" # 24 cores * 0.8 (80%)
+
+  proxy:
+    <<: *defaults
+    build:
+      context: .
+      dockerfile: ./docker/production/proxy/Dockerfile
+    depends_on:
+      - web
+      - app
+      - ccapp
+    networks:
+      - web
+      - app
+      - proxy
+      - logger
+      - ccapp
+    volumes:
+      - type: volume
+        source: production_web_model_images
+        target: /cache/model_images
+        volume:
+          nocopy: true
+      - production_frontend_node_modules:/app/node_modules
+    ports:
+      - 3000:3001
+    env_file:
+      - ./.envs/.production/.web
+  
+  traefik:
+    <<: *defaults
+    build:
+      context: ./docker/production/traefik
+      dockerfile: ./Dockerfile
+    depends_on:
+      - web
+      - app
+      - logger
+    networks:
+      - web
+      - app
+      - proxy
+      - logger
+      - ccapp
+    volumes:
+      - production_traefik:/etc/traefik/acme:z
+    ports:
+      - "0.0.0.0:80:80"
+      - "0.0.0.0:443:443"
+    env_file:
+      - ./.envs/.production/.traefik
+
+  cache:
+    <<: *defaults
+    build:
+      cache_from:
+        - ${CC_DOCKER_REGISTRY_PREFIX:-registry.gitlab.com/unebraska/lagbh/modelit}/cache:${CC_DOCKER_IMAGES_PREV_TAG:-latest}
+    image: ${CC_DOCKER_REGISTRY_PREFIX:-registry.gitlab.com/unebraska/lagbh/modelit}/cache:${CC_DOCKER_IMAGES_TAG:-latest}
+    volumes:
+      - production_cache_data:/data
+    env_file:
+      - ./.envs/.production/.cache
+
+  queue:
+    <<: *defaults
+    build:
+      cache_from:
+        - ${CC_DOCKER_REGISTRY_PREFIX:-registry.gitlab.com/unebraska/lagbh/modelit}/queue:${CC_DOCKER_IMAGES_PREV_TAG:-latest}
+    image: ${CC_DOCKER_REGISTRY_PREFIX:-registry.gitlab.com/unebraska/lagbh/modelit}/queue:${CC_DOCKER_IMAGES_TAG:-latest}
+    volumes:
+      - production_queue_data:/data
+    env_file:
+      - ./.envs/.production/.queue
+
+  search:
+    <<: *defaults
+    build:
+      cache_from:
+        - ${CC_DOCKER_REGISTRY_PREFIX:-registry.gitlab.com/unebraska/lagbh/modelit}/search:${CC_DOCKER_IMAGES_PREV_TAG:-latest}
+    image: ${CC_DOCKER_REGISTRY_PREFIX:-registry.gitlab.com/unebraska/lagbh/modelit}/search:${CC_DOCKER_IMAGES_TAG:-latest}
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - production_search_data:/usr/share/elasticsearch/data
+    env_file:
+      - ./.envs/.production/.search
+  
+  ccapp:
+    build:
+        cache_from:
+          - ${CC_DOCKER_REGISTRY_PREFIX:-registry.gitlab.com/unebraska/lagbh/modelit}/ccapp:${CC_DOCKER_IMAGES_PREV_TAG:-latest}
+    image: ${CC_DOCKER_REGISTRY_PREFIX:-registry.gitlab.com/unebraska/lagbh/modelit}/ccapp:${CC_DOCKER_IMAGES_TAG:-latest}
+    volumes:
+      - ./docker/base/ccapp:/app
+      - production_ccapp_data:/data
+    env_file:
+      - ./.envs/.production/.ccapp
+      - ./.envs/.production/.dbccapp
+      
+
+  backup:
+    <<: *defaults
+    build:
+      context: ./docker/production/backup
+      dockerfile: ./Dockerfile
+      cache_from:
+        - ${CC_DOCKER_REGISTRY_PREFIX:-registry.gitlab.com/unebraska/lagbh/modelit}/backup:${CC_DOCKER_IMAGES_PREV_TAG:-latest}
+    image: ${CC_DOCKER_REGISTRY_PREFIX:-registry.gitlab.com/unebraska/lagbh/modelit}/backup:${CC_DOCKER_IMAGES_TAG:-latest}
+    env_file:
+      - ./.envs/.production/.db
+      - ./.envs/.production/.backup
+    networks:
+      - db
+      - dbccapp
+    environment:
+      - CC_PROJECT_NAME=$CC_PROJECT_NAME
+      - HOST_HOSTNAME=${HOST_HOSTNAME}
+      - CC_GIT_COMMIT=${CC_GIT_COMMIT}
+      - CC_GIT_BRANCH=${CC_GIT_BRANCH}
+      - CC_GIT_TAG=${CC_GIT_TAG}
+      - CC_DOCKER_IMAGES_TAG:${CC_DOCKER_IMAGES_TAG}
+    volumes:
+      - production_backups:/backups
+      - production_app_data:/app/data
+
+      - production_db_env:/env
+      - production_db_backups:/backups/db
+      - production_app_backups:/backups/app
+      - production_app_data:/data/app/data
+      - production_app_data_export:/data/app/data_export
+      - production_app_export:/data/app/export
+      - production_app_import:/data/app/import
+      - ./exports:/exports:rw
+      - ~/.ssh:/root/.ssh:ro
+      - ~/backups:/backups
+  logger:
+    build:
+      context: ./docker/base/logger
+      dockerfile: ../../production/logger/Dockerfile
+      cache_from:
+        - ${CC_DOCKER_REGISTRY_PREFIX:-registry.gitlab.com/unebraska/lagbh/modelit}/logger:${CC_DOCKER_IMAGES_PREV_TAG:-latest}
+    image: ${CC_DOCKER_REGISTRY_PREFIX:-registry.gitlab.com/unebraska/lagbh/modelit}/logger:${CC_DOCKER_IMAGES_TAG:-latest}
+    volumes:
+      - production_logs:/data
+    env_file:
+      - ./.envs/.production/.logger
+
+  # ccba:
+  #   cpus: "4.8" # 24 cores * 0.5 (20%)
+
+networks:
+  proxy:
+    driver: bridge
+
+volumes:
+  production_web_backups: {}
+  production_web_data_cache: {}
+
+  production_web_public: {}
+  production_web_private: {}
+  production_web_uploads: {}
+  production_web_model_images: {}
+
+  production_backups: {}
+
+  production_db_data: {}
+  production_db_backups: {}
+  production_dbccapp_data: {}
+  production_dbccapp_backups: {}
+  exports: {}
+
+  production_db_env: {}
+
+  production_app_data: {}
+  production_app_data_export: {}
+  production_app_export: {}
+  production_app_import: {}
+
+  production_app_backups: {}
+
+  production_queue_data: {}
+  production_search_data: {}
+
+  production_cache_data: {}
+
+  production_traefik: {}
+
+  production_logs: {}
+
+  production_frontend_node_modules: {}
+
+  production_ccapp_data: {}  

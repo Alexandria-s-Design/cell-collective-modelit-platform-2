@@ -1,0 +1,27 @@
+<div class="modal-content" style="min-width: 340px; min-height:400px; padding: 12px">
+	<div class="modal-header" style="padding:2px">
+		<span class="close" style="bottom: 12px;">&times;</span>
+		<h4 style="text-transform: uppercase; margin:0; color:white" data-translate="sign_in">Sign In</h4>
+	</div>
+	<div class="modal-body">
+
+		<form class="sigin-form">
+			<!-- <p className="alert-message danger"></p> -->
+			<input type="email" name="email"  autoComplete="email" data-translate-placeholder="email" placeholder="Email" required/>
+			<input type="password" name="password" autoComplete="current-password" data-translate-placeholder="password" placeholder="Password" required/>
+			<button class="btn-signin" type="submit" data-translate="sign_in">Sign In</button>
+			<hr/>
+			<div style="text-align: center;">
+				<span data-translate="sign_in_favorite_account">or Sign in with your favorite account</span>
+			</div>
+
+			<button class="social-signin-btn" style= "background-color: #dd4b39" onclick="signInWith('google')">Sign in Google</button>
+			<button class="social-signin-btn" style= "background-color: #3B5998" onclick="signInWith('facebook')">Sign in Facebook</button>
+			<button class="social-signin-btn" style= "background-color: #007bb5" onclick="signInWith('linkedin')">Sign in LinkedIn</button>
+
+		</form>
+	</div>
+	<div class="modal-footer">
+		<input className="forgot-password no-hover" type="button" data-translate="forgot_password" value = "Forgot Password?" style="text-transform: none; right: 12px" />
+	</div>
+</div>

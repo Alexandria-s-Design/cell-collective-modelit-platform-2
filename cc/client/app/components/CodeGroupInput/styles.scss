@@ -1,0 +1,37 @@
+
+.cgi-wrapper {
+
+	margin-top: 5px;
+	position: relative;
+	display: flex;
+	bottom: 5px;
+
+	.cgi-group-divider {
+		height: 1px;
+		width: 12px;
+		float: left;
+		background-color: #787878;
+		margin-top: 12px;
+		margin-right: 5px;
+	}
+
+	.cgi-group {
+		float: left;
+		margin-right: 3px;
+		input {
+			margin-right: 3px;
+			border: solid 1px #787878;
+			padding: 5px 2px;
+			width: 20px !important;
+			border-radius: 3px;
+			text-align: center;
+			text-transform: uppercase;
+			margin-top: 0px !important;
+			margin-left: 0px !important;
+		}
+		input:focus, input:active {
+			border: solid 1px #1496d3;
+		}
+	}
+
+}

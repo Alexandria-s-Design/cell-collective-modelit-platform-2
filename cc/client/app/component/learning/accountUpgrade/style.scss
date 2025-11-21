@@ -1,0 +1,44 @@
+
+table.card-layout{    
+	// border-collapse: collapse;
+	// border-spacing: 0;
+	width: 80%;
+	position: inherit;
+	table-layout: inherit;
+	transform: translate(5%);
+	
+	:nth-child(even){
+					background-color:#ece9e9;
+	}
+
+	:nth-child(odd){
+					background-color:#ece9e9;
+	}
+
+	tr, td, th {
+					font-size: medium;
+					font-weight: bolder;
+					border:none;
+	}
+	
+	.checkmark {
+					display: initial;
+	}
+
+	.crossmark {
+					color: red;
+					font-size: large;
+	}
+}
+
+/* if the browser window is at least 800px-s wide: */
+@media screen and (min-width: 800px) {
+  table.card-layout {
+  width: 60%;}
+}
+
+/* if the browser window is at least 1000px-s wide: */
+@media screen and (min-width: 1000px) {
+  table.card-layout {
+  width: 80%;}
+}

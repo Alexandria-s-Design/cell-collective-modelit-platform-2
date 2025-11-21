@@ -1,0 +1,22 @@
+table {
+  th.access:after {
+    background-image: url('/assets/images/icons/base/edit-gray.png');
+  }
+
+  td.access {
+    &> .checkbox {
+      width: $iconSize;
+      height: $iconSize;
+      border: none;
+      background-image: url('/assets/images/icons/base/visibility.png');
+    }
+
+    &> .checked1 {
+      background-image: url('/assets/images/icons/base/edit-gray.png');
+    }
+
+    &> .checked2 {
+      background-image: url('/assets/images/icons/base/admin.png');
+    }
+  }
+}

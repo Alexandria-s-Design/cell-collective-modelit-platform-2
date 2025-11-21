@@ -1,0 +1,1570 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Research Dashboard</title>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,0,0">
+	<link rel="stylesheet" href="/css/dashboard.css?v=<%= refreshKey %>">
+	<link rel="stylesheet" crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+	<link rel="stylesheet" crossorigin="anonymous" href="https://cdn.datatables.net/2.0.8/css/dataTables.dataTables.css">
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+  <script crossorigin="anonymous" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+	<script crossorigin="anonymous" src="/socket.io/socket.io.js"></script>
+	<script>
+		(function () {
+			const hostname = window.location.hostname;
+			let measurementId;
+
+			switch (hostname) {
+				case "cellcollective.org":
+					measurementId = "G-V89ZEJMZDR"; // Production landing
+					break;
+				case "research.cellcollective.org":
+					measurementId = "G-FC5WJX5422"; // Production research
+					break;
+				case "teach.cellcollective.org":
+					measurementId = "G-Q1M61MJ78H"; // Production teach
+					break;
+				case "learn.cellcollective.org":
+					measurementId = "G-N15N4L9JEG"; // Production learn
+					break;
+				case "develop.cellcollective.org":
+					measurementId = "G-EZ1XK3WELR"; // Develop
+					break;
+				case "staging.cellcollective.org":
+					measurementId = "G-PDKQEH4GM4"; // Staging
+					break;
+				case "hotfix.cellcollective.org":
+					measurementId = "G-9TJ0R5S67X"; // Hotfix
+					break;
+				case "localhost":
+					measurementId = "G-ZP37KP1MJR"; // Localhost
+					break;
+				default:
+					console.warn("Undefined host name", window.location.hostname);
+					return;
+			}
+
+
+			const script = document.createElement("script");
+			script.async = true;
+			script.src = `https://www.googletagmanager.com/gtag/js?id=${measurementId}`;
+			script.id = "cc-google-analytics-script";
+
+			const savedPreferences = localStorage.getItem("cookiePreferences");
+			if (savedPreferences) {
+				const preferences = JSON.parse(savedPreferences);
+				// only add analytics scripts when users has enabled it
+				if (preferences.analyticsCookies) {
+					document.head.appendChild(script);
+					script.onload = () => {
+						window.dataLayer = window.dataLayer || [];
+						function gtag() {
+							window.dataLayer.push(arguments);
+						}
+						gtag("js", new Date());
+						gtag("config", measurementId);
+					}
+				} else { // remove script
+					const existingScript = document.getElementById("cc-google-analytics-script");
+					if (existingScript) {
+						existingScript.remove();
+					}
+				}
+			}
+
+			})();
+	</script>
+</head>
+
+<body>
+
+	<div class="app">
+		<div class="research">
+			<div class="heading">
+				<div class="heading-left">
+					<a class="cursor-pointer">
+						<img alt="logo-cellcollective" class="logoImg" width="145px" height="34px"
+							src="/assets/images/logo/research/logo.png">
+					</a>
+
+					<div class="topbar">
+						<div>
+							<div class="search">
+								<img src="/assets/images/icons/large/search.png" class="search-icon">
+								<input type="text" id="modelSearchInput" class="editable" style="max-width: 200px; font-size: 12px"
+									placeholder="Search">
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="heading-right">
+
+					<% if(data.user){ %>
+						<span class="right warning"><%= data.user.firstname %> <%= data.user.lastname %></span>
+					<% } else{ %>  
+						<span class="right warning" data-translate="please_sign_save_work">Please sign in to be able to save your work.</span>
+					<% } %>
+					<div class="icon large-account topRightMenu" >
+						<div class="menu">
+							<ul>
+								<% if(data.user){ %>
+									<li id="profileBtn"><a data-translate="my_profile">My Profile</a></li>
+									<li id="researchCookieSettings" onclick="openCookiesSettingsFromProfile()"><a data-translate="cookie_settings">Cookie Settings</a></li>
+									<li id="changePassword"><a data-translate="change_password">Change Password</a></li>
+									<li id="logOutBtn" onclick="logout()"><a data-translate="sign_out">Sign out</a></li>
+								<% } else{ %>  
+									<li id="signInDialogBtn" onclick="createModal('#signInDialog', '#signInDialogBtn')"><a data-translate="sign_in">Sign In</a></li>
+									<li id="signUpDialogBtn"><a data-translate="sign_up">Sign Up</a></li>
+								<% } %>
+								<li onclick="selectDomainAndRedirect('research')">
+									<div id="researchPlatformCheckbox">
+											<a data-translate="research_platform">Research Platform</a>
+									</div>
+								</li>
+								<li onclick="selectDomainAndRedirect('teaching')">
+									<div id="instructorAccessCheckbox">
+											<a data-translate="instructor_access">Instructor Access</a>
+									</div>
+								</li>
+								<li onclick="selectDomainAndRedirect('learning')">
+									<div id="studentAccessCheckbox">
+										<a data-translate="student_access">Student Access</a>
+									</div>
+								</li>
+								<li><a data-translate="language">Language</a>
+									<div id="LanguageMenuWrap">
+									<ul id="LanguageMenuOptions" class="hide">
+										<% languageOptions.forEach(lang => { %>
+											<li data-lang="<%= lang.code %>"><%= lang.nativeName %></li>
+										<% }) %>
+									</ul>
+								  </div>
+								</li>
+								<li id="aboutDialogBtn" onclick="createModal('#aboutDialog', '#aboutDialogBtn')"><a data-translate="about">About</a></li>
+							</ul>
+						</div>
+
+								</div>
+
+				</div>
+
+
+			</div>
+
+			<div class="create-model-bar">
+				<div class="menu">
+					<ul class="toolbarCss">
+						<li>
+							<div class="btn-new-model" id="model-status"><span data-translate="new_model">New Model</span></div>
+							<ul style="display: none;">
+								<li>
+									<div><span data-translate="logical_model">Logical Model</span></div>
+									<ul style="display: none;">
+										<li onclick="redirectToNewModel('boolean')">
+											<div><span data-translate="create">Create</span></div>
+										</li>
+										<li>
+											<div>
+												<span>
+													<label data-translate="import">Import </label>
+													<div>
+														<label for="fileImportInputBoolean" class="customFileImportInput">
+															Choose Files
+														</label>
+														<input id="fileImportInputBoolean" name="fileImportInput" type="file" multiple=""
+															data-model-type="boolean">
+														<label id="fileInfoLabel" class="fileInfoLabel">
+															No files chosen
+														</label>
+													</div>
+												</span>
+											</div>
+										</li>
+										<li onclick="mergeModelsSelector()">
+											<div><span data-translate="merge_models">Merge Models</span></div>
+										</li>
+									</ul>
+								</li>
+								<li>
+									<div><span>Constraint-Based Model</span></div>
+									<ul style="display: none;">
+										<li onclick="redirectToNewModel('metabolic')">
+											<div><span data-translate="create">Create</span></div>
+										</li>
+										<li>
+											<div><span><label>Import </label>
+													<div>
+														<label for="fileImportInputMetabolic" class="customFileImportInput">
+															Choose Files
+														</label>
+														<input id="fileImportInputMetabolic" name="fileImportInput" type="file" multiple=""
+															data-model-type="metabolic">
+														<label id="fileInfoLabel" class="fileInfoLabel">
+															No files chosen
+														</label>
+													</div>
+												</span></div>
+										</li>
+									</ul>
+								</li>
+								<li>
+									<div><span>Kinetic Model</span></div>
+									<ul style="display: none;">
+										<li onclick="redirectToNewModel('kinetic')">
+											<div><span data-translate="create">Create</span></div>
+										</li>
+										<li>
+											<div><span><label>Import </label>
+													<div>
+														<label for="fileImportInputKinetic" data-translate="import" class="customFileImportInput">
+															Choose Files
+														</label>
+														<input id="fileImportInputKinetic" name="fileImportInput" type="file" multiple=""
+															data-model-type="kinetic">
+														<label id="fileInfoLabel" class="fileInfoLabel">
+															No files chosen
+														</label>
+													</div>
+												</span></div>
+										</li>
+									</ul>
+								</li>
+								<li class="hidden-on-production">
+									<div><span>Pharmacokinetic Model</span></div>
+									<ul style="display: none;">
+										<li onclick="redirectToNewModel('pharmacokinetic')">
+											<div><span data-translate="create">Create</span></div>
+										</li>
+										<li>
+											<div><span><label>Import </label>
+													<div>
+														<label for="fileImportInputPharmacokinetic" class="customFileImportInput">
+															Choose Files
+														</label>
+														<input id="fileImportInputPharmacokinetic" name="fileImportInput" type="file" multiple=""
+															data-model-type="pharmacokinetic">
+														<label id="fileInfoLabel" class="fileInfoLabel">
+															No files chosen
+														</label>
+													</div>
+												</span></div>
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</li>
+					</ul>
+					<% if(data.user){ %>
+						<div id="merge-models" class="btn-merge-models" style="display: none;">
+							<button type="submit" class="btn btn-warning" onclick="mergeModels()"
+								data-translate="merge_selected_models">Merge Selected Models</button>
+							<button type="submit" class="btn" onclick="clearFiltersForPage()" data-translate="cancel">Cancel</button>
+						</div>
+						<% } %>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="main-content" id="noSearchView">
+		<div class="bar">
+			<span class="options">
+				<ul class="catalog">
+					<li class="tablink selected" onclick="openTab(event, 'publishedModels')">
+						<span data-translate="published_models">Published Models</span> <span class="published-model-count"> (<%=
+								data.published.count %>)</span>
+					</li>
+					<% if(data.user){ %>
+						<li class="tablink" onclick="openTab(event,'myModels')"> <span data-translate="my_models">My Models</span> (
+							<%= data.mymodels.count %>)</li>
+						<li class="tablink" onclick="openTab(event,'shared')"> <span data-translate="shared_models">Shared With
+								Me</span> (<%= data.shared.count %>)</li>
+						<% } %>
+							<li>|</li>
+				</ul>
+				<div class="model-control">
+					<img src="/assets/images/icons/base/filter.png" class="filter-icon" onclick="toggleFilterMenu()">
+					<div class="filter-label">
+						<span style="color: gray; font-style: italic;" data-translate="no_filter">No Filter</span>
+					</div>
+
+
+					<div class="menu filter-menu-main" style="visibility: hidden;">
+						<ul class="ul">
+							<li>
+								<div id="model-type-menu-item" data-translate="model_type">Model Type</div>
+								<ul class="ul inner" id="model-type-menu-list-items">
+									<li style="color: gray; font-style: italic; " onclick="clearFiltersForPage()">
+										<div data-translate="no_filter">No Filter</div>
+									</li>
+									<li onclick="reloadPage(1, ['Boolean'])">
+										<div data-translate="model_boolean">Boolean</div>
+									</li>
+									<li onclick="reloadPage(1, ['Metabolic'])">
+										<div data-translate="model_metabolic">Metabolic</div>
+									</li>
+									<li onclick="reloadPage(1, ['Kinetic'])">
+										<div data-translate="model_kinetic">Kinetic</div>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</div>
+
+			</span>
+			<div class="icon base-list-view" onclick="toggleListView()"></div>
+		</div>
+
+		<div class="tab-content published">
+			<div class="card-view-container active">
+				<div class="slider">
+					<input class="no-hover" type="button" data-translate="recently_published" value="Recently Published">
+					<div id="recent" class="model-card-container recently-published">
+						<% data.published.recent.forEach(model=> { %>
+							<%- include('partials/modelCardView', {model: model, category: 'recent' }); %>
+								<% }); %>
+
+					</div>
+					<span class="left-slider-icon" onclick="slideModel('recent', false)">&#10094;</span>
+					<span class="right-slider-icon" onclick="slideModel('recent', true)">&#10095;</span>
+				</div>
+
+				<div class="slider">
+					<input class="no-hover" type="button" data-translate="most_popular" value="Most Popular">
+					<div id="popular" class="model-card-container most-popular">
+						<% data.published.popular.forEach(model=> { %>
+							<%- include('partials/modelCardView', {model: model, category: 'popular' }); %>
+								<% }); %>
+					</div>
+					<span class="left-slider-icon " onclick="slideModel('popular', false)">&#10094;</span>
+					<span class="right-slider-icon" onclick="slideModel('popular', true)">&#10095;</span>
+				</div>
+
+				<div class="slider">
+					<input class="no-hover" type="button" data-translate="recommended_for_you" value="Recommended for You">
+					<div id="recommended" class="model-card-container recommended-for-you">
+						<% data.published.recommended.forEach(model=> { %>
+							<%- include('partials/modelCardView', {model: model, category: 'recommended' }); %>
+								<% }); %>
+
+					</div>
+					<span class="left-slider-icon" onclick="slideModel('recommended', false)">&#10094;</span>
+					<span class="right-slider-icon" onclick="slideModel('recommended', true)">&#10095;</span>
+				</div>
+
+				<div class="slider">
+					<input class="no-hover" type="button" data-translate="is_referenced" value="Is Referenced">
+					<div id="referenced" class="model-card-container is_referenced">
+						<% data.published.referenced.forEach(model=> { %>
+							<%- include('partials/modelCardView', {model: model, category: 'referenced' }); %>
+								<% }); %>
+
+					</div>
+					<span class="left-slider-icon" onclick="slideModel('referenced', false)">&#10094;</span>
+					<span class="right-slider-icon" onclick="slideModel('referenced', true)">&#10095;</span>
+				</div>
+
+			</div>
+			<div class="list-view-container">
+				<%- include('partials/tableView', {models: data.published.recent, id: 'recentlyPublishedTable' }); %>
+			</div>
+
+		</div>
+
+		<div class="tab-content mymodels">
+			<div class="card-view-container active">
+				<div class="mymodels-card-container my-models">
+					<% data.mymodels.data.forEach(model=> { %>
+						<%- include('partials/modelCardView', {model: model, category:'mymodels'}); %>
+							<% }); %>
+				</div>
+			</div>
+			<div class="list-view-container">
+				<%- include('partials/tableView', {models: data.mymodels.data, id: 'myModelsTable' }); %>
+			</div>
+		</div>
+
+		<div class="tab-content shared">
+			<div class="card-view-container active">
+				<div class=" mymodels-card-container my-models">
+					<% data.shared.data.forEach(model=> { %>
+						<%- include('partials/modelCardView', {model: model, category:'shared'}); %>
+							<% }); %>
+				</div>
+			</div>
+			<div class="list-view-container">
+				<%- include('partials/tableView', {models: data.shared.data, id:'sharedModelsTable'}); %>
+			</div>
+		</div>
+
+	</div>
+
+	<div class="main-content" id="searchResults">
+		<div class="bar">
+			<span class="options">
+				<ul class="catalog">
+					<li class="tablink">
+						<strong>
+							<%= data.searchResults.count %>
+						</strong> Models found found for <i>
+							<%= data.searchResults.searchParam %>
+						</i>
+					</li>
+				</ul>
+			</span>
+			<div class="icon base-list-view" onclick="toggleListView()"></div>
+		</div>
+
+		<div class="searchcontainer">
+			<div class="card-view-container active">
+				<div class="tab-content mymodels-card-container my-models">
+					<% data.searchResults.data.forEach(model=> { %>
+						<%- include('partials/modelCardView', {model: model, category:'mymodels'}); %>
+							<% }); %>
+				</div>
+			</div>
+			<div class="list-view-container">
+				<%- include('partials/tableView', {models: data.searchResults.data, id:'searchResultsTable'}); %>
+			</div>
+		</div>
+
+	</div>
+
+
+	<div id="signInDialog" class="modal">
+		<%- include('partials/signInDialogView'); %>
+	</div>
+
+	<div id="signUpDialog" class="modal">
+		<%- include('partials/signUpDialogView'); %>
+	</div>
+
+	<div id="createInstitutionDialog" class="modal">
+		<%- include('partials/createInstitutionDialogView'); %>
+	</div>
+
+	<div id="aboutDialog" class="modal">
+		<%- include('partials/aboutDialogView'); %>
+	</div>
+
+	<div id="cookiesDialog" class="modal">
+		<%- include('partials/cookiesView'); %>
+	</div>
+
+	<% if(data.user){ %>
+		<div id="profileDialog" class="modal">
+			<%- include('partials/profileDialogView', {user: data.user}); %>
+		</div>
+		<div id="changePasswordDialog" class="modal">
+			<%- include('partials/changePasswordDialogView'); %>
+		</div>
+		<% } %>
+
+			<div id="popup" class="popup-message"></div>
+
+</body>
+
+<%- include('scripts/services/index') %>
+<%- include('scripts/locales') %>
+<%- include('scripts/language') %>
+<%- include('scripts/signup') %>
+<%- include('scripts/importModels') %>
+<script>
+	let selectedModels = []
+	// --- start of sockets notification --- //
+	const socket = io();
+	const PREFIX    = "cc";
+	
+	const showMessage = ({title, type, message, options = {}}) => {
+		toastr[type](`${message}`,`${title}`, {"positionClass": "toast-bottom-right", ...options})
+	}
+
+	const RECIEVER = [
+	// { name: "pong", action: pong },
+	{
+		name: "model:import",
+		user: true,
+		action: (message) => {
+			let options = {
+				timeOut: 0,
+				extendedTimeOut: 0
+			}
+			let m = message.message
+
+			if ( message.data ) {
+				const { data } 	= message;
+				const { id } 		= data;
+				
+				m = `${m} Click here to view.`
+
+				options = {
+					...options,
+					onclick: () => {
+						window.location.href = `/dashboard/#module/${id}`
+					}
+				}
+			}
+			showMessage({
+				title: "Model Import",
+				type: message.type,
+				message: m,
+				options,
+			});
+		} 
+	},
+	{
+		name: "kinetic:laws",
+		user: true,
+		action: (message) => {
+			const options = {
+				timeOut: 0,
+				extendedTimeOut: 0
+			}
+			let m = message.message;
+			showMessage({
+				title: "Model missing Kinetic Laws",
+				type: message.type,
+				message: m,
+				options,
+			});
+		} 
+	},
+	{
+		name: "model:merge",
+		user: true,
+		action: (message) => {
+			let options = {
+				timeOut: 0,
+				extendedTimeOut: 0
+			}
+			let m = message.message
+
+			if ( message.data ) {
+				const { data } 	= message;
+				const { id } 		= data;
+				
+				m = `${m} Click here to view.`
+
+				options = {
+					...options,
+					onclick: () => {
+						window.location.href = `/dashboard#module/${id}`
+					}
+				}
+			}
+			showMessage({
+				title: "Merging Models",
+				type: message.type,
+				message: m,
+				options,
+			});
+		} 
+	}
+];
+
+	const getevent  = (name, { user = null, prefix = PREFIX } = { }) => {
+		if ( user ) {
+			const user_id = user.app_user_id || user.id
+			prefix = `${prefix}:${user_id}`
+		}
+    return `${prefix}:${name}`
+	};
+
+	socket.on("connect", () => {
+	console.log("User Connected...");
+	
+	socket.emit(getevent("ping"));
+	
+  RECIEVER.forEach(({ name, action }) => {
+    const event = getevent(name, { user: getUser() })
+
+    socket.on(event, (message) => {
+      action(message)
+    });
+  });
+});
+
+// --- end of sockets notification --- //
+
+	// const AUTH_TOKEN_KEY  = 'VERSION[0021].Main';
+	let selectedCards = []
+	let isMergingModels = false;
+	let isCardView = true;
+	const data = <%- JSON.stringify(data) %>;
+	const pageSize =  100;
+
+	// ---------------------------------------------------------------- //
+	// -----------  load config ----------------------------------------//
+	
+	// Ensure that the dashboard functions properly on the research domain
+	if (window.localStorage.getItem("application_domain") !== "research") {
+		window.localStorage.setItem("application_domain", "research");
+	}
+
+	let CONFIG;
+	loadConfig().then(d => {
+		CONFIG = d;
+	})
+
+	async function loadConfig() {
+		const response = await fetch('/web/api/config/client');
+		if(response.ok) {
+			return await response.json();
+		}
+		return null;
+	}
+
+  // --  end load config    ------------------------------ //
+	document.addEventListener('DOMContentLoaded', async function(){
+		if (window.location.hostname == 'research.cellcollective.org') {
+			document.querySelectorAll(".hidden-on-production").forEach(el => {el.style.display = "none"});
+		}
+		const urlParams = new URLSearchParams(window.location.search);	
+		const uri = new URL( window.location.href )
+		const searchValue =  urlParams.get('search');
+		
+		let filterLabelVal = uri.searchParams.getAll('modelTypes') || [];
+	 	filterLabelVal = filterLabelVal[filterLabelVal.length - 1];
+
+		 if (filterLabelVal) {
+			const filterLabel = document.querySelector('span[data-translate="no_filter"]');
+			filterLabel.outerHTML = `<span style="color: gray; font-style: italic;">${filterLabelVal}</span>`;
+		}
+
+		if(searchValue != null && searchValue.trim().length > 0) {
+			// display searchResults view
+			const searchResultsView = document.querySelector('#searchResults');
+			const normalView = document.querySelector('#noSearchView');
+			normalView.style.display = 'none';
+			searchResultsView.style.display = 'block';
+			document.getElementById('modelSearchInput').value = searchValue;
+		}
+		
+		// TODO: change the server social to redirect here with e.g /research/dashboard?sl=true
+		//			 but what if the user is on a different domain??
+
+		// redirects here from social auth do not have token in header, fetch the token from backend;
+		if(isSocialLoginRedirect()) {
+		    await fetchUserSession();
+		}
+
+		// if  merge url param is set, then select the checkbox
+		if (urlSearchParamSet("merge")) {
+			initiateMergeModels();
+		}
+		// if listview param is set, then select the listview
+		if(urlSearchParamSet("listview")) {
+			toggleListView();
+		}
+	})
+
+
+	let totalPages = Math.ceil( data.published.count / pageSize);
+	let currentPage = 1;
+
+	async function slideModel(category, forward = true) {
+		const slideBy  = 6;
+
+		let cardViews = document.getElementById(category); 
+		if(forward === true) {
+			cardViews.scrollBy({
+				left: 200 * slideBy,
+				behavior: 'smooth'
+			});
+		} else {
+			cardViews.scrollBy({
+				left: -200 * slideBy,
+				behavior: 'smooth'
+			});
+		}
+	}
+
+
+	function toggleFilterMenu() {
+		const menu = document.getElementsByClassName("filter-menu-main")[0];
+    if (menu.classList.contains("to-front")) {
+       menu.classList.remove("to-front");
+ 		} else {
+      menu.classList.add("to-front");
+    }
+	}
+
+	function openTab(event, category) {
+		const publishedContent = document.getElementsByClassName("published");
+		const myModelContent = document.getElementsByClassName("mymodels");
+		const sharedModelContent = document.getElementsByClassName("shared");
+
+	  const tablinks = document.getElementsByClassName("tablink");
+      
+		// hide content
+		publishedContent[0].style.display = "none";
+		myModelContent[0].style.display = "none";
+		sharedModelContent[0].style.display = "none";
+		// remove selected class from all tabs
+		for (let i = 0; i < tablinks.length; i++) {
+			tablinks[i].className = tablinks[i].className.replaceAll(" selected", "");
+		}
+
+		// display selected category tab
+		if (category === "myModels") {
+			myModelContent[0].style.display = "block";
+		} else if (category  === "publishedModels") {
+			publishedContent[0].style.display = "block";
+		} else if (category === "shared") {
+			sharedModelContent[0].style.display = "block";
+		}
+
+		event.currentTarget.className += " selected";
+  
+	}
+
+	function getUser() {
+		const authInfoStr = window.localStorage.getItem(AUTH_TOKEN_KEY);
+    if(authInfoStr) {
+      const data = JSON.parse(authInfoStr);
+      return data.user;
+    }
+    return null;
+	}
+	
+	function getAuthToken() {
+		const authInfoStr = window.localStorage.getItem(AUTH_TOKEN_KEY);
+
+    if(authInfoStr) {
+      const data = JSON.parse(authInfoStr);
+
+			if(data.user.token) {
+				return data.user.token;
+			} else {
+				return null;
+			}
+
+    }
+
+    return null;
+	}
+	
+
+	function clearFiltersForPage(page) {
+		showPopup('Filters cleared.', 'warning')
+		window.location.href = window.location.origin + window.location.pathname;
+	}
+
+	function reloadPage(page,  modelTypes= [], orderBy = null, searchValue = null, pageParams= {}) {
+    const uri = new URL( window.location.href )
+		const existingModelTypes = uri.searchParams.get('modelTypes') || [];
+
+
+		if(orderBy) {
+   		 uri.searchParams.set("orderBy", orderBy)
+		}
+
+		if(searchValue) {
+			uri.searchParams.set("search", searchValue)
+		}
+		if(listViewIsActive()) {
+			uri.searchParams.set("listview", true);
+		} else {
+			uri.searchParams.delete("listview");
+		}
+
+    uri.searchParams.set("page", page)
+
+    for(const modelType of modelTypes) {
+			if(existingModelTypes.indexOf(modelType)  == -1) {
+				console.log("git here")
+        uri.searchParams.append("modelTypes", modelType)
+			}
+    }
+
+		for (const p in pageParams) {
+			uri.searchParams.append(p, pageParams[p])
+		}
+		window.location.href = uri.toString();
+	}
+
+// ---------------------------------------------------------------- //
+// --- Merging Model in functionality --------------------------------- ---- //
+
+// Function to collect selected cards for model merging
+function mergeModelsSelector() {
+
+	// Can optionally hide this button when user isnt logged in.
+	const token = getAuthToken();
+	if(!token) {
+		showPopup('Login to be able to merge models.', 'warning')
+		// window.alert("Please login first")
+		return;
+	}
+
+	reloadPage(1, ['boolean'], null,  null, { merge: true})
+}
+
+function getSelectedCards() {
+		const selectedModels = [];
+		const checkboxes = document.querySelectorAll('.model-checkbox:checked');
+		checkboxes.forEach(checkbox => {
+			const cardId = checkbox.getAttribute('data-id');
+			selectedModels.push(cardId);
+		});
+		return selectedModels;
+}
+
+function initiateMergeModels() {
+	isMergingModels = !isMergingModels
+
+	const checkboxContainers = document.querySelectorAll('.checkbox-container');
+	const mergingModelsContent = document.getElementById('merge-models');
+
+	if (isMergingModels) {
+		checkboxContainers.forEach(container => {
+		container.style.display = 'block';
+	});
+	mergingModelsContent.style.display = 'block';
+	} else {
+		checkboxContainers.forEach(container => {
+		container.style.display = 'none';
+	});
+	mergingModelsContent.style.display = 'none';
+	}
+
+	document.addEventListener('change', function (event) {
+	if (event.target.classList.contains('model-checkbox')) {
+		selectedModels = getSelectedCards();
+	}
+});
+}
+
+async function mergeModels() {
+	if (selectedModels.length < 1) {
+		showPopup('Please select models to merge.', 'warning')
+		return
+	}
+
+	const response = await fetch("/web/api/model/merge", {
+		headers: {
+			'X-Auth-Token': getAuthToken(),
+			'Content-Type': 'application/json'
+		},
+		method: 'POST',
+		body: JSON.stringify({selectedModels})
+});
+
+
+	if(response.ok) {
+		const data = await response.json();
+	} else {
+		return
+	}
+}
+
+
+// ---------------------------------------------------------------- //
+// --- login POST --------------------------------- ------------------- //
+
+
+
+// ---------------------------------------------------------------- //
+// --- modal functionality --------------------------------- ---- //
+
+
+
+// ---------------------------------------------------------------- //
+// --- sign in functionality --------------------------------- ---- //
+
+
+
+// ---------------------------------------------------------------- //
+// --- sign up functionality --------------------------------- ---- //
+
+// Create modal
+<% if(!data.user){ %>
+	const signUpModal = createModal('#signUpDialog', '#signUpDialogBtn');
+<% } %>
+// const signUpModal = createModal('#signUpDialog', '#signUpDialogBtn');
+
+let createInstitutionModal = createModal('#createInstitutionDialog', '#createInstitutionDialogBtn');
+
+// ---------------------------------------------------------------- //
+// --- profile functionality --------------------------------- ---- //
+
+// Create modal
+<% if(data.user){ %>
+	const profileModal = createModal('#profileDialog', '#profileBtn');
+<% } %>
+
+// Set up autocomplete
+autocomplete(document.getElementById("institutionAutocomplete"), data.institutions)
+
+const signUpForm = document.getElementsByClassName("signup-form")[0];
+
+const institutionsData = Array.isArray(data.institutions) ? data.institutions : [];
+
+// SUBMIT
+signUpForm.addEventListener("submit", async function (event) {
+	event.preventDefault()
+	const formData = new FormData(this);
+	const institution = formData.get('institution');
+	const tosConfirmed = formData.get('terms');
+
+	if(!tosConfirmed) {
+		window.alert("Please agree to the terms of service")
+		return
+	}
+
+	if (!institutionsData.includes(institution)) {
+		// await alert "institution not found, do you wish to create new one?"
+		const createInstitution = confirm("Institution not found, do you wish to create new one?")
+		if (!createInstitution) {
+			return
+		} else {
+			// TODO Institution popup
+			window.alert("Error creating institution (this is a TODO)")
+			return
+		}
+	}
+
+	const formDataToJson = (formData) => {
+		const data = {};
+		for (const [key, value] of formData.entries()) {
+			data[key] = value;
+		}
+		return data;
+	}
+
+	const userInput = formDataToJson(formData)
+
+	try {
+		const response = await fetch("/v1/users/register", {
+			method: "POST",
+			body: JSON.stringify(userInput),
+			headers: {
+				'content-type': 'application/json',
+			},
+		})
+
+		if (!response.ok) {
+			window.alert("Error creating your account")
+			return
+		}
+
+		const registeredData = await response.json();
+
+		const responseLogin = await fetch(`/web/api/users/register`,{
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				'Accept': 'application/json',
+			}, 
+			body: JSON.stringify({
+				email: userInput.email,
+				password: userInput.password,
+				vpassword: userInput.vpassword,
+				firstName: userInput.first_name,
+				lastName: userInput.last_name,
+				institution: userInput.institution || 'UNL',
+				ccappUserId: registeredData.data.profile.user.id
+			})
+		});
+
+		if (!responseLogin.ok) {
+			console.error(e);
+			window.alert("Error creating your account in the APP");
+			return;
+		}
+	
+		await login({email: userInput.email, password: userInput.password});
+		// close the modal
+		signUpModal.style.display = "none";
+		window.location.reload();
+
+	} catch (error) {
+		console.error('Error signing up:', error)
+	}
+})
+
+// BEGIN: CREATE NEW INSTITUTION
+const createInstitutionForm = document.getElementsByClassName("create-institution-form")[0];
+createInstitutionForm.addEventListener("submit", async function (event) {
+	event.preventDefault()
+	const errorDiv = createInstitutionForm.querySelector('.create-institution-errors');
+	const formData = new FormData(this);
+
+	const displayError = (messages=[]) => {
+		errorDiv.style.display = "inherit";
+		errorDiv.innerHTML = messages.join('<br/>');
+	}
+	const hideError = () => {
+		errorDiv.style.display = "none";
+		errorDiv.innerHTML = '';
+	}
+	
+	const formDataJson = {	
+		name: formData.get('institution_name'),
+		category: formData.get('institution_category'),
+		city: formData.get('institution_city'),
+		country: formData.get('institution_country'),
+		state: formData.get('institution_state'),
+		domains: `${formData.get('institution_domains')}`.split(','),
+		websites: `${formData.get('institution_websites')}`.split(',')
+	}
+
+	let errors = [];
+
+	if (!formDataJson.name) {
+		errors.push('You need to provide an institution name!');
+	}
+	if (!formDataJson.city) {
+		errors.push('You need to provide an city name!');
+	}
+	if (!formDataJson.country) {
+		errors.push('You need to provide an country name!');
+	}	
+
+	if (errors.length) {
+		displayError(errors);
+		return;
+	}	
+
+	const institutionInput = signUpForm.querySelector('input[name="institution"]');
+	try {
+		const response = await fetch("/web/api/institution/create", {
+			method: "POST",
+			body: JSON.stringify(formDataJson),
+			headers: {
+				'content-type': 'application/json',
+			},
+		});
+		if (!response.ok) {
+			displayError(['It could not create a new institution']);
+			return;
+		}		
+		const institutionData = await response.json();
+		if (institutionInput) {
+				institutionInput.value = formDataJson.name;
+				institutionsData.push(formDataJson.name);
+		}
+		hideError();
+		createInstitutionModal.style.display = "none";
+
+	} catch (error) {
+		displayError([error.message]);
+	}
+});
+// END: CREATE NEW INSTITUTION
+
+// ---------------------------------------------------------------- //
+// --- Change Password Functionality --------------------------------- ---- //
+	<% if(data.user){ %>
+	const changePasswordModal = createModal('#changePasswordDialog', '#changePassword')
+
+	const changedPasswordForm = document.getElementsByClassName('change-password-view')[0];
+
+	changedPasswordForm.addEventListener("submit", async function (event) {
+		
+		event.preventDefault();
+		// update password formData
+		const changePasswordFormData = new FormData(this)
+		const cpassword = changePasswordFormData.get('cpassword')
+		const password = changePasswordFormData.get('password')
+		const vpassword = changePasswordFormData.get('vpassword')
+		// display errors
+		function displayError(error, color = "#cc6677", klass = ""){
+			const errorDiv = changedPasswordForm.querySelector('.change-password-error');
+			if(color != "body") {
+				errorDiv.style.color = color;
+			}
+			if(klass != "") {
+				const inputsAndButton = changedPasswordForm.querySelectorAll('input, button');
+				inputsAndButton.forEach(element => {
+					element.style.display = 'none';
+				});
+				const defaultColor = getComputedStyle(document.body).color;
+				errorDiv.style.color = defaultColor;
+				errorDiv.classList.remove('change-password-error')
+				errorDiv.classList.add(klass);
+			} 
+			errorDiv.textContent = error;
+			return
+		}
+
+		// check for new passwords mismatch
+		if(password != vpassword){
+				displayError("New passwords do not match!")
+				return
+		}	
+		// check current password is correct
+		let authToken = getAuthToken();
+		const userInfo=  await getProfileInfo(authToken);
+
+		if(userInfo){
+			const updateResponse = await fetch("/v1/users/change-password", {
+				headers: {
+					'Authorization': `Bearer ${authToken}`,
+					'Content-Type': 'application/json'
+				},
+				method: "POST",
+				body: JSON.stringify({
+						cpassword: cpassword,
+						vpassword: vpassword,
+						password: password
+				})
+			});
+			
+			if(updateResponse.ok){
+				displayError('Password successfully updated.', 'body', "password-changed-div")
+				return
+			} else {
+				displayError('Error could not change password.')
+				return
+			}
+		} else {
+			displayError("Invalid current password!")
+			return
+		}
+	})
+<% } %>
+
+
+
+
+function showPopup(message, type, onClick) {
+		const popup = document.getElementById('popup');
+		popup.style.fontSize = '1.3em';
+		popup.textContent = message;
+
+		popup.className = 'popup-message';
+		if (type === 'success') {
+				popup.classList.add('popup-success');
+		} else if (type === 'warning') {
+				popup.classList.add('popup-warning');
+		}
+
+		popup.classList.add('show');
+
+		if (onClick) {
+			popup.style.cursor = 'pointer';
+			const handleEvent = onClick.bind(popup, () => popup.classList.remove('show'));
+			popup.addEventListener("click", handleEvent);
+		} else {
+			setTimeout(() => {
+					popup.classList.remove('show');
+			}, 5000);
+		}
+}
+
+
+async function logout() {
+	const response = await fetch("/web/api/auth/logout", {
+		method: 'POST'
+	});
+	if (response.ok) {
+		document.cookie = `transfer-auth-token=; max-age=-1;`;
+		document.cookie = `connect.sid=; max-age=-1;`;
+		window.localStorage.removeItem(AUTH_TOKEN_KEY);
+		window.location.reload()
+	} else {
+		// TODO: Error Logging Out, show something.
+	}
+}
+
+function urlSearchParamSet(name) {
+	const uri = new URL( window.location.href )
+	const slParam = uri.searchParams.get(name);
+	if(slParam) {
+		return true
+	}
+	return false
+}
+
+function isSocialLoginRedirect() {
+	return urlSearchParamSet("sl")
+}
+
+function signInWith(providerName) {
+	const providerUrls = {
+		"google": `/api/auth/google`,
+    "facebook": "/api/auth/facebook",
+    "linkedin": "/api/auth/linkedin"
+	}
+	
+	window.location.href = providerUrls[providerName];
+}
+
+
+/**  only works for social login*/
+async function fetchUserSession() {
+	const response = await fetch("/api/users/me/session");
+	
+	if(response.ok) {
+		const data = await response.json();
+	
+		if(data.data) {
+		  const authToken =  data.data.token;
+		  const userInfo=  await getProfileInfo(authToken);
+			userInfo["token"] = authToken
+		  storeAuthJsonInfo(userInfo)
+		}
+	}
+}
+
+// ---------------------------------------------------------------- //
+// --- end  sign in functionality --------------------------------- ---- //
+
+
+function redirectToDetailPage(id, version) {
+	const host = window.location.origin;
+	window.location.href = `${host}/dashboard#module/${Number.parseInt(id)}:${Number.parseInt(version)}`
+}
+
+function redirectToNewModel(modelType) {
+	const host = window.location.origin;
+	window.location.href = `${host}/?x-route=model-create-redirect#${modelType}`
+}
+
+
+function isDevelopment() {
+	const domain = window.location.host;
+	return domain.indexOf('localhost')!= -1
+}
+
+function selectDomainAndRedirect(domain) {
+	window.localStorage.setItem("application_domain", domain);
+  if(isDevelopment()) {
+  		window.location.href = '/dashboard'
+  } else {
+		if(CONFIG) {
+			const domainMap =  {
+				"research": "research",
+				"teaching": "teach",
+				"learning": "learn",
+			}
+			const baseDomain  = CONFIG.urls[domainMap[domain]]
+      window.location.href = `${baseDomain}/dashboard`
+		} else {
+			console.error("Error getting config")
+		}
+  }
+}
+
+/** search implementation **/
+const searchInput = document.getElementById('modelSearchInput');
+searchInput.addEventListener('keydown', (event) => {
+	if(event.key === 'Enter') {
+		const searchValue = event.target.value;
+		// TODO: little optimization. don't reload page when the searchValue has not changed compare url  param value
+		if(searchValue  && searchValue.trim().length > 0) {
+			// search-view
+			reloadPage( /** page */1, /** modelTypes */[],  /** orderBy */ null, /** searchvalue */ searchValue.trim())
+		} else  {
+			clearFiltersForPage( /** page */1)
+		}
+	}
+});
+/** end  search implementation **/
+
+/** model import **/
+
+
+
+/** end of model import **/
+
+
+  /**
+   * 
+   *  AutoComplete BEGIN
+   * 
+   */
+  function autocomplete(inp, arr) {
+    /*the autocomplete function takes two arguments,
+    the text field element and an array of possible autocompleted values:*/
+    var currentFocus;
+    /*execute a function when someone writes in the text field:*/
+    inp.addEventListener("input", function(e) {
+        var a, b, i, val = this.value;
+        /*close any already open lists of autocompleted values*/
+        closeAllLists();
+        if (!val) { return false;}
+        currentFocus = -1;
+        /*create a DIV element that will contain the items (values):*/
+        a = document.createElement("DIV");
+        a.setAttribute("id", this.id + "autocomplete-list");
+        a.setAttribute("class", "autocomplete-items");
+        /*append the DIV element as a child of the autocomplete container:*/
+        this.parentNode.appendChild(a);
+        /*for each item in the array...*/
+        for (i = 0; i < arr.length; i++) {
+          /*check if the item starts with the same letters as the text field value:*/
+          if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+            /*create a DIV element for each matching element:*/
+            b = document.createElement("DIV");
+            /*make the matching letters bold:*/
+            b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
+            b.innerHTML += arr[i].substr(val.length);
+            /*insert a input field that will hold the current array item's value:*/
+            b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+            /*execute a function when someone clicks on the item value (DIV element):*/
+                b.addEventListener("click", function(e) {
+                /*insert the value for the autocomplete text field:*/
+                inp.value = this.getElementsByTagName("input")[0].value;
+                /*close the list of autocompleted values,
+                (or any other open lists of autocompleted values:*/
+                closeAllLists();
+            });
+            a.appendChild(b);
+          }
+        }
+    });
+    /*execute a function presses a key on the keyboard:*/
+    inp.addEventListener("keydown", function(e) {
+        var x = document.getElementById(this.id + "autocomplete-list");
+        if (x) x = x.getElementsByTagName("div");
+        if (e.keyCode == 40) {
+          /*If the arrow DOWN key is pressed,
+          increase the currentFocus variable:*/
+          currentFocus++;
+          /*and and make the current item more visible:*/
+          addActive(x);
+        } else if (e.keyCode == 38) { //up
+          /*If the arrow UP key is pressed,
+          decrease the currentFocus variable:*/
+          currentFocus--;
+          /*and and make the current item more visible:*/
+          addActive(x);
+        } else if (e.keyCode == 13) {
+          /*If the ENTER key is pressed, prevent the form from being submitted,*/
+          e.preventDefault();
+          if (currentFocus > -1) {
+            /*and simulate a click on the "active" item:*/
+            if (x) x[currentFocus].click();
+          }
+        }
+    });
+    function addActive(x) {
+      /*a function to classify an item as "active":*/
+      if (!x) return false;
+      /*start by removing the "active" class on all items:*/
+      removeActive(x);
+      if (currentFocus >= x.length) currentFocus = 0;
+      if (currentFocus < 0) currentFocus = (x.length - 1);
+      /*add class "autocomplete-active":*/
+      x[currentFocus].classList.add("autocomplete-active");
+    }
+    function removeActive(x) {
+      /*a function to remove the "active" class from all autocomplete items:*/
+      for (var i = 0; i < x.length; i++) {
+        x[i].classList.remove("autocomplete-active");
+      }
+    }
+    function closeAllLists(elmnt) {
+      /*close all autocomplete lists in the document,
+      except the one passed as an argument:*/
+      var x = document.getElementsByClassName("autocomplete-items");
+      for (var i = 0; i < x.length; i++) {
+        if (elmnt != x[i] && elmnt != inp) {
+        x[i].parentNode.removeChild(x[i]);
+      }
+    }
+  }
+  /*execute a function when someone clicks in the document:*/
+  document.addEventListener("click", function (e) {
+      closeAllLists(e.target);
+  });
+  }
+  // Autocomplete END
+
+/** toggle list view */
+function toggleListView() {
+		const listViews = document.getElementsByClassName('list-view-container');
+    const cardViews = document.getElementsByClassName('card-view-container');
+    if(listViews[0].classList.contains('active')) {
+			for(const listView of listViews) {
+				listView.classList.remove('active');
+			}
+			for(const cardView of cardViews) {
+				cardView.classList.add('active');
+			}
+    } else {
+      for(const listView of listViews) {
+				listView.classList.add('active');
+			}
+			for(const cardView of cardViews) {
+				cardView.classList.remove('active');
+			}
+    }
+}
+
+function listViewIsActive() {
+	const listViews = document.getElementsByClassName('list-view-container');
+  return listViews[0].classList.contains('active');
+}
+
+/** end toggle list view */
+
+
+/** change background for table view when user starts scrolling */
+document.querySelector('.list-view-container').addEventListener('scroll', function() {
+  const thead = this.querySelector('thead');
+  if (this.scrollTop > 0) {
+    thead.style.backgroundColor = 'rgba(238, 238, 238, 1)'; /* Background color when scrolling */
+  } else {
+    thead.style.backgroundColor = 'transparent'; /* Default background color */
+  }
+});
+
+
+</script>
+
+<script>
+	const domain = window.location.pathname.split('/')[1];
+	let element;
+
+	if(domain === "research") {
+		element = document.getElementById('researchPlatformCheckbox');
+	} else if(domain === "teach") {
+		element = document.getElementById('instructorAccessCheckbox');
+	} else if(domain === "learning"){
+		element = document.getElementById('studentAccessCheckbox');
+	}
+
+	const currentDomain = element.className;
+
+	if ((domain + ' checked') === currentDomain || currentDomain === '') {
+			element.classList.add(domain);
+			element.classList.add('checked');
+	}
+</script>
+
+<script>
+	async function getVersion() {
+			try {
+					const response = await fetch('/web/api/ping');
+					if (response.ok) {
+							const data = await response.json();
+							return data.version;
+					}
+					return "Version not available";
+			} catch (error) {
+					console.error(error);
+					return "Version not available";
+			}
+	}
+
+	(async function updateVersionInfo() {
+			const version = await getVersion();
+			const versionInfoElement = document.getElementById('versionInfo').querySelector('strong');
+			versionInfoElement.textContent = version;
+	})();
+</script>
+
+<script>
+	// ---------------------------------------------------------------- //
+	// --- Cookie functionality --------------------------------- ---- //
+
+	window.onload = function() {
+		const modal = document.querySelector("#cookiesDialog");
+		const savedPreferences = localStorage.getItem("cookiePreferences");
+		
+		if (!savedPreferences) {
+			modal.style.display = 'block';
+		}
+
+		return modal
+	};
+
+	window.addEventListener("load", function() {
+        const savedPreferences = localStorage.getItem("cookiePreferences");
+        if (savedPreferences) {
+            const preferences = JSON.parse(savedPreferences);
+            document.getElementById("analyticsCookies").checked = preferences.analyticsCookies;
+            // document.getElementById("marketingCookies").checked = preferences.marketingCookies;
+        }
+    });
+
+	function openCookiesSettingsFromProfile() {
+		const modal = document.querySelector("#cookiesDialog");
+		const savedPreferences = localStorage.getItem("cookiePreferences");
+		modal.style.display = 'block';
+		document.getElementById('cookiePopup').style.display = 'none';
+		document.getElementById('cookieModal').style.display = 'block';
+
+		// return modal
+	}
+
+	document.addEventListener("cookiePreferencesUpdated", function(event) {
+			const preferences = event.detail;
+			// console.log("Received cookie preferences in main app:", preferences); // TODO delete
+
+			localStorage.setItem("cookiePreferences", JSON.stringify(preferences));
+
+			// refresh after preferences update
+			const hostname = window.location.hostname;
+			let measurementId;
+
+			switch (hostname) {
+				case "cellcollective.org":
+					measurementId = "G-V89ZEJMZDR"; // Production landing
+					break;
+				case "research.cellcollective.org":
+					measurementId = "G-FC5WJX5422"; // Production research
+					break;
+				case "teach.cellcollective.org":
+					measurementId = "G-Q1M61MJ78H"; // Production teach
+					break;
+				case "learn.cellcollective.org":
+					measurementId = "G-N15N4L9JEG"; // Production learn
+					break;
+				case "develop.cellcollective.org":
+					measurementId = "G-EZ1XK3WELR"; // Develop
+					break;
+				case "staging.cellcollective.org":
+					measurementId = "G-PDKQEH4GM4"; // Staging
+					break;
+				case "hotfix.cellcollective.org":
+					measurementId = "G-9TJ0R5S67X"; // Hotfix
+					break;
+				case "localhost":
+					measurementId = "G-ZP37KP1MJR"; // Localhost
+					break;
+				default:
+					console.warn("Undefined host name", window.location.hostname);
+					return;
+			}
+
+
+			const script = document.createElement("script");
+			script.async = true;
+			script.src = `https://www.googletagmanager.com/gtag/js?id=${measurementId}`;
+			script.id = "cc-google-analytics-script";
+
+			const savedPreferences = localStorage.getItem("cookiePreferences");
+			if (savedPreferences) {
+				const preferences = JSON.parse(savedPreferences);
+				// only add analytics scripts when users has enabled it
+				if (preferences.analyticsCookies) {
+					document.head.appendChild(script);
+					script.onload = () => {
+						window.dataLayer = window.dataLayer || [];
+						function gtag() {
+							window.dataLayer.push(arguments);
+						}
+						gtag("js", new Date());
+						gtag("config", measurementId);
+					}
+				} else { // remove script
+					const existingScript = document.getElementById("cc-google-analytics-script");
+					if (existingScript) {
+						existingScript.remove();
+					}
+				}
+			}
+
+	});
+</script>
+
+</html>

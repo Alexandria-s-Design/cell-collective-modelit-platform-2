@@ -1,0 +1,134 @@
+.lesson-navigation {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f8f9fa;
+  border-top: 1px solid #dee2e6;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+  max-height: 40px;
+  min-height: 40px;
+  padding: 0 20px;
+
+  .nav-button {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 16px;
+    margin: 8px 0;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    pointer-events: auto;
+    box-shadow: 0 2px 8px rgba(0, 123, 255, 0.3);
+    min-width: 100px;
+    justify-content: center;
+    height: 24px;
+
+    &:hover:not(.disabled) {
+      background: #0056b3;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0, 123, 255, 0.4);
+    }
+
+    &:active:not(.disabled) {
+      transform: translateY(0);
+      box-shadow: 0 2px 8px rgba(0, 123, 255, 0.3);
+    }
+
+    &.disabled {
+      background: #6c757d;
+      cursor: not-allowed;
+      opacity: 0.6;
+      box-shadow: 0 2px 8px rgba(108, 117, 125, 0.2);
+    }
+
+    .arrow {
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .text {
+      font-size: 12px;
+    }
+
+    &.back-button {
+      .arrow {
+        margin-right: 4px;
+      }
+    }
+
+    &.next-button {
+      .arrow {
+        margin-left: 4px;
+      }
+    }
+  }
+}
+
+// Adjust arrangement when navigation is present
+// Use higher specificity to override existing CSS rules
+.app > div > div.arrangement {
+  bottom: 40px !important; // Account for 40px navigation bar
+  height: calc(100vh - 40px - 111px) !important; // Account for top offset (111px) and navigation bar (40px)
+  max-height: calc(100vh - 40px - 111px) !important; // Ensure max height is respected
+  overflow: auto !important; // Allow scrolling if content is too large
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .lesson-navigation {
+    padding: 0 15px;
+    max-height: 40px;
+    min-height: 40px;
+    
+    .nav-button {
+      padding: 4px 12px;
+      font-size: 12px;
+      min-width: 80px;
+      height: 20px;
+      margin: 6px 0;
+      
+      .arrow {
+        font-size: 12px;
+      }
+      
+      .text {
+        font-size: 10px;
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .lesson-navigation {
+    padding: 0 10px;
+    max-height: 40px;
+    min-height: 40px;
+    
+    .nav-button {
+      padding: 3px 8px;
+      font-size: 10px;
+      min-width: 60px;
+      height: 18px;
+      margin: 4px 0;
+      
+      .arrow {
+        font-size: 10px;
+      }
+      
+      .text {
+        font-size: 8px;
+      }
+    }
+  }
+}

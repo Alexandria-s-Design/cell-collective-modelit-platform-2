@@ -1,0 +1,38 @@
+<div class="card <%=category%>-card-view" style="cursor: pointer;">
+
+	<div class="card-content" onclick="redirectToDetailPage('<%=  model.id%>', '<%=  model.version%>')">
+		<div class="title-section">
+			<h3 class="title"><%= model.name %></h3>
+			<% if(data.user){ %>
+				<div class="checkbox-container" name="checkbox-container" style="display: none;">
+					<input type="checkbox" class="model-checkbox" data-id="<%= model.id %>" onclick="event.stopPropagation()">
+				</div>
+			<% } %>
+		</div>
+		<div class="split-section">
+			<div class="left-section">
+				<p class="details"><span data-translate="approach">Approach:</span> <strong><%= model.modelType %></strong></p>
+				<p class="details"><span data-translate="components">Components:</span> <strong><%= model.components %></strong></p>
+			</div>
+			<div class="right-section">
+				<p class="details"><span data-translate="interactions">Interactions:</span> <strong><%= model.interactions %></strong></p>
+			</div>
+		</div>
+		<div class="image-container">
+			<img src="<%= model.coverImage %>" alt="No Image" loading="lazy">
+		</div>
+		<div class="split-section">
+				<p class="details"><span data-translate="author">Author:</span> <strong><%= model.author %></strong></p>
+		</div>
+		<div class="split-section">
+			<div class="left-section">
+				<p class="details"><span data-translate="score">Score:</span> <strong><%= model.score %></strong></p>
+				<p class="details"><span data-translate="created">Created:</span> <strong><%= model.createdAt %></strong></p>
+			</div>
+			<div class="right-section">
+				<p class="details"><span data-translate="cited">Cited:</span> <strong> <%= model.cited %></strong></p>
+				<p class="details"><span data-translate="updated">Updated:</span> <strong><%= model.updateDate %></strong></p>
+			</div>
+		</div>
+	</div>
+</div>

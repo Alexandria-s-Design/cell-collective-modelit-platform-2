@@ -1,0 +1,41 @@
+div.collapsible-pane {
+    text-align: left;
+    padding-top: 10px;
+    border-top: 1px solid $borderColor;
+    margin: 0 15px;
+
+    div.toggle {
+        user-select: none;
+        cursor: pointer;
+
+        font-size: 22px;
+        color: black;
+
+        border-bottom: 1px solid transparent;
+        padding-left: 7px;
+        padding-bottom: 10px;
+
+        transition: border-bottom-color 0.75s ease-in-out, box-shadow 0.75s ease-in-out;
+    }
+    div.toggle:not(.hidden) {
+        border-bottom-color: $borderColor;
+        box-shadow: 0 6px 3px -2px $borderColor; 
+    }
+
+    div.content-wrapper {
+        overflow: hidden;
+				&.measured {
+					transition: height 0.75s ease-in-out;
+				}
+    }
+
+		div.content-wrapper.hidden {
+			height: 0;
+		}
+
+    div.content {
+        padding-top: 10px;
+				overflow: hidden;
+    }
+
+}

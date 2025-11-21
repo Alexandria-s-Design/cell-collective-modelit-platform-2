@@ -1,0 +1,7 @@
+include 'cc.common.data'
+include 'cc.dataaccess'
+include 'cc.core.configuration'
+include 'cc.application.main'
+include 'cc.application.simulation'
+include 'cc.application.jsbml'
+include 'cc.common.simulate'

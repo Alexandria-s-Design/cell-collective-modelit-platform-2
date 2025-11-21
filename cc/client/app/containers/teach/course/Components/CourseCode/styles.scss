@@ -1,0 +1,31 @@
+.courseCodeLabel {
+	position: relative;
+	top: -5px;
+	margin-right: 3px;
+}
+
+.courseCodeText {
+	font-family: "Courier New", Courier, monospace;
+	letter-spacing: 1px;
+	user-select: all;
+
+
+	position: relative;
+	top: -5px;
+}
+
+.corseCodeCopyToClipboard {
+	margin-left: 10px;
+	letter-spacing: -1px;
+	font-family: "Courier New", Courier, monospace;
+	user-select: none;
+	cursor: pointer;
+	color: #aaa;
+	position: relative;
+	top: -5px;
+
+	&:hover {
+		color: rgb(120,120,120);
+	}
+
+}

@@ -1,0 +1,54 @@
+.modalManageSubscription {
+	padding: 0px 40px;
+	text-align: center;
+	font-size: 1.3em;
+	color: #2c7ba2;
+
+	h3 {
+		margin-bottom: 40px;
+	}
+
+	.error {
+		color: #f04666;
+		margin-top: 15px;
+		font-weight: bold;
+	}
+
+	.loading {
+		color: #dd7d18;
+		margin-top: 15px;
+		font-weight: bold;
+	}
+
+	button.cancel {
+		background-color: #ea5959;
+		color: #fff;
+		border: none;
+		border-radius: 5px;
+		padding: 5px 20px;
+		font-weight: 500;
+		cursor: pointer;
+		box-shadow: -1px 1px 1px #00000070;
+	}
+
+	button.cancel:hover {
+		background-color: #ca4040;
+		box-shadow: 0px 1px 0px #00000070;
+	}
+
+	button.new {
+		background-color: #5ab03b;
+		color: #fff;
+		border: none;
+		border-radius: 5px;
+		padding: 5px 20px;
+		font-weight: 500;
+		cursor: pointer;
+		box-shadow: -1px 1px 1px #00000070;
+	}
+
+	button.new:hover {
+		background-color: #418827;
+		box-shadow: 0px 1px 0px #00000070;
+	}
+}

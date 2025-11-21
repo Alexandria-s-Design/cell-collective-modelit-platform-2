@@ -1,0 +1,131 @@
+<script>
+	const fileImportInputs = document.getElementsByName('fileImportInput');
+	fileImportInputs.forEach((inputElement) => {
+		const modelType = inputElement.getAttribute('data-model-type');
+		const infoLabelElement = document.getElementById('fileInfoLabel');
+		
+		inputElement.addEventListener('change', async (event) => {
+			const modelFiles = event.target.files;
+			
+			if (modelFiles.length > 0) {
+				const fileNames = Array.from(modelFiles).map(file => file.name).join(', ');
+				const shortenFileNames = fileNames.length <= 23 ? fileNames : fileNames.substring(0, 9) + '...' + fileNames.substring(fileNames.length - 11)
+				infoLabelElement.textContent = shortenFileNames;
+			} else {
+				infoLabelElement.textContent = 'No files chosen';
+			}
+
+			const data = new FormData();
+			data.append("type", modelType);
+			data.append("slim", true);
+			
+			for (const file of modelFiles) {
+				data.append("file", file);
+			}
+			uploadFilesViaApi(data);
+		});
+	});
+
+	async function uploadFilesViaApi(formData) {
+		try {
+			const token = getAuthToken();
+			if (!token) {
+				showPopup("Please login first", "warning");
+				return;
+			}
+
+			const response = await fetch("/web/api/model/import", {
+				method: "POST",
+				body: formData,
+				headers: {
+					'Authorization': `Bearer ${token}`,
+				}
+			});
+
+			if (response.ok) {
+				const data = await response.json();
+				showPopup("Import in progress", "success");
+
+				const importId = data.data.id;
+
+				let attempts = 0;
+				const attemptsTime = 6500; // 6.5 seconds between status checks
+
+				const checkStatusImport = setInterval(async () => {
+					attempts++;
+					const timeProcess = new Date();
+
+					try {
+						const statusResponse = await fetch(`/web/api/model/import/status?id=${importId}`, {
+							headers: {
+								'Authorization': `Bearer ${token}`,
+							}
+						});
+
+						if (!statusResponse.ok) {
+							clearInterval(checkStatusImport);
+							throw new Error(`Error checking import status: ${statusResponse.status} ${statusResponse.statusText}`);
+						}
+
+						const statusData = await statusResponse.json();
+						if (statusData.data.status === 'DONE') {
+							clearInterval(checkStatusImport);
+							if (!statusData.data.result) {
+								showPopup("File was not loaded", "warning");
+							}
+							const importedModelId = statusData.data.result[0]["modelId"];
+							const importedModelType = statusData.data.result[0]["modelType"];
+
+							if (importedModelType == 'boolean') {
+								const importedModelData = {[importedModelId]: statusData.data.result[0]["data"]["1"]};
+								importedModelData[importedModelId]["modelVersionMap"] = { "-1": { "name": "1.0" } };
+								importedModelData[importedModelId]["type"] = "research";
+								const saveResponse = await fetch(`/web/api/model?add=new`, {
+									method: 'POST',
+									headers: {
+										'Authorization': `Bearer ${token}`,
+										'Content-Type': 'application/json',
+									},
+									body: JSON.stringify(importedModelData)
+								});
+								if (saveResponse.ok) {
+									const jsonSaveResponse = await saveResponse.json();
+									const modelId = jsonSaveResponse.data[importedModelId]['id'];
+									showPopup("Import completed successfully. Model ID: "+modelId, "success", (e) => {
+										window.location.href = `/dashboard#module/${modelId}:1`;
+									});
+								} else {
+									showPopup("Import could not be completed", "error");
+								}
+							} else {
+								showPopup("Import completed successfully. Model ID: "+importedModelId, "success", (e) => {
+									window.location.href = `/dashboard#module/${importedModelId}:1`;
+								});
+							}
+							return;
+						}
+
+						const loadTime = ((attemptsTime * attempts) / 1000) / 60;
+						if (loadTime > 10) {
+							clearInterval(checkStatusImport);
+							throw new Error(`The time limit for importing exceeded ${Math.ceil(loadTime)} minutes.`);
+						}
+
+					} catch (err) {
+						clearInterval(checkStatusImport);
+						showPopup("Error checking import status: " + err.message, "warning");
+						console.error("Error during status check:", err);
+					}
+				}, attemptsTime);
+
+			} else {
+				showPopup("Error during file import: " + response.statusText, "warning");
+			}
+
+		} catch (error) {
+			console.error("An error occurred during the file import:", error);
+			showPopup("An unexpected error occurred during file upload", "warning");
+		}
+	}
+
+</script>

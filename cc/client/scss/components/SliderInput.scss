@@ -1,0 +1,72 @@
+.sliderInput {
+  height: $iconSize;
+  display: inline-block;
+  vertical-align: bottom;
+
+  &> div.track {
+    position: relative;
+    display: inline-block;
+    height: 100%;
+    cursor: pointer;
+
+    &:before {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      border-bottom: 1px solid gray;
+      content: "";
+    }
+
+    &> div {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0.5*$iconSize;
+      right: 0.5*$iconSize;
+
+      &:before {
+        position: absolute;
+        top: 0.5*$spacing + 1px;
+        bottom: 0.5*$spacing;
+        border-left: 1px solid gray;
+      }
+
+      &> div {
+        user-select: none;
+        box-sizing: border-box;
+        position: absolute;
+        top: 0;
+        width: $iconSize;
+        height: $iconSize;
+        margin-left: -0.5*$iconSize;
+        border-radius: $iconSize;
+        background: $windowBackgroundColor;
+        border: 1px solid gray;
+      }
+
+      &> p {
+        position: absolute;
+        top: 50%;
+        border-bottom: 1px solid gray;
+      }
+    }
+  }
+
+  &> * {
+    line-height: $iconSize;
+    vertical-align: top;
+  }
+
+  &> .editable {
+    vertical-align: top;
+  }
+
+  &> .editable ~ div.track, &> div.track ~ .editable {
+    margin-left: 0.5*$spacing;
+  }
+
+  &.range > div.track:before {
+    border-bottom: 1px dotted gray;
+  }
+}

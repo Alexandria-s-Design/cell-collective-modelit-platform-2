@@ -1,0 +1,13 @@
+.tableRow {
+  transition: background-color 0.3s;
+  cursor: pointer;
+}
+
+.tableRow:hover {
+  background-color: #f0f0f0;
+}
+
+.selectedRow {
+  background-color: #f0f0f0;
+  cursor: auto;
+}

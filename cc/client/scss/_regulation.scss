@@ -1,0 +1,95 @@
+.regulation {
+  li {
+    line-height: 2*$fontSize;
+
+    input[type="button"] {
+      line-height: 2*$fontSize;
+    }
+
+    div {
+      display: inline-block;
+    }
+
+    div.positive, div.negative, div.reactant, div.product {
+      position: absolute;
+      left: 0;
+      top: 4px;
+      cursor: pointer;
+      width: $iconSize - 2px;
+      height: $iconSize - 2px;
+    }
+
+    div.positive {
+      background-image: url('/assets/images/icons/base/positive.png');
+    }
+
+    div.negative {
+      background-image: url('/assets/images/icons/base/negative.png');
+    }
+
+    &> :first-child {
+      position: relative;
+    }
+  }
+
+  div.internal, div.external, div.condition {
+    position: relative;
+    min-width: 2*$spacing;
+
+    &:hover div.remove {
+      opacity: 1;
+    }
+  }
+
+  div.internal.new {
+    &:hover {
+      color: $baseColor;
+
+      form.editable ~ div.remove {
+        display: none;
+      }
+    }
+
+    form.editable.menu > ul {
+      margin: 0.5*$spacing 0 0 -0.5*$spacing;
+    }
+  }
+
+  span.relation {
+    cursor: pointer;
+
+    &:hover {
+      color: $lightBlue;
+    }
+  }
+
+  &.add {
+    display: inline-block;
+
+    &> div {
+      &.positive {
+        color: $green;
+			}
+
+      &.negative {
+        color: $red;
+			}
+    }
+  }
+}
+
+.icon.base-absentState {
+  background-image: url('/assets/images/icons/base/absentStateOff.png');
+
+  &.checked {
+    background-image: url('/assets/images/icons/base/absentStateOn.png');
+  }
+}
+
+.icon.base-knockOut {
+  background-image: url('/assets/images/icons/base/absentStateOff.png');
+
+  &.checked {
+    background-image: url('/assets/images/icons/base/negative.png');
+  }
+}

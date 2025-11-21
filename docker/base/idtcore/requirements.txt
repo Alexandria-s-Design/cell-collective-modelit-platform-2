@@ -1,0 +1,13 @@
+fastapi==0.115.6
+pydantic==2.10.4
+uvicorn==0.34.0
+loguru==0.7.3
+tellurium==2.2.10
+simplesbml==2.3.0
+python-multipart==0.0.20
+# install main multiscale-cells
+# git+https://oauth:YOUR_GITLAB_TOKEN@git.unl.edu/helikarlab/cd4.git@d9925aa383ee85eaf66213a5cf0ec3b6a734c701
+pandas==2.2.3
+bpyutils==0.5.8
+numpy==1.26.4
+scipy==1.15.0

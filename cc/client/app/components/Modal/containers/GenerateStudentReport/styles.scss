@@ -1,0 +1,74 @@
+@import "../../../../../scss/variables.scss";
+
+.reportDialog {
+    text-align: center;
+    position: relative;
+    height: calc(100% - 20px);
+
+    .inputRow {
+        text-align: 'left';
+        font-size: 12pt;
+        padding: 4px;
+
+        >span {
+            display: inline-block;
+        }
+
+        .messageLabel {
+            text-align: right;
+            min-width: 100px;
+            margin-right: 15px;
+        }
+
+        .dateInput {
+            text-align: ""
+        }
+        
+    }
+
+    table{
+        margin: 0 auto;
+        table-layout: fixed;
+        colgroup {
+            .labels {
+                width: 40%;
+            }
+        }
+        td{
+            font-size: 11pt;
+            color: black;
+            &:first-child {
+                text-align: right;
+            }
+            input {
+                font-size: 11pt;
+                color: $baseColor;
+                cursor: pointer;
+            }
+        }
+    }
+
+    .error {
+        color: red;
+        font-weight: bold;
+    }
+
+    .submitButton  {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        cursor: pointer;
+        text-transform: uppercase;
+        transition: color 0.5s;
+
+        &:hover:not(:disabled) {
+            color: $lightBlue;
+        }
+
+        &:disabled {
+            cursor: auto;
+            color: #D7D7D7;
+            transition: none;
+        }
+    }
+}

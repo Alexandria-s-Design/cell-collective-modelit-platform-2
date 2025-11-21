@@ -1,0 +1,14 @@
+.dc-chart {
+  text {
+    fill: $baseColor;
+  }
+
+  .axis path, .axis line {
+    stroke: $baseColor;
+  }
+
+  path.line{
+    stroke-width: 2px;
+		fill: none;
+  }
+}

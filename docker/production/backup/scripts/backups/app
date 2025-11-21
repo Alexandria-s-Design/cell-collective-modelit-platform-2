@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+source /env/envs.sh
+
+echo "TODO: TBD ;)"
+
+tar czf /backups/app/data.tgz /data/app/data
+
+scp /backups/app/data.tgz "${BACKUP_SERVER_USER}@${BACKUP_SERVER_HOST}:~/${APP_BACKUP_PATH}"

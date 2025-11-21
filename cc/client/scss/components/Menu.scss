@@ -1,0 +1,92 @@
+.menu, .menu2 {
+	position: relative;
+	
+  .no-highlight > li:hover {
+		background-color: white !important;
+	}
+
+  ul.ul {
+    position: absolute;
+    // width: 105px;
+    min-width: 105px;
+    background-color: $windowBackgroundColor;
+    border: 1px solid rgba(black, 0.3);
+    box-shadow: 1px 1px 7px 1px rgba(grey, 0.3);
+
+    &> li {
+      position: relative;
+/*      line-height: $fontSize + 1.5*$spacing;*/
+      line-height: $fontSize + 14px;
+
+      &> div {
+        width: 100%;
+        overflow: hidden;
+        white-space: nowrap;
+        padding: 0 $overflowWidth 0 $spacing;
+        transition: opacity 0.2s ease-in;
+        box-sizing: border-box;
+
+        &:after {
+          @include overflowRight($windowBackgroundColor, 0);
+        }
+
+        &:not(.disabled):hover {
+          background-color: $selected;
+
+          &:after {
+            @include overflowRight($selected, 0);
+          }
+        }
+
+        &.checkbox {
+          padding-left: $spacing + $iconSize;
+          text-align: left;
+
+          &:before {
+            position: absolute;
+            top: 2px;
+            left: 0.5*$spacing;
+            width: $iconSize;
+            height: $iconSize;
+            content: none;
+          }
+
+          &.checked:before {
+            content: "";
+            background-image: url('/assets/images/icons/base/check.png');
+          }
+        }
+
+        &.disabled {
+          opacity: 0.6;
+        }
+
+        &:not(.disabled) {
+          cursor: pointer;
+        }
+      }
+    }
+  }
+
+  &> ul {
+    top: $iconSize + 4px;
+    left: 0;
+		z-index: 100;
+  }
+}
+
+.menu > ul {
+  top: $iconSize + 4px;
+}
+
+.menu2 > ul {
+  top: $iconSize + 8px;
+}
+
+.menu.to-front {
+	display: inline-block;
+	& > ul > li > ul {
+		z-index: 100;
+		position: fixed;
+	}
+}

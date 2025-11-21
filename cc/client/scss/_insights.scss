@@ -1,0 +1,33 @@
+$blue: #3498db;
+
+a.progress-subtitle {
+	text-decoration: none;
+	&:hover {
+		color: $blue !important;
+		text-decoration: none;
+	}
+}
+
+.scores-description {
+	position: absolute;
+	top: 280px;
+	padding-right: 20px;
+	text-align: justify;
+	text-justify: inter-word;
+	span:first-child {
+		margin-right: 5px;
+		float: left;
+		height: 50px;
+		font-weight: bold;
+		letter-spacing: 1px;
+		font-size: 1.2em;
+	}
+}
+
+.percentile.label {
+	span:first-child {
+		font-weight: bold;
+		letter-spacing: 1px;
+		margin-left: 5px
+	}
+}

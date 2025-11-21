@@ -1,0 +1,13 @@
+driver=org.postgresql.Driver
+user=user
+password=password
+jdbc.url=jdbc:postgresql://localhost:5432
+
+c3p0.initialPoolSize=30
+c3p0.minPoolSize=30
+c3p0.maxPoolSize=90
+c3p0.maxStatements=0
+c3p0.maxIdleTime=25200
+c3p0.idleConnectionTestPeriod=14400
+
+hibernate.dialect=org.hibernate.dialect.PostgreSQL9Dialect

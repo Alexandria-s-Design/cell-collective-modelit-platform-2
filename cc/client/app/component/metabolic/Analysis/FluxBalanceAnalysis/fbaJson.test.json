@@ -1,0 +1,49 @@
+{
+	"id": "999991",
+	"name": "Metabolic Interactions in the Gut Microbiome",
+	"modelType": "metabolic",
+	"metabolites": [
+			{
+					"id": "1098788",
+					"name": "B",
+					"compartment": "3349",
+					"charge": null,
+					"speciesId": "mA"
+			},
+			{
+					"id": "1098789",
+					"name": "A",
+					"compartment": "3350",
+					"charge": null,
+					"speciesId": "mB"
+			},
+			{
+					"id": "1098790",
+					"name": "C",
+					"compartment": "3351",
+					"charge": null,
+					"speciesId": "mC"
+			},
+			{
+					"id": "1098791",
+					"name": "D",
+					"compartment": "3352",
+					"charge": null,
+					"speciesId": "mD"
+			}
+	],
+	"reactions": [
+			{
+					"id": "1456472",
+					"reactionId": null,
+					"name": "A",
+					"lower_bound": -970,
+					"upper_bound": -907,
+					"objective_coefficient": 0,
+					"metabolites": {},
+					"gene_reaction_rule": ""
+			}
+	],
+	"genes": [],
+	"objective": []
+}

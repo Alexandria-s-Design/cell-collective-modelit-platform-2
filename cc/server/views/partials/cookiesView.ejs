@@ -1,0 +1,377 @@
+<!-- Cookie Banner -->
+<div id="cookiePopup" class="cookie-container">
+	<div class="cookie-content">
+		<h2 class="cookie-title">We use cookies for analysis and website improvement.</h2>
+		<p class="cookie-description">
+			This web application uses cookies to analyze traffic and enhance the user experience. We do not collect cookies
+			for personalized advertising.
+			By clicking “Accept All,” you agree to their use, or you can customize your settings according to your
+			preferences.
+		</p>
+
+		<div class="cookie-buttons">
+			<button class="cookie-btn cookie-customize" onclick="openCookiesSettings()">Manage Settings</button>
+			<button class="cookie-btn cookie-reject" onclick="rejectAllCookies()">Reject All</button>
+			<button class="cookie-btn cookie-accept" onclick="acceptAllCookies()">Accept All</button>
+		</div>
+	</div>
+</div>
+
+<!-- Cookie Settings Modal -->
+<div id="cookieModal" class="cookie-modal">
+	<div class="cookie-modal-content">
+		<h2 class="cookie-title">Your cookie settings</h2>
+		<p class="cookie-description">
+			We take good care of you and your data. You can read more about our <a style="text-decoration: underline; color: #007aff;"
+				onclick="document.getElementById('privacy-and-cookie-policy').style.display = 'block'">Cookie policy and Privacy
+				policy</a> and update your cookie settings here.
+		</p>
+
+
+		<div class="cookie-section">
+			<div onclick="toggleDesc(event, 'gen-cookies-desc','gen-cookies-arrow')" class="cookie-option">
+				<span class="cookie-icon">🍪</span>
+				<span class="cookie-text">How we use cookies</span>
+				<span id="gen-cookies-arrow" class="cookie-arrow">›</span>
+			</div>
+			<div class="cookie-section-description" id="gen-cookies-desc">
+				<br />
+				<span class="cookie-text">
+					<strong> Essential Cookies (Always Enabled)</strong>
+					<br />
+					These cookies are necessary for the proper functioning of the application. Without them, basic functionality
+					such as login or saving your preferences would not be possible.
+
+					<i>Example: Storing your cookie consent settings.</i>
+					<br />
+					<strong> Analytical Cookies (Optional)</strong>
+					<br />
+					These cookies help us understand how users interact with our application and allow us to continuously improve
+					it. We only track aggregated anonymized data and do not use cookies for targeted advertising.
+					<br />
+					<strong>Tool Used:</strong> <br />
+					Google Analytics 4 (GA4)
+					<br />
+					<strong>Purpose:</strong> <br /> Collecting anonymous statistics on website traffic and user behavior.</span>
+			</div>
+		</div>
+
+		<div class="cookie-section">
+			<div onclick="toggleDesc(event, 'essential-cookies-desc','essential-cookies-arrow')" class="cookie-option">
+				<span class="cookie-icon">✔️</span>
+				<span class="cookie-text">Essential Cookies (Always Enabled)</span>
+				<span id="essential-cookies-arrow" class="cookie-arrow">›</span>
+			</div>
+			<div class="cookie-section-description" id="essential-cookies-desc">
+				<br />
+				<span class="cookie-text">
+					These cookies are necessary for the proper functioning of the application. Without them, basic functionality
+					such as login or saving your preferences would not be possible.
+					<i>Example: Storing your cookie consent settings.</i>
+				</span>
+			</div>
+		</div>
+
+		<div class="cookie-section">
+			<div class="cookie-option">
+				<span class="cookie-icon">📊</span>
+				<span class="cookie-text">Accept analytical cookies (Optional)</span>
+				<label class="cookie-switch">
+					<input type="checkbox" id="analyticsCookies">
+					<span class="cookie-slider"></span>
+				</label>
+			</div>
+		</div>
+
+		<!-- <div class="cookie-section">
+			<div class="cookie-option">
+				<span class="cookie-icon">💬</span>
+				<span class="cookie-text">Accept marketing cookies</span>
+				<label class="cookie-switch">
+					<input type="checkbox" id="marketingCookies">
+					<span class="cookie-slider"></span>
+				</label>
+			</div>
+		</div> -->
+
+		<div class="cookie-settings-buttons">
+			<button class="cookie-btn cookie-reject" onclick="rejectAllCookies()">Reject All</button>
+			<button class="cookie-btn cookie-customize" onclick="saveMyPreferences()">Save My Preferences</button>
+			<button class="cookie-btn cookie-accept" onclick="acceptAllCookies()">Accept All</button>
+		</div>
+	</div>
+</div>
+
+<div id="privacy-and-cookie-policy" style="z-index: 1009; width: 700px;" class="cookie-modal">
+	<div>
+		<span onclick="closePrivacyAndCookiePolicy()" class="close">&times;</span>
+	</div>
+	<h1 style="text-align: center;">Cookie Policy</h1>
+
+	<h2>1. Introduction</h2>
+	<p>This document explains how our web application uses cookies and what options you have for managing them.</p>
+
+	<h2>2. What are cookies?</h2>
+	<p>Cookies are small text files stored on your device when you visit a website. They help us analyze traffic and
+		remember your preferences.</p>
+
+	<h2>3. What cookies do we use?</h2>
+	<ul>
+		<li><strong>Essential cookies</strong> – Required for the proper functioning of the application and cannot be
+			disabled.</li>
+		<li><strong>Analytical cookies</strong> – Help us understand user behavior and improve the application. We use
+			Google Analytics 4 (GA4), which anonymizes data.</li>
+	</ul>
+
+	<h2>4. How can you manage cookies?</h2>
+	<p>You can change your preferences in the cookie settings or delete them via your browser settings.</p>
+
+	<h2>5. More information</h2>
+	<p>For more details on how Google Analytics processes data, see <a href="https://policies.google.com/privacy"
+			target="_blank">Google Analytics Privacy Policy</a>.</p>
+
+	<h1 style="text-align:'center';">Privacy Policy</h1>
+
+	<h2>1. Introduction</h2>
+	<p>Your privacy is important to us. This document describes how we process personal data and what rights you have.</p>
+
+	<h2>2. What data do we collect?</h2>
+	<p>Our application collects the following information:</p>
+	<ul>
+		<li><strong>Analytical data (Google Analytics 4)</strong> – Anonymous information about how you use the application.
+		</li>
+		<li><strong>Essential technical data</strong> – Such as IP address for application security.</li>
+	</ul>
+
+	<h2>3. How do we use the data?</h2>
+	<p>To analyze traffic and improve the user experience.</p>
+	<p>We never share your data with third parties for advertising purposes.</p>
+
+	<h2>4. Your rights</h2>
+	<p>Under GDPR, you have the right to:</p>
+	<ul>
+		<li>Request access to your data.</li>
+		<li>Request correction or deletion of your data.</li>
+		<li>Opt out of tracking via analytical cookies.</li>
+	</ul>
+
+	<h2>5. Contact</h2>
+	<p>If you have any questions regarding data protection, please contact us at <a
+			href="mailto:info@discoverycollective.com">info@discoverycollective.com</a>.</p>
+</div>
+
+<script>
+	function closePrivacyAndCookiePolicy() {
+		document.getElementById('privacy-and-cookie-policy').style.display = 'none'
+	}
+
+	function toggleDesc(event, id, arrow) {
+		event.preventDefault();
+		const target = document.getElementById(id)
+		const arrowSpan = document.getElementById(arrow)
+		if (target) {
+			if (target.style.display == 'block') {
+				target.style.display = 'none';
+				if (arrowSpan) arrowSpan.innerText = '›';
+			} else {
+				target.style.display = 'block';
+				if (arrowSpan) arrowSpan.innerText = '⌄';
+			}
+		}
+	}
+
+	function getCookiePreferences() {
+		return {
+			analyticsCookies: document.getElementById("analyticsCookies").checked,
+			// marketingCookies: document.getElementById("marketingCookies").checked
+		};
+	}
+
+	function closeCookiesModal() {
+		document.getElementById('cookiesDialog').style.display = 'none';
+	}
+
+	function openCookiesSettings() {
+		document.getElementById('cookiePopup').style.display = 'none';
+		document.getElementById('cookieModal').style.display = 'block';
+	}
+
+	function acceptAllCookies() {
+		document.getElementById("analyticsCookies").checked = true;
+		// document.getElementById("marketingCookies").checked = true;
+		sendCookiePreferences();
+		closeCookiesModal();
+	}
+
+	function rejectAllCookies() {
+		document.getElementById("analyticsCookies").checked = false;
+		// document.getElementById("marketingCookies").checked = false;
+		sendCookiePreferences();
+		closeCookiesModal();
+	}
+
+	function saveMyPreferences() {
+		sendCookiePreferences();
+		closeCookiesModal();
+	}
+
+	function sendCookiePreferences() {
+		const preferences = getCookiePreferences();
+		document.dispatchEvent(new CustomEvent("cookiePreferencesUpdated", { detail: preferences }));
+	}
+</script>
+
+
+<style>
+	.cookie-container {
+		position: fixed;
+		bottom: 20px;
+		left: 20px;
+		background: #FFFFFF;
+		padding: 15px 20px;
+		box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+		font-family: Arial, sans-serif;
+		border-radius: 8px;
+		max-width: 500px;
+		z-index: 1000;
+	}
+
+	.cookie-title {
+		font-size: 16px;
+		font-weight: bold;
+	}
+
+	.cookie-description {
+		font-size: 14px;
+		color: #212121;
+	}
+
+	.cookie-buttons {
+		display: flex;
+		gap: 10px;
+		margin-top: 10px;
+	}
+
+	.cookie-settings-buttons {
+		display: inline-flex;
+		gap: 10px;
+		margin-top: 10px;
+	}
+
+	.cookie-btn {
+		padding: 8px 12px;
+		border-radius: 5px;
+		cursor: pointer;
+		font-size: 14px;
+		font-weight: bold;
+		border: 2px solid;
+	}
+
+	.cookie-accept {
+		background: #025E75;
+		color: white;
+	}
+
+	.cookie-reject,
+	.cookie-customize {
+		background: transparent;
+		color: #025E75;
+	}
+
+	.cookie-modal {
+		display: none;
+		position: fixed;
+		left: 50%;
+		top: 50%;
+		transform: translate(-50%, -50%);
+		background: #fff;
+		width: 400px;
+		padding: 20px;
+		border-radius: 10px;
+		box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+		font-family: Arial, sans-serif;
+		z-index: 1001;
+	}
+
+	.cookie-modal-content {
+		text-align: center;
+	}
+
+	.cookie-section {
+		background: #f4f4f4;
+		padding: 10px;
+		border-radius: 8px;
+		margin-bottom: 10px;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		align-items: center;
+		cursor: pointer;
+	}
+
+	.cookie-section-description {
+		display: none;
+		line-height: 1.5em;
+	}
+
+	.cookie-option {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		flex-grow: 1;
+	}
+
+	.cookie-icon {
+		font-size: 16px;
+	}
+
+	.cookie-text {
+		flex-grow: 1;
+	}
+
+	.cookie-arrow {
+		font-size: 16px;
+		color: #999;
+	}
+
+	.cookie-switch {
+		position: relative;
+		display: inline-block;
+		width: 34px;
+		height: 20px;
+	}
+
+	.cookie-switch input {
+		opacity: 0;
+		width: 0;
+		height: 0;
+	}
+
+	.cookie-slider {
+		position: absolute;
+		cursor: pointer;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background-color: #ccc;
+		border-radius: 20px;
+		transition: .4s;
+	}
+
+	.cookie-switch input:checked+.cookie-slider {
+		background-color: #007aff;
+	}
+
+	.cookie-close-btn {
+		width: 100%;
+		background: #007aff;
+		color: white;
+		border: none;
+		padding: 10px;
+		border-radius: 5px;
+		font-size: 16px;
+		cursor: pointer;
+		margin-top: 15px;
+	}
+</style>

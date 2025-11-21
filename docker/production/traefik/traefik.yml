@@ -1,0 +1,75 @@
+log:
+  level: INFO
+
+entryPoints:
+  frontend:
+    # http
+    address: ":80"
+    http:
+      # https://docs.traefik.io/routing/entrypoints/#entrypoint
+      redirections:
+        entryPoint:
+          to: web-secure
+
+  web-secure:
+    # https
+    address: ":443"
+
+certificatesResolvers:
+  letsencrypt:
+    # https://docs.traefik.io/master/https/acme/#lets-encrypt
+    acme:
+      email: "grogerio2@unl.edu"
+      storage: /etc/traefik/acme/acme.json
+      # https://docs.traefik.io/master/https/acme/#httpchallenge
+      httpChallenge:
+        entryPoint: frontend
+
+http:
+  routers:
+    web-secure-router:
+      # rule: "Host(`research.docker`) || Host(`teach.docker`) || Host(`learn.docker`) || Host(`docker`)"
+      rule: "Host(`${APP_DOMAIN}`) || Host(`${APP_DOMAIN_TEACH}`) || Host(`${APP_DOMAIN_LEARN}`)"
+      entryPoints:
+        - web-secure
+      middlewares:
+        - csrf
+      service: node
+      tls:
+        # https://docs.traefik.io/master/routing/routers/#certresolver
+        certResolver: letsencrypt
+
+  middlewares:
+    strip-analyzer-prefix:
+      stripPrefix:
+        prefixes:
+          - "/analyzer/"
+    csrf:
+      # https://docs.traefik.io/master/middlewares/headers/#hostsproxyheaders
+      headers:
+        hostsProxyHeaders: ["X-CSRFToken"]
+
+  services:
+    node:
+      hostname: proxy
+      loadBalancer:
+        servers:
+          - url: http://proxy:3001
+
+    ccapp:
+      hostname: ccapp
+      loadBalancer:
+        servers:
+          - url: http://ccapp:8005
+
+    web:
+      hostname: web
+      loadBalancer:
+        servers:
+          - url: http://web:5001
+
+providers:
+  # https://docs.traefik.io/master/providers/file/
+  file:
+    filename: /etc/traefik/traefik.yml
+    watch: true

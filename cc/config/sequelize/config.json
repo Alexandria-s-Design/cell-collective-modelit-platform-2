@@ -1,0 +1,18 @@
+{
+  "development": {
+    "username": "postgres",
+    "password": "postgres",
+    "database": "postgres",
+    "host": "db",
+    "port": 5432,
+    "dialect": "postgres"
+  },
+  "production": {
+    "username": "ccadmin",
+    "password": "HelikarLab@aZZnAmtz",
+    "database": "postgres",
+    "host": "db",
+    "port": 5432,
+    "dialect": "postgres"
+  }
+}
